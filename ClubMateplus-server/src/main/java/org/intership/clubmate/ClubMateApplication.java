@@ -1,0 +1,13 @@
+package org.intership.clubmate;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class ClubMateApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(ClubMateApplication.class, args);
+    }
+
+}
