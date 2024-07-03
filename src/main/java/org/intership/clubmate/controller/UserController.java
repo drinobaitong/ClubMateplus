@@ -5,16 +5,13 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.intership.clubmate.entity.User;
 import org.intership.clubmate.enums.HttpCode;
-import org.intership.clubmate.pojo.ResponseResult;
 import org.intership.clubmate.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.intership.clubmate.pojo.ResponseResult;
 
-@Controller
+@RestController
 @RequestMapping("/user")
 
 public class UserController {
@@ -35,14 +32,17 @@ public class UserController {
         return ResponseResult.success(userPage);
     }
 
-    @RequestMapping("/add")
+    @PostMapping("/add")
     public ResponseResult addUser(@RequestBody User user){
         User res = userService.addUser(user);
-        if(res!=null){
-            //System.out.println("成功");
+        if(res==null){
+            return ResponseResult.error(HttpCode.SYSTEM_ERROR);
+        }else {
+            System.out.println("成功");
             return ResponseResult.success();
-        }else return ResponseResult.error(HttpCode.SYSTEM_ERROR);
+        }
     }
+
 
     @RequestMapping("/delete")
     public ResponseResult deleteUser(@RequestParam int id){
@@ -55,7 +55,7 @@ public class UserController {
         User res = userService.updateUser(user);
         if(res!=null){
             return ResponseResult.success(res);
-        }else return ResponseResult.error(HttpCode.SYSTEM_ERROR);
+        }else {return ResponseResult.error(HttpCode.SYSTEM_ERROR);}
     }
 
     @RequestMapping("/getInfo/{id}")
