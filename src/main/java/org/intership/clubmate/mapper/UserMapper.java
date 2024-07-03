@@ -6,7 +6,5 @@ import org.intership.clubmate.entity.User;
 
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
-    User findById(int id);
 
-    User updateByUid(User user);
 }

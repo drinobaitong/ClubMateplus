@@ -13,4 +13,8 @@ public interface UserService extends IService<User> {
     public void deleteUser(int id);
 
     public User updateUser(User user);
+
+    public void register(User user);
+    public User getById(int id);
+    User login(int id, String password);
 }
