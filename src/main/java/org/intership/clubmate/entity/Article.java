@@ -22,8 +22,11 @@ public class Article {
     private Integer clubId;//社团id
     @TableField("status")
     private char status;   //状态
+    @TableField("avatar_url")
+    private String avatarUrl;
     @TableField("register_time")
     private LocalDateTime registerTime;   //发布时间
+
 
     @Override
     public String toString() {
@@ -31,10 +34,11 @@ public class Article {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
-                ", create_user_id=" + createUserId +
-                ", club_id=" + clubId +
+                ", createUserId=" + createUserId +
+                ", clubId=" + clubId +
                 ", status=" + status +
-                ", register_time='" + registerTime + '\'' +
+                ", avatarUrl='" + avatarUrl + '\'' +
+                ", registerTime=" + registerTime +
                 '}';
     }
 
@@ -85,7 +89,13 @@ public class Article {
     public void setStatus(char status) {
         this.status = status;
     }
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
 
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
     public LocalDateTime getRegisterTime() {
         return registerTime;
     }
@@ -93,4 +103,6 @@ public class Article {
     public void setRegisterTime(LocalDateTime registerTime) {
         this.registerTime = registerTime;
     }
+
+
 }

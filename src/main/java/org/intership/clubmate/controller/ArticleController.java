@@ -19,7 +19,7 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
-    //按id查看文章
+    //按id查看帖子
     @GetMapping("/{id}")
     public ResponseResult viewArticleDetails(@PathVariable("id") Integer id){
         Article article=articleService.getById(id);
@@ -29,7 +29,7 @@ public class ArticleController {
 
     }
 
-    //按发布人查看文章
+    //按发布人查看帖子
     @GetMapping("/creator/{createUserId}")
     public ResponseResult viewArticlesByCreator(@PathVariable("createUserId")Integer createUserId){
         List<Article> articles=articleService.getArticlesByCreator(createUserId);
@@ -38,7 +38,7 @@ public class ArticleController {
         }else return ResponseResult.success(articles);
     }
 
-    //按社团查看文章
+    //按社团查看帖子
     @GetMapping("/club/{clubId}")
     public ResponseResult viewArticlesByClub(@PathVariable("clubId")Integer clubId){
         List<Article> articles=articleService.getArticlesByClub(clubId);
@@ -47,7 +47,7 @@ public class ArticleController {
         }else return ResponseResult.success(articles);
     }
 
-    //分页列表
+    //分页列出帖子
     @GetMapping("/all/list")
     public ResponseResult listClub(
             @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
@@ -57,7 +57,7 @@ public class ArticleController {
         return ResponseResult.success(articles);
     }
 
-    //列出全部文章
+    //列出全部帖子
     @GetMapping("/all")
     public ResponseResult viewAllArticles(){
         List<Article> articles=articleService.getAllArticles();
@@ -66,13 +66,14 @@ public class ArticleController {
         }else return ResponseResult.success(articles);
     }
 
-    //修改文章
+    //修改帖子
     @PostMapping("/update/{id}")
-    public ResponseResult modifyArticle(@PathVariable("id")Integer id,String title,String content){
+    public ResponseResult modifyArticle(@PathVariable("id")Integer id,String title,String content,String avatarUrl){
         Article article=articleService.getById(id);
         if(article!=null){
             article.setContent(content);
             article.setTitle(title);
+            article.setAvatarUrl(avatarUrl);
             article.setRegisterTime(getDateTime());
             articleService.updateArticle(article);
             return ResponseResult.success(article);
@@ -81,7 +82,7 @@ public class ArticleController {
         //可能需要细化？
     }
 
-    //发布文章
+    //发布帖子
     @PostMapping("/publish")
     public ResponseResult addArticle(Article article){
         article.setRegisterTime(getDateTime());
