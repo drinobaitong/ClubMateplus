@@ -18,7 +18,8 @@ import org.intership.clubmate.pojo.ResponseResult;
 public class UserController {
     @Autowired
     private UserService userService;
-
+    /*获取用户
+    根据rank,不写rank默认全部用户*/
     @RequestMapping("/getAll")
     public ResponseResult getAllUser(@RequestParam(defaultValue = "1") Integer pageNum,
                                      @RequestParam(defaultValue = "10") Integer pageSize,

@@ -28,8 +28,12 @@ public class User  {
     private String introduce;
     @TableField(exist = false)
     private String token;
-    @TableField("political_status")
-    private String politicalStatus;
+    @TableField("political_affiliation")
+    private int politicalAffiliation;
     @TableField("department")
     private String department;
+    @TableField("phone")
+    private String phone;
+    @TableField("email")
+    private String email;
 }
