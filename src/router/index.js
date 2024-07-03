@@ -1,7 +1,7 @@
 // createRouter用来新建路由实例，createWebHashHistory用来配置我们内容使用hash的模式（也就是路径上会通过#来区分）
 import { createRouter, createWebHashHistory } from 'vue-router'
-import Home from '../pages/home.vue'
-import About from '../pages/about.vue'
+import Home from '../pages/SystemController/home.vue'
+import About from '../pages/SystemController/about.vue'
 
 const routes = [
     {
