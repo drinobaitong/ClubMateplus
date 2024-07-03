@@ -1,0 +1,9 @@
+<changelist name="在进行更新之前于_2024_7_3_8_42_取消提交了更改_[Changes]" date="1719967364327" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/在进行更新之前于_2024_7_3_8_42_取消提交了更改_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="在进行更新之前于 2024/7/3 8:42 取消提交了更改 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/org/intership/clubmate/ClubMateApplication.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+</changelist>
