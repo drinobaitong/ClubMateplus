@@ -17,7 +17,7 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
     @Override
     protected void addInterceptors(InterceptorRegistry registry) {
         // 配置新的token登录拦截器和新的拦截规则，全部拦截
-        registry.addInterceptor(jwtInterceptor()).addPathPatterns("/**").excludePathPatterns("/login");
+        registry.addInterceptor(jwtInterceptor()).addPathPatterns("/**").excludePathPatterns("user/login","user/register");
         super.addInterceptors(registry);
     }
 }
