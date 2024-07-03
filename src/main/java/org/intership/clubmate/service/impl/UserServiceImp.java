@@ -1,4 +1,4 @@
-package org.intership.clubmate.service.serviceImp;
+package org.intership.clubmate.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -54,4 +54,47 @@ public class UserServiceImp extends ServiceImpl<UserMapper, User> implements Use
         }else userMapper.updateById(user);
         return user;
     }
+
+    @Override
+    public User login(int id, String password) {
+        User user =userMapper.selectOne(Wrappers.<User>lambdaQuery()
+                .eq(User::getId,id));
+        if(user!=null){
+            if(password.equals(user.getPassword())){
+                return user;
+            }
+            else {
+                throw new ServiceException("503","密码不正确");
+            }
+        }
+        else throw new ServiceException("503","账号错误");
+    }
+
+    @Override
+    public void register(User user) {
+        User user1 = userMapper.selectOne(Wrappers.<User>lambdaQuery()
+                .eq(User::getId,user.getId()));
+        if(user1!=null){
+            throw new ServiceException("501","用户已存在");
+        }else {
+            String pattern = "^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\\W_]+$)(?![a-z0-9]+$)(?![a-z\\W_]+$)(?![0-9\\W_]+$)[a-zA-Z0-9\\W_]{8,16}$";
+            if(user.getPassword().matches(pattern)){
+                userMapper.insert(user);
+                System.out.println(user);
+            }else throw new ServiceException("510","密码不符合格式");
+
+        }
+    }
+
+    @Override
+    public User getById(int id) {
+        User res=userMapper.selectOne(Wrappers.<User>lambdaQuery()
+                .eq(User::getId,id));
+        if(res==null){
+            throw new ServiceException("505","用户不存在");
+        }
+        return res;
+    }
+
+
 }

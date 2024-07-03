@@ -29,4 +29,7 @@ public class User  {
     private int rank;
     @TableField("introduce")
     private String introduce;
+
+    @TableField(exist = false)
+    private String token;
 }
