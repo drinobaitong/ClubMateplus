@@ -25,7 +25,7 @@ public class ClubController {
     }
 
     //删除社团(同时删除社团内所有文章)
-    @DeleteMapping("club/delete/{id}")
+    @DeleteMapping("/club/delete/{id}")
   //  @Transactional
     public ResponseResult deleteClub(@PathVariable Integer id){
         Club club=clubService.getById(id);
@@ -38,14 +38,14 @@ public class ClubController {
             return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"社团不存在");
         }
     }
-    @GetMapping("club/get/{id}")
+    @GetMapping("/club/get/{id}")
     public ResponseResult getClub(@PathVariable Integer id){
         Club club=clubService.getById(id);
         System.out.println("根据id查找社团");
         return  ResponseResult.success(club);
     }
 
-    @GetMapping("club/list")
+    @GetMapping("/club/list")
     public ResponseResult listClub(
             @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
             @RequestParam(value = "pageSize", defaultValue = "10") int pageSize)
@@ -55,7 +55,16 @@ public class ClubController {
         return ResponseResult.success(clubs);
     }
 
-    @PutMapping("club/update")
+    @GetMapping("/club/list/tags")
+    public ResponseResult listByType(
+            @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+            @RequestParam (value = "tags")int tags){
+        System.out.println("社团分类列表");
+        IPage<Club> clubs=clubService.typeList(pageNo,pageSize,tags);
+        return ResponseResult.success(clubs);
+    }
+    @PutMapping("/club/update")
     public ResponseResult updateClub(@RequestBody Club club){
 
         System.out.println("更新社团");

@@ -50,4 +50,13 @@ public class ClubServiceImpl extends ServiceImpl<ClubMapper, Club> implements Cl
         // 执行更新操作
         clubMapper.update(club,updateWrapper);
     }
+
+    @Override
+    public IPage<Club> typeList(int pageNo, int pageSize, int ty) {
+        Page<Club> pages=new Page<>(pageNo,pageSize);
+        QueryWrapper<Club> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("tags",ty);
+        return clubMapper.selectPage(pages,queryWrapper);
+    }
+
 }
