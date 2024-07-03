@@ -18,5 +18,6 @@ public class Club {
     private Integer status;
     private LocalDateTime registerTime;
     private Integer totalNumber;
-    private Integer tags;
+    private String tags;
+    private String collage;
 }

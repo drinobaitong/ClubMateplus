@@ -6,9 +6,55 @@
   <component name="ChangeListManager">
     <list default="true" id="e79046d8-1f26-41d9-a948-c5e3e225be7d" name="Changes" comment="club更新">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/0942cf17-c8a5-4baf-ac2f-e14968a76921.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/0942cf17-c8a5-4baf-ac2f-e14968a76921/storage_v2/_src_/schema/clubmate.u2B0Sg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/0942cf17-c8a5-4baf-ac2f-e14968a76921/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/0942cf17-c8a5-4baf-ac2f-e14968a76921/storage_v2/_src_/schema/mysql.osA4Bg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/0942cf17-c8a5-4baf-ac2f-e14968a76921/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/0942cf17-c8a5-4baf-ac2f-e14968a76921/storage_v2/_src_/schema/sys.zb4BAA.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/_2024_7_3_10_25___Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/_2024_7_3_10_25___Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/_2024_7_3_10_28___Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/_2024_7_3_10_28___Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/_2024_7_3_10_32___Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/_2024_7_3_10_32___Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/_2024_7_3_8_32___Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/_2024_7_3_8_32___Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/_2024_7_3_8_42___Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/_2024_7_3_8_42___Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/ClubService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/ClubService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/ClubService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/ClubService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/ClubController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/ClubController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/UserController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/entity/Club.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/entity/Club.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/entity/Comment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/serviceImp/UserServiceImp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/UserMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/src/main/java/org/intership/clubmate/ClubMateApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/src/main/java/org/intership/clubmate/controller/UserController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/src/main/java/org/intership/clubmate/entity/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/src/main/java/org/intership/clubmate/enums/HttpCode.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/src/main/java/org/intership/clubmate/mapper/UserMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/src/main/java/org/intership/clubmate/pojo/ResponseResult.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/src/main/java/org/intership/clubmate/service/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/src/main/java/org/intership/clubmate/service/serviceImp/UserServiceImp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/src/main/java/org/intership/clubmate/utils/ServiceException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/src/main/resources/mapper/UserMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/src/test/java/org/intership/clubmate/ClubMateApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/intership/clubmate/ClubMateApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/intership/clubmate/ClubMateApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mapper/UserMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/config/MybatisPlusConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/config/MybatisPlusConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/ClubController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/ClubController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/UserController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/entity/Club.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/entity/Club.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/entity/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/enums/HttpCode.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/enums/HttpCode.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/mapper/ClubMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/mapper/ClubMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/mapper/UserMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/mapper/UserMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/pojo/ResponseResult.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/pojo/ResponseResult.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/UserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/serviceImp/UserServiceImp.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/utils/ServiceException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/utils/ServiceException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/org/intership/clubmate/ClubMateApplicationTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/org/intership/clubmate/ClubMateApplicationTests.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +73,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="origin/server" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
@@ -35,6 +84,7 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RESET_MODE" value="MIXED" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -97,6 +147,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\aStudy\Coding\ClubMate\clubMate\src\main\java\org\intership\clubmate\service\impl" />
       <recent name="D:\aStudy\Coding\ClubMate\clubMate\.mvn" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -107,7 +158,7 @@
       <recent name="org.intership.clubmate.controller" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.ClubMateApplication">
+  <component name="RunManager" selected="JUnit.ClubMateApplicationTests.insert">
     <configuration name="ClubMateApplicationTests.insert" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="clubMate" />
       <extension name="coverage">
@@ -149,8 +200,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ClubMateApplicationTests.list" />
         <item itemvalue="JUnit.ClubMateApplicationTests.insert" />
+        <item itemvalue="JUnit.ClubMateApplicationTests.list" />
       </list>
     </recent_temporary>
   </component>
@@ -214,7 +265,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719974006432</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="club更新">
+      <option name="closed" value="true" />
+      <created>1719974335003</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1719974335003</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

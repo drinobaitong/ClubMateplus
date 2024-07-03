@@ -2,6 +2,7 @@ package org.intership.clubmate.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.intership.clubmate.entity.Club;
 import org.intership.clubmate.enums.HttpCode;
 import org.intership.clubmate.pojo.ResponseResult;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
+@Slf4j
 public class ClubController {
     @Autowired
     private ClubService clubService;
@@ -20,7 +22,7 @@ public class ClubController {
     @PostMapping("/club/insert")
     public ResponseResult insertClub(@RequestBody Club club){
         clubService.insertClub(club);
-        System.out.println("新建社团");
+        log.info("新建社团");
         return ResponseResult.success();
     }
 
@@ -29,7 +31,7 @@ public class ClubController {
   //  @Transactional
     public ResponseResult deleteClub(@PathVariable Integer id){
         Club club=clubService.getById(id);
-        System.out.println("删除社团");
+        log.info("删除社团");
         if(club!=null) {
             //删除社团
             clubService.deleteById(id);
@@ -41,7 +43,7 @@ public class ClubController {
     @GetMapping("/club/get/{id}")
     public ResponseResult getClub(@PathVariable Integer id){
         Club club=clubService.getById(id);
-        System.out.println("根据id查找社团");
+        log.info("根据id查找社团");
         return  ResponseResult.success(club);
     }
 
@@ -50,7 +52,7 @@ public class ClubController {
             @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
             @RequestParam(value = "pageSize", defaultValue = "10") int pageSize)
     {
-        System.out.println("分页查询");
+        log.info("分页查询");
         IPage<Club> clubs=clubService.list(pageNo,pageSize);
         return ResponseResult.success(clubs);
     }
@@ -60,14 +62,14 @@ public class ClubController {
             @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
             @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
             @RequestParam (value = "tags")int tags){
-        System.out.println("社团分类列表");
+        log.info("社团分类列表");
         IPage<Club> clubs=clubService.typeList(pageNo,pageSize,tags);
         return ResponseResult.success(clubs);
     }
     @PutMapping("/club/update")
     public ResponseResult updateClub(@RequestBody Club club){
 
-        System.out.println("更新社团");
+        log.info("更新社团");
         clubService.update(club);
         return ResponseResult.success();
     }
