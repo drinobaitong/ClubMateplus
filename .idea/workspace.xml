@@ -4,32 +4,47 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e79046d8-1f26-41d9-a948-c5e3e225be7d" name="Changes" comment="后端寻回">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/ArticleController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/entity/Article.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/mapper/ArticleMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/ArticleService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/impl/ArticleServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/ClubMateApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/ClubMateApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
+    <list default="true" id="e79046d8-1f26-41d9-a948-c5e3e225be7d" name="Changes" comment="后端矿建">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/entity/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/mapper/UserMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/serviceImp/UserServiceImp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/utils/ServiceException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/mapper/UserMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/src/main/java/org/intership/clubmate/ClubMateApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/src/main/java/org/intership/clubmate/controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/src/main/java/org/intership/clubmate/entity/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/src/main/java/org/intership/clubmate/enums/HttpCode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/src/main/java/org/intership/clubmate/mapper/UserMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/src/main/java/org/intership/clubmate/pojo/ResponseResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/src/main/java/org/intership/clubmate/service/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/src/main/java/org/intership/clubmate/service/serviceImp/UserServiceImp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/src/main/java/org/intership/clubmate/utils/ServiceException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/src/main/resources/mapper/UserMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/src/test/java/org/intership/clubmate/ClubMateApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/ClubMateApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/ClubMateApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/config/MybatisPlusConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/config/MybatisPlusConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/ClubController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/ClubController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/entity/Club.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/entity/Club.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/enums/HttpCode.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/enums/HttpCode.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/mapper/ClubMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/mapper/ClubMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/pojo/ResponseResult.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/pojo/ResponseResult.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/ClubService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/ClubService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/impl/ClubServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/impl/ClubServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/org/intership/clubmate/ClubMateApplicationTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/org/intership/clubmate/ClubMateApplicationTests.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="CompilerWorkspaceConfiguration">
-    <option name="MAKE_PROJECT_ON_SAVE" value="true" />
-  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -41,7 +56,6 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="RESET_MODE" value="MIXED" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -54,32 +68,33 @@
       </MavenGeneralSettings>
     </option>
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
   <component name="ProjectId" id="2ici9uxcj52Sis6KqSkOWY7uj1Z" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="1" id="Add" />
-  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "JUnit.ClubMateApplicationTests.insert.executor": "Run",
-    "JUnit.ClubMateApplicationTests.list.executor": "Run",
     "Maven.clubMate [install].executor": "Run",
+    "Notification.DisplayName-DoNotAsk-Lombok plugin": "Lombok 集成问题",
+    "Notification.DoNotAsk-Lombok plugin": "true",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.ClubMateApplication.executor": "Run",
+    "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "server",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/aStudy/Coding/ClubMate/clubMate",
+    "last_opened_file_path": "D:/java/clubMate",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -88,14 +103,10 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "project.propCompiler",
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
-    "ChangesTree.GroupingKeys": [
-      "directory",
-      "module"
-    ],
     "DatabaseDriversLRU": [
       "mysql"
     ]
@@ -103,49 +114,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\java\clubMate\src\main\resources\mapper" />
       <recent name="D:\aStudy\Coding\ClubMate\clubMate\.mvn" />
     </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="org.intership.clubmate.service.impl" />
-      <recent name="org.intership.clubmate.service" />
-      <recent name="org.intership.clubmate.mapper" />
-      <recent name="org.intership.clubmate.entity" />
-      <recent name="org.intership.clubmate.controller" />
-    </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.ClubMateApplication">
-    <configuration name="ClubMateApplicationTests.insert" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="clubMate" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.intership.clubmate.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.intership.clubmate" />
-      <option name="MAIN_CLASS_NAME" value="org.intership.clubmate.ClubMateApplicationTests" />
-      <option name="METHOD_NAME" value="insert" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ClubMateApplicationTests.list" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="clubMate" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.intership.clubmate.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.intership.clubmate" />
-      <option name="MAIN_CLASS_NAME" value="org.intership.clubmate.ClubMateApplicationTests" />
-      <option name="METHOD_NAME" value="list" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager">
     <configuration name="ClubMateApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="clubMate" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="org.intership.clubmate.ClubMateApplication" />
@@ -153,12 +126,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="JUnit.ClubMateApplicationTests.list" />
-        <item itemvalue="JUnit.ClubMateApplicationTests.insert" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -169,8 +136,14 @@
       <option name="presentableId" value="Default" />
       <updated>1719796122041</updated>
       <workItem from="1719796123126" duration="2854000" />
-      <workItem from="1719815785621" duration="31565000" />
-      <workItem from="1719926671446" duration="2351000" />
+      <workItem from="1719815785621" duration="10539000" />
+      <workItem from="1719888323576" duration="16618000" />
+      <workItem from="1719931883518" duration="2703000" />
+      <workItem from="1719934608151" duration="457000" />
+      <workItem from="1719935073064" duration="273000" />
+      <workItem from="1719936076051" duration="918000" />
+      <workItem from="1719966285872" duration="556000" />
+      <workItem from="1719966854719" duration="1625000" />
     </task>
     <task id="LOCAL-00001" summary="后端矿建">
       <option name="closed" value="true" />
@@ -180,39 +153,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719886068416</updated>
     </task>
-    <task id="LOCAL-00002" summary="后端框架">
+    <task id="LOCAL-00002" summary="后端矿建">
       <option name="closed" value="true" />
-      <created>1719910949382</created>
+      <created>1719933799284</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1719910949382</updated>
+      <updated>1719933799284</updated>
     </task>
-    <task id="LOCAL-00003" summary="后端框架">
-      <option name="closed" value="true" />
-      <created>1719926092442</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1719926092442</updated>
-    </task>
-    <task id="LOCAL-00004" summary="后端寻回">
-      <option name="closed" value="true" />
-      <created>1719927743780</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1719927743780</updated>
-    </task>
-    <task id="LOCAL-00005" summary="后端寻回">
-      <option name="closed" value="true" />
-      <created>1719928552629</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1719928552629</updated>
-    </task>
-    <option name="localTasksCounter" value="6" />
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -224,17 +173,12 @@
         <entry key="MAIN">
           <value>
             <State>
-              <option name="CUSTOM_BOOLEAN_PROPERTIES">
-                <map>
-                  <entry key="Show.Git.Branches" value="true" />
-                </map>
-              </option>
               <option name="FILTERS">
                 <map>
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="master" />
+                        <option value="origin/server" />
                       </list>
                     </value>
                   </entry>
@@ -248,23 +192,15 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="后端矿建" />
-    <MESSAGE value="后端框架" />
-    <MESSAGE value="Revert &quot;后端框架&quot;&#10;&#10;This reverts commit 95e231fa" />
-    <MESSAGE value="后端寻回" />
-    <option name="LAST_COMMIT_MESSAGE" value="后端寻回" />
+    <option name="LAST_COMMIT_MESSAGE" value="后端矿建" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/test/java/org/intership/clubmate/ClubMateApplicationTests.java</url>
-          <line>15</line>
-          <properties class="org.intership.clubmate.ClubMateApplicationTests">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.ClassNotFoundException" package="java.lang" />
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
+        </breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
