@@ -8,7 +8,8 @@ import org.intership.clubmate.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -20,30 +21,31 @@ public class ArticleController {
 
     //按id查看文章
     @GetMapping("/{id}")
-    public ResponseResult viewArticleDetails(@PathVariable("id") int id){
+    public ResponseResult viewArticleDetails(@PathVariable("id") Integer id){
         Article article=articleService.getById(id);
-        return ResponseResult.success(article);
+        if(article!=null){
+            return ResponseResult.success(article);
+        }else return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"未找到文章！");
+
     }
 
     //按发布人查看文章
-    @GetMapping("/creator/{create_user_id}")
-    public ResponseResult viewArticlesByCreator(@PathVariable("create_user_id")int create_user_id){
-        List<Article> articles=articleService.getArticlesByCreator(create_user_id);
-        return ResponseResult.success(articles);
+    @GetMapping("/creator/{createUserId}")
+    public ResponseResult viewArticlesByCreator(@PathVariable("createUserId")Integer createUserId){
+        List<Article> articles=articleService.getArticlesByCreator(createUserId);
+        if(articles.isEmpty()){
+            return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"未找到文章！");
+        }else return ResponseResult.success(articles);
     }
 
     //按社团查看文章
-    @GetMapping("/club/{club_id}")
-    public ResponseResult viewArticlesByClub(@PathVariable("club_id")int club_id){
-        List<Article> articles=articleService.getArticlesByClub(club_id);
-        return ResponseResult.success(articles);
+    @GetMapping("/club/{clubId}")
+    public ResponseResult viewArticlesByClub(@PathVariable("clubId")Integer clubId){
+        List<Article> articles=articleService.getArticlesByClub(clubId);
+        if(articles.isEmpty()){
+            return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"未找到文章！");
+        }else return ResponseResult.success(articles);
     }
-
-//    //按标题列出文章
-//    @GetMapping("/title/{title}")
-//    public List<Article> viewArticlesByTitle(@PathVariable("title")String title){
-//        return articleService.getArticlesByTitle(title);
-//    }
 
     //分页列表
     @GetMapping("/all/list")
@@ -59,27 +61,30 @@ public class ArticleController {
     @GetMapping("/all")
     public ResponseResult viewAllArticles(){
         List<Article> articles=articleService.getAllArticles();
-        return ResponseResult.success(articles);
+        if(articles.isEmpty()){
+            return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"未找到文章！");
+        }else return ResponseResult.success(articles);
     }
 
     //修改文章
     @PostMapping("/update/{id}")
-    public ResponseResult modifyArticle(@PathVariable("id")int id,String title,String content){
+    public ResponseResult modifyArticle(@PathVariable("id")Integer id,String title,String content){
         Article article=articleService.getById(id);
-        article.setContent(content);
-        article.setTitle(title);
-        article.setRegister_time(getDateTime());
-        int i=articleService.updateArticle(article);
-        if(i>0)return ResponseResult.success(article);
-        else return ResponseResult.error(HttpCode.SYSTEM_ERROR);
-        //可能需要细化？
+        if(article!=null){
+            article.setContent(content);
+            article.setTitle(title);
+            article.setRegisterTime(getDateTime());
+            articleService.updateArticle(article);
+            return ResponseResult.success(article);
+        }else return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"更新失败！");
 
+        //可能需要细化？
     }
 
     //发布文章
     @PostMapping("/publish")
     public ResponseResult addArticle(Article article){
-        article.setRegister_time(getDateTime());
+        article.setRegisterTime(getDateTime());
         int i=articleService.addArticle(article);
         if(i>0)return ResponseResult.success(article);
         else return ResponseResult.error(HttpCode.SYSTEM_ERROR);
@@ -88,20 +93,19 @@ public class ArticleController {
 
     //删除文章
     @DeleteMapping("/delete/{id}")
-    public ResponseResult deleteArticle(@PathVariable("id")int id){
+    public ResponseResult deleteArticle(@PathVariable("id")Integer id){
         Article article=articleService.getById(id);
         if(article!=null){
             articleService.deleteArticle(article);
             return ResponseResult.success(article);
-
         }else return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"文章不存在！");
 
     }
 
 
-    public Timestamp getDateTime(){
-        Timestamp timestamp=new Timestamp(System.currentTimeMillis());
-        return timestamp;
+    public LocalDateTime getDateTime(){
+        LocalDateTime localDateTime=LocalDateTime.now();
+        return localDateTime;
     }
 
 }

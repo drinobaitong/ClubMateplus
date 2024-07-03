@@ -7,7 +7,6 @@ import org.intership.clubmate.mapper.ArticleMapper;
 import org.intership.clubmate.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,34 +17,23 @@ public class ArticleServiceImpl implements ArticleService {
     private ArticleMapper articleMapper;
 
     @Override
-    @Transactional
     public int addArticle(Article article) {
         return articleMapper.insertArticle(article);
     }
 
     @Override
-    @Transactional
     public int updateArticle(Article article) {
         return articleMapper.updateArticle(article);
     }
 
-    @Override
-    public boolean canDelete(Article article,int create_user_id){
-            //创建人权限是否高
-
-           return article.getCreate_user_id() == create_user_id;
-
-    }
 
     @Override
-    @Transactional
     public int deleteArticle(Article article) {
         return articleMapper.deleteArticle(article.getId());
     }
 
 
     @Override
-    @Transactional
     public List<Article> getAllArticles(){
         return articleMapper.findAllArticles();
     }
@@ -57,26 +45,17 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    @Transactional
-    public Article getById(int id) {
+    public Article getById(Integer id) {
         return articleMapper.findArticleById(id);
     }
 
     @Override
-    @Transactional
-    public List<Article> getArticlesByTitle(String title) {
-        return articleMapper.findArticlesByTitle(title);
+    public List<Article> getArticlesByClub(Integer clubId){
+        return articleMapper.findArticlesByClub(clubId);
     }
 
     @Override
-    @Transactional
-    public List<Article> getArticlesByClub(int club_id){
-        return articleMapper.findArticlesByClub(club_id);
-    }
-
-    @Override
-    @Transactional
-    public List<Article> getArticlesByCreator(int create_user_id){
-        return articleMapper.findArticlesByCreator(create_user_id);
+    public List<Article> getArticlesByCreator(Integer createUserId){
+        return articleMapper.findArticlesByCreator(createUserId);
     }
 }

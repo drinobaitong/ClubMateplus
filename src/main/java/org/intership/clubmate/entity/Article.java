@@ -5,25 +5,25 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @TableName(value = "article")
 public class Article {
 
     @TableId(value = "id",type = IdType.AUTO)
-    private int id;   //ID编号
+    private Integer id;   //ID编号
     @TableField("title")
     private String title;  //标题
     @TableField("content")
     private String content;  //内容
     @TableField("create_user_id")
-    private int create_user_id;  //创建者ID
+    private Integer createUserId;  //创建者ID
     @TableField("club_id")
-    private int club_id;//社团id
+    private Integer clubId;//社团id
     @TableField("status")
     private char status;   //状态
     @TableField("register_time")
-    private Timestamp register_time;   //发布时间
+    private LocalDateTime registerTime;   //发布时间
 
     @Override
     public String toString() {
@@ -31,18 +31,18 @@ public class Article {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
-                ", create_user_id=" + create_user_id +
-                ", club_id=" + club_id +
+                ", create_user_id=" + createUserId +
+                ", club_id=" + clubId +
                 ", status=" + status +
-                ", register_time='" + register_time + '\'' +
+                ", register_time='" + registerTime + '\'' +
                 '}';
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -62,20 +62,20 @@ public class Article {
         this.content = content;
     }
 
-    public int getCreate_user_id() {
-        return create_user_id;
+    public Integer getCreateUserId() {
+        return createUserId;
     }
 
-    public void setCreate_user_id(int create_user_id) {
-        this.create_user_id = create_user_id;
+    public void setCreateUserId(Integer createUserId) {
+        this.createUserId = createUserId;
     }
 
-    public int getClub_id() {
-        return club_id;
+    public Integer getClubId() {
+        return clubId;
     }
 
-    public void setClub_id(int club_id) {
-        this.club_id = club_id;
+    public void setClubId(Integer clubId) {
+        this.clubId = clubId;
     }
 
     public char getStatus() {
@@ -86,11 +86,11 @@ public class Article {
         this.status = status;
     }
 
-    public Timestamp getRegister_time() {
-        return register_time;
+    public LocalDateTime getRegisterTime() {
+        return registerTime;
     }
 
-    public void setRegister_time(Timestamp register_time) {
-        this.register_time = register_time;
+    public void setRegisterTime(LocalDateTime registerTime) {
+        this.registerTime = registerTime;
     }
 }
