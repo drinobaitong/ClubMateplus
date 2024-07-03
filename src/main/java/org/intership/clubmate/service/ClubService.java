@@ -11,5 +11,5 @@ public interface ClubService extends IService<Club> {
     IPage<Club> list(int pageNo,int pageSize);
     void update(Club club);
 
-    IPage<Club> typeList(int pageNo, int pageSize, int tags);
+    IPage<Club> typeList(int pageNo,int pageSize,int type);
 }
