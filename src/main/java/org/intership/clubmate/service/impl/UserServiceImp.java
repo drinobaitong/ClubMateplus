@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.intership.clubmate.entity.User;
 import org.intership.clubmate.mapper.UserMapper;
 import org.intership.clubmate.service.UserService;
+import org.intership.clubmate.utils.Md5Util;
 import org.intership.clubmate.utils.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,10 +58,9 @@ public class UserServiceImp extends ServiceImpl<UserMapper, User> implements Use
 
     @Override
     public User login(int id, String password) {
-        User user =userMapper.selectOne(Wrappers.<User>lambdaQuery()
-                .eq(User::getId,id));
+        User user =getById(id);
         if(user!=null){
-            if(password.equals(user.getPassword())){
+            if(Md5Util.checkPassword(password,user.getPassword())){
                 return user;
             }
             else {
@@ -79,6 +79,7 @@ public class UserServiceImp extends ServiceImpl<UserMapper, User> implements Use
         }else {
             String pattern = "^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\\W_]+$)(?![a-z0-9]+$)(?![a-z\\W_]+$)(?![0-9\\W_]+$)[a-zA-Z0-9\\W_]{8,16}$";
             if(user.getPassword().matches(pattern)){
+               user.setPassword(Md5Util.getMD5String(user.getPassword())) ;
                 userMapper.insert(user);
                 System.out.println("注册成功");
             }else throw new ServiceException("510","密码不符合格式");

@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.intership.clubmate.entity.User;
 import org.intership.clubmate.enums.HttpCode;
 import org.intership.clubmate.service.UserService;
+import org.intership.clubmate.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -67,9 +68,14 @@ public class UserController {
     }
 
     @RequestMapping("/login")
-    public ResponseResult login(@RequestParam int id,@RequestParam String password){
-        User res =userService.login(id,password);
+    public ResponseResult login(@RequestBody User user){
+        System.out.println(user.getId());
+        User res =userService.login(user.getId(),user.getPassword());
+
         if(res!=null){
+            String token = TokenUtils.genToken( String.valueOf(res.getId()),res.getPassword());
+            res.setToken(token);
+            System.out.println("成功");
             return ResponseResult.success(res);
         }else return ResponseResult.error(HttpCode.LOGIN_ERROR);
     }
