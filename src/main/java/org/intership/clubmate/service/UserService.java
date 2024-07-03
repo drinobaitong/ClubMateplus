@@ -13,11 +13,4 @@ public interface UserService extends IService<User> {
     public void deleteUser(int id);
 
     public User updateUser(User user);
-
-    public User login(int id,String password);
-
-    public void register(User user);
-
-    public User getById(int id);
-
 }

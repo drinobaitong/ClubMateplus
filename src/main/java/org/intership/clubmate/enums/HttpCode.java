@@ -10,8 +10,7 @@ public enum HttpCode {
     USERNAME_EXIST(501,"用户名已存在"),
     CLUBNAME_EXIST(502,"社团名已存在"),
     LOGIN_ERROR(503,"用户名或密码错误"),
-    CONTENT_NOT_NULL(504, "填写内容不能为空"),
-    USER_NULL(505,"用户不存在");
+    CONTENT_NOT_NULL(504, "填写内容不能为空");
 
     final int code;
     final String msg;
