@@ -70,7 +70,7 @@ public class ResponseResult implements Serializable {
         return success(enums.getCode(),enums.getMsg());
     }
 
-    private static ResponseResult setAppHttpCodeEnum(HttpCode enums, String msg){
+    public static ResponseResult setAppHttpCodeEnum(HttpCode enums, String msg){
         return success(enums.getCode(),msg);
     }
 

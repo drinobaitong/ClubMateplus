@@ -9,6 +9,7 @@ import org.intership.clubmate.pojo.ResponseResult;
 import org.intership.clubmate.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,5 +56,27 @@ public class UserController {
         if(res!=null){
             return ResponseResult.success(res);
         }else return ResponseResult.error(HttpCode.SYSTEM_ERROR);
+    }
+
+    @RequestMapping("/getInfo/{id}")
+    public ResponseResult getInfo(@PathVariable int id){
+        User res =userService.getById(id);
+        if(res!=null){
+            return ResponseResult.success(res);
+        }else return ResponseResult.error(HttpCode.USER_NULL);
+    }
+
+    @RequestMapping("/login")
+    public ResponseResult login(@RequestParam int id,@RequestParam String password){
+        User res =userService.login(id,password);
+        if(res!=null){
+            return ResponseResult.success(res);
+        }else return ResponseResult.error(HttpCode.LOGIN_ERROR);
+    }
+
+    @RequestMapping("/register")
+    public ResponseResult register(@RequestBody User user){
+        userService.register(user);
+        return ResponseResult.success();
     }
 }

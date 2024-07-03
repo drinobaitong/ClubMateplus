@@ -80,7 +80,7 @@ public class UserServiceImp extends ServiceImpl<UserMapper, User> implements Use
             String pattern = "^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\\W_]+$)(?![a-z0-9]+$)(?![a-z\\W_]+$)(?![0-9\\W_]+$)[a-zA-Z0-9\\W_]{8,16}$";
             if(user.getPassword().matches(pattern)){
                 userMapper.insert(user);
-                System.out.println(user);
+                System.out.println("注册成功");
             }else throw new ServiceException("510","密码不符合格式");
 
         }
