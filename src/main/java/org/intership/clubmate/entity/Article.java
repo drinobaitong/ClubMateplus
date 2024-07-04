@@ -24,6 +24,10 @@ public class Article {
     private char status;   //状态
     @TableField("avatar_url")
     private String avatarUrl;
+
+    @TableField("essence")
+    private Integer essence;//精华
+
     @TableField("register_time")
     private LocalDateTime registerTime;   //发布时间
 
@@ -38,9 +42,12 @@ public class Article {
                 ", clubId=" + clubId +
                 ", status=" + status +
                 ", avatarUrl='" + avatarUrl + '\'' +
+                ", essence=" + essence +
                 ", registerTime=" + registerTime +
                 '}';
     }
+
+
 
     public Integer getId() {
         return id;
@@ -96,6 +103,15 @@ public class Article {
     public void setAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;
     }
+
+    public Integer getEssence() {
+        return essence;
+    }
+
+    public void setEssence(Integer essence) {
+        this.essence = essence;
+    }
+
     public LocalDateTime getRegisterTime() {
         return registerTime;
     }

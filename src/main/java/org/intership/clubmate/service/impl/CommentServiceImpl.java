@@ -45,7 +45,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     @Transactional
     public int getNumOfLayers(Integer articleId){
-        log.info("计算帖子"+articleId+"号中评论数。。。。。。");
+        log.info("计算"+articleId+"号帖子最新楼数。。。。。。");
         return commentMapper.getCommentLayersOfArticle(articleId);
     }
 

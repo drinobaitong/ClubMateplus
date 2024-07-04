@@ -38,6 +38,8 @@ public class ClubServiceImpl extends ServiceImpl<ClubMapper, Club> implements Cl
     @Override
     public IPage<Club> list(int pageNo, int pageSize) {
         Page<Club> page=new Page<>(pageNo,pageSize);
+        QueryWrapper<Club> queryWrapper=new QueryWrapper<>();
+        queryWrapper.orderBy(true,true,"status");
         return clubMapper.selectPage(page,null);
     }
 
@@ -57,6 +59,22 @@ public class ClubServiceImpl extends ServiceImpl<ClubMapper, Club> implements Cl
         QueryWrapper<Club> queryWrapper=new QueryWrapper<>();
         queryWrapper.eq("tags",ty);
         return clubMapper.selectPage(pages,queryWrapper);
+    }
+
+    @Override
+    public IPage<Club> collageList(int pageNo, int pageSize, String collage) {
+        Page<Club> pages=new Page<>(pageNo,pageSize);
+        QueryWrapper<Club> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("collage",collage);
+        return clubMapper.selectPage(pages,queryWrapper);
+    }
+
+    @Override
+    public void audit(int status,Integer id) {
+        UpdateWrapper<Club> updateWrapper=new UpdateWrapper<>();
+        updateWrapper.set("status",status).eq("id",id);
+
+        clubMapper.update(updateWrapper);
     }
 
 }

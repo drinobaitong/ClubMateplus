@@ -37,6 +37,18 @@ public class ArticleServiceImpl implements ArticleService {
         return articleMapper.deleteArticle(article.getId());
     }
 
+    @Override
+    public int setEssenceTrue(Article article) {
+        log.info("设置id为"+article.getId()+"号帖子为精华");
+        return articleMapper.setEssenceTrue(article);
+    }
+
+    @Override
+    public int setEssenceFalse(Article article) {
+        log.info("取消设置id为"+article.getId()+"号帖子为精华");
+        return articleMapper.setEssenceFalse(article);
+    }
+
 
     @Override
     public List<Article> getAllArticles(){
@@ -67,5 +79,11 @@ public class ArticleServiceImpl implements ArticleService {
     public List<Article> getArticlesByCreator(Integer createUserId){
         log.info("获取发布人id为"+createUserId+"的所有帖子");
         return articleMapper.findArticlesByCreator(createUserId);
+    }
+
+    @Override
+    public List<Article> getEssenceArticles() {
+        log.info("获取所有精华帖");
+        return articleMapper.findEssenceArticles();
     }
 }
