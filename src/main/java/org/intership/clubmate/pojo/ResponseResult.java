@@ -50,6 +50,7 @@ public class ResponseResult implements Serializable {
     }
 
     public static ResponseResult success(Object data) {
+
         ResponseResult result = setAppHttpCodeEnum(HttpCode.SUCCESS, HttpCode.SUCCESS.getMsg());
         if(data!=null) {
             result.setData(data);
