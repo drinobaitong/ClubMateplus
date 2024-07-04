@@ -27,7 +27,7 @@ public interface CommentMapper {
     int deleteComment(Integer id);
 
     //获得帖子目前评论数
-    @Select("select count(*) from comment where article_id=#{articleId}")
+    @Select("select MAX(layer) from comment where article_id=#{articleId}")
     int getCommentLayersOfArticle(Integer articleId);
 
     //更新层数
