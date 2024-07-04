@@ -18,6 +18,12 @@ public interface ArticleService {
     //删除帖子
     int deleteArticle(Article article);
 
+    //设置精华
+    int setEssenceTrue(Article article);
+
+    //取消设置精华
+    int setEssenceFalse(Article article);
+
     //得到帖子
     Article getById(Integer id);
 
@@ -28,6 +34,9 @@ public interface ArticleService {
 
     //根据发布人找帖子
     List<Article> getArticlesByCreator(Integer createUserId);
+
+    //查找所有精华帖
+    List<Article> getEssenceArticles();
 
     //分页查询帖子
     IPage<Article> list(int pageNo, int pageSize);

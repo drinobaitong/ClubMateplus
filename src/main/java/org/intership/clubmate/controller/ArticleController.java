@@ -57,6 +57,16 @@ public class ArticleController {
         return ResponseResult.success(articles);
     }
 
+    //列出精华帖
+    @GetMapping("/essence/all")
+    public ResponseResult viewEssenceArticles(){
+        List<Article> articles=articleService.getEssenceArticles();
+        if(articles.isEmpty()){
+            return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"未找到文章！");
+        }else return ResponseResult.success(articles);
+    }
+
+
     //列出全部帖子
     @GetMapping("/all")
     public ResponseResult viewAllArticles(){
@@ -85,6 +95,7 @@ public class ArticleController {
     //发布帖子
     @PostMapping("/publish")
     public ResponseResult addArticle(Article article){
+        article.setEssence(0);
         article.setRegisterTime(getDateTime());
         int i=articleService.addArticle(article);
         if(i>0)return ResponseResult.success(article);
@@ -101,6 +112,36 @@ public class ArticleController {
             return ResponseResult.success(article);
         }else return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"文章不存在！");
 
+    }
+
+    //设置精华
+    @PostMapping("/setet/{id}")
+    public ResponseResult setEssenceTrue(@PathVariable("id")Integer id){
+        Article article=articleService.getById(id);
+        if(article!=null){
+            if(article.getEssence()==1){
+                return ResponseResult.setAppHttpCodeEnum(HttpCode.SUCCESS,"帖子已经是精华帖了！");
+            }else{
+                article.setEssence(1);
+                articleService.setEssenceTrue(article);
+                return ResponseResult.success(article);
+            }
+        }else return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"文章不存在！");
+    }
+
+    //取消设置精华
+    @PostMapping("/setef/{id}")
+    public ResponseResult setEssenceFalse(@PathVariable("id")Integer id){
+        Article article=articleService.getById(id);
+        if(article!=null){
+            if(article.getEssence()==0){
+                return ResponseResult.setAppHttpCodeEnum(HttpCode.SUCCESS,"帖子已经不是精华帖了！");
+            }else {
+                article.setEssence(0);
+                articleService.setEssenceFalse(article);
+                return ResponseResult.success(article);
+            }
+        }else return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"文章不存在！");
     }
 
 

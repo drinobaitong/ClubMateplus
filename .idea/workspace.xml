@@ -4,31 +4,34 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e79046d8-1f26-41d9-a948-c5e3e225be7d" name="Changes" comment="Activity">
+    <list default="true" id="e79046d8-1f26-41d9-a948-c5e3e225be7d" name="Changes" comment="修正">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/_2024_7_3_10_25___Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/_2024_7_3_10_25___Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/_2024_7_3_10_28___Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/_2024_7_3_10_28___Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/_2024_7_3_10_32___Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/_2024_7_3_10_32___Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/_2024_7_3_8_42___Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/_2024_7_3_8_42___Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/ActivityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/ActivityController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/ArticleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/entity/Article.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/entity/Article.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/mapper/ArticleMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/mapper/ArticleMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/ArticleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/ArticleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/impl/ArticleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/impl/ArticleServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/ActivityController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/ActivityController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/mapper/ArticleMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/mapper/ArticleMapper.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="CompilerWorkspaceConfiguration">
-    <option name="MAKE_PROJECT_ON_SAVE" value="true" />
-  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
-  </component>
-  <component name="Git.Merge.Settings">
-    <option name="BRANCH" value="origin/server" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -37,7 +40,23 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="RESET_MODE" value="MIXED" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;vakoprs&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="a650fe08-87e4-4a9a-b5bd-784c29cfb3ef" />
+        <option name="url" value="https://github.com/drinobaitong/ClubMateplus.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="HttpClientSelectedEnvironments">
+    <file url="jar://$APPLICATION_HOME_DIR$/plugins/restClient/lib/restClient.jar!/com/intellij/ws/rest/client/requests/collection/post-requests.http" environment="test" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -49,6 +68,9 @@
         <option name="userSettingsFile" value="D:\Maven\apache-maven-3.9.6-bin\apache-maven-3.9.6\conf\settings.xml" />
       </MavenGeneralSettings>
     </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
@@ -63,20 +85,21 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "JUnit.ClubMateApplicationTests.insert.executor": "Run",
-    "JUnit.ClubMateApplicationTests.list.executor": "Run",
-    "JUnit.ClubMateApplicationTests.typeList.executor": "Run",
     "Maven.clubMate [install].executor": "Run",
+    "Notification.DisplayName-DoNotAsk-Lombok plugin": "Lombok 集成问题",
+    "Notification.DoNotAsk-Lombok plugin": "true",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.ClubMateApplication.executor": "Run",
+    "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "server",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/aStudy/Coding/ClubMate/clubMate",
+    "last_opened_file_path": "E:/IDEAProjects/VueProject/testdemo",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -85,14 +108,10 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "project.propCompiler",
+    "settings.editor.selected.configurable": "Shelf.Project.Settings",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
-    "ChangesTree.GroupingKeys": [
-      "directory",
-      "module"
-    ],
     "DatabaseDriversLRU": [
       "mysql"
     ]
@@ -100,49 +119,13 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\aStudy\Coding\ClubMate\clubMate\src\main\java\org\intership\clubmate\service\impl" />
+      <recent name="D:\java\clubMate\src\main\resources\mapper" />
       <recent name="D:\aStudy\Coding\ClubMate\clubMate\.mvn" />
     </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="org.intership.clubmate.service.impl" />
-      <recent name="org.intership.clubmate.service" />
-      <recent name="org.intership.clubmate.mapper" />
-      <recent name="org.intership.clubmate.entity" />
-      <recent name="org.intership.clubmate.controller" />
-    </key>
   </component>
-  <component name="RunManager" selected="JUnit.ClubMateApplicationTests.insert">
-    <configuration name="ClubMateApplicationTests.insert" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="clubMate" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.intership.clubmate.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.intership.clubmate" />
-      <option name="MAIN_CLASS_NAME" value="org.intership.clubmate.ClubMateApplicationTests" />
-      <option name="METHOD_NAME" value="insert" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ClubMateApplicationTests.list" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="clubMate" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.intership.clubmate.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.intership.clubmate" />
-      <option name="MAIN_CLASS_NAME" value="org.intership.clubmate.ClubMateApplicationTests" />
-      <option name="METHOD_NAME" value="list" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+  <component name="RunManager" selected="Spring Boot.ClubMateApplication">
+    <configuration name="generated-requests | #2" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="2" requestIdentifier="#2" runType="运行单个请求">
+      <method v="2" />
     </configuration>
     <configuration name="ClubMateApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="clubMate" />
@@ -153,8 +136,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ClubMateApplicationTests.insert" />
-        <item itemvalue="JUnit.ClubMateApplicationTests.list" />
+        <item itemvalue="HTTP 请求.generated-requests | #2" />
       </list>
     </recent_temporary>
   </component>
@@ -167,8 +149,17 @@
       <option name="presentableId" value="Default" />
       <updated>1719796122041</updated>
       <workItem from="1719796123126" duration="2854000" />
-      <workItem from="1719815785621" duration="31565000" />
-      <workItem from="1719926671446" duration="2351000" />
+      <workItem from="1719815785621" duration="10539000" />
+      <workItem from="1719888323576" duration="16618000" />
+      <workItem from="1719931883518" duration="2703000" />
+      <workItem from="1719934608151" duration="457000" />
+      <workItem from="1719935073064" duration="273000" />
+      <workItem from="1719936076051" duration="918000" />
+      <workItem from="1719966285872" duration="556000" />
+      <workItem from="1719966854719" duration="8274000" />
+      <workItem from="1719975392935" duration="14454000" />
+      <workItem from="1720018394889" duration="932000" />
+      <workItem from="1720051550427" duration="8106000" />
     </task>
     <task id="LOCAL-00001" summary="后端矿建">
       <option name="closed" value="true" />
@@ -178,75 +169,142 @@
       <option name="project" value="LOCAL" />
       <updated>1719886068416</updated>
     </task>
-    <task id="LOCAL-00002" summary="后端框架">
+    <task id="LOCAL-00002" summary="后端矿建">
       <option name="closed" value="true" />
-      <created>1719910949382</created>
+      <created>1719933799284</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1719910949382</updated>
+      <updated>1719933799284</updated>
     </task>
-    <task id="LOCAL-00003" summary="后端框架">
+    <task id="LOCAL-00003" summary="后端矿建">
       <option name="closed" value="true" />
-      <created>1719926092442</created>
+      <created>1719968490437</created>
       <option name="number" value="00003" />
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1719926092442</updated>
+      <updated>1719968490437</updated>
     </task>
-    <task id="LOCAL-00004" summary="后端寻回">
+    <task id="LOCAL-00004" summary="后端矿建">
       <option name="closed" value="true" />
-      <created>1719927743780</created>
+      <created>1719968493963</created>
       <option name="number" value="00004" />
       <option name="presentableId" value="LOCAL-00004" />
       <option name="project" value="LOCAL" />
-      <updated>1719927743780</updated>
+      <updated>1719968493963</updated>
     </task>
-    <task id="LOCAL-00005" summary="后端寻回">
+    <task id="LOCAL-00005" summary="后端矿建">
       <option name="closed" value="true" />
-      <created>1719928552629</created>
+      <created>1719968522229</created>
       <option name="number" value="00005" />
       <option name="presentableId" value="LOCAL-00005" />
       <option name="project" value="LOCAL" />
-      <updated>1719928552629</updated>
+      <updated>1719968522229</updated>
     </task>
-    <task id="LOCAL-00006" summary="club更新">
+    <task id="LOCAL-00006" summary="后端矿建">
       <option name="closed" value="true" />
-      <created>1719974006432</created>
+      <created>1719974169703</created>
       <option name="number" value="00006" />
       <option name="presentableId" value="LOCAL-00006" />
       <option name="project" value="LOCAL" />
-      <updated>1719974006432</updated>
+      <updated>1719974169703</updated>
     </task>
-    <task id="LOCAL-00007" summary="club更新">
+    <task id="LOCAL-00007" summary="后端矿建">
       <option name="closed" value="true" />
-      <created>1719974335003</created>
+      <created>1719975658088</created>
       <option name="number" value="00007" />
       <option name="presentableId" value="LOCAL-00007" />
       <option name="project" value="LOCAL" />
-      <updated>1719974335003</updated>
+      <updated>1719975658088</updated>
     </task>
-    <task id="LOCAL-00008" summary="club更新">
+    <task id="LOCAL-00008" summary="后端矿建">
       <option name="closed" value="true" />
-      <created>1719999125318</created>
+      <created>1719975665525</created>
       <option name="number" value="00008" />
       <option name="presentableId" value="LOCAL-00008" />
       <option name="project" value="LOCAL" />
-      <updated>1719999125318</updated>
+      <updated>1719975665525</updated>
     </task>
-    <task id="LOCAL-00009" summary="Activity">
+    <task id="LOCAL-00009" summary="细节修改">
       <option name="closed" value="true" />
-      <created>1720052829060</created>
+      <created>1719975797222</created>
       <option name="number" value="00009" />
       <option name="presentableId" value="LOCAL-00009" />
       <option name="project" value="LOCAL" />
-      <updated>1720052829060</updated>
+      <updated>1719975797222</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="细节修改">
+      <option name="closed" value="true" />
+      <created>1719976447489</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1719976447489</updated>
+    </task>
+    <task id="LOCAL-00011" summary="细节修改">
+      <option name="closed" value="true" />
+      <created>1719977530377</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1719977530377</updated>
+    </task>
+    <task id="LOCAL-00012" summary="细节修改">
+      <option name="closed" value="true" />
+      <created>1719984076017</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1719984076017</updated>
+    </task>
+    <task id="LOCAL-00013" summary="细节修改">
+      <option name="closed" value="true" />
+      <created>1719988353911</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1719988353911</updated>
+    </task>
+    <task id="LOCAL-00014" summary="细节修改">
+      <option name="closed" value="true" />
+      <created>1719989726842</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1719989726842</updated>
+    </task>
+    <task id="LOCAL-00015" summary="修正了评论增加方法">
+      <option name="closed" value="true" />
+      <created>1720052072425</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1720052072425</updated>
+    </task>
+    <task id="LOCAL-00016" summary="修正">
+      <option name="closed" value="true" />
+      <created>1720053923067</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1720053923067</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -254,17 +312,12 @@
         <entry key="MAIN">
           <value>
             <State>
-              <option name="CUSTOM_BOOLEAN_PROPERTIES">
-                <map>
-                  <entry key="Show.Git.Branches" value="true" />
-                </map>
-              </option>
               <option name="FILTERS">
                 <map>
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="master" />
+                        <option value="server" />
                       </list>
                     </value>
                   </entry>
@@ -278,12 +331,24 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="后端矿建" />
-    <MESSAGE value="后端框架" />
-    <MESSAGE value="Revert &quot;后端框架&quot;&#10;&#10;This reverts commit 95e231fa" />
-    <MESSAGE value="后端寻回" />
-    <MESSAGE value="club更新" />
-    <MESSAGE value="Activity" />
-    <option name="LAST_COMMIT_MESSAGE" value="Activity" />
+    <MESSAGE value="细节修改" />
+    <MESSAGE value="修正了评论增加方法" />
+    <MESSAGE value="修正" />
+    <option name="LAST_COMMIT_MESSAGE" value="修正" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.ClassNotFoundException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="org.springframework.beans.factory.BeanDefinitionStoreException" package="org.springframework.beans.factory" />
+          <option name="timeStamp" value="2" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
