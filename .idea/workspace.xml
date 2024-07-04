@@ -4,18 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e79046d8-1f26-41d9-a948-c5e3e225be7d" name="Changes" comment="添加帖子精华相关操作">
+    <list default="true" id="e79046d8-1f26-41d9-a948-c5e3e225be7d" name="Changes" comment="增加上传图片到OSS">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/ArticleController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/ArticleController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/entity/Article.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/entity/Article.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/enums/HttpCode.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/enums/HttpCode.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/pojo/ResponseResult.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/pojo/ResponseResult.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/ArticleService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/ArticleService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/impl/ArticleServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/impl/ArticleServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/impl/CommentServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/impl/CommentServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/FileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/FileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/utils/FileUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/utils/FileUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/FileController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/FileController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/utils/FileUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/utils/FileUtil.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,7 +150,7 @@
       <workItem from="1719966854719" duration="8274000" />
       <workItem from="1719975392935" duration="14454000" />
       <workItem from="1720018394889" duration="932000" />
-      <workItem from="1720051550427" duration="12620000" />
+      <workItem from="1720051550427" duration="16512000" />
     </task>
     <task id="LOCAL-00001" summary="后端矿建">
       <option name="closed" value="true" />
@@ -294,7 +288,23 @@
       <option name="project" value="LOCAL" />
       <updated>1720063068324</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="增加上传图片到OSS">
+      <option name="closed" value="true" />
+      <created>1720077596916</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1720077596916</updated>
+    </task>
+    <task id="LOCAL-00019" summary="增加上传图片到OSS">
+      <option name="closed" value="true" />
+      <created>1720077692109</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1720077692109</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -340,7 +350,8 @@
     <MESSAGE value="修正了评论增加方法" />
     <MESSAGE value="修正" />
     <MESSAGE value="添加帖子精华相关操作" />
-    <option name="LAST_COMMIT_MESSAGE" value="添加帖子精华相关操作" />
+    <MESSAGE value="增加上传图片到OSS" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加上传图片到OSS" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

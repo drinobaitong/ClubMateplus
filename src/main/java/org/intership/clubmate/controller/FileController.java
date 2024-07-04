@@ -1,10 +1,9 @@
 package org.intership.clubmate.controller;
+import org.intership.clubmate.enums.HttpCode;
 import org.intership.clubmate.pojo.ResponseResult;
 import org.intership.clubmate.utils.FileUtil;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.UUID;
@@ -13,6 +12,7 @@ import java.util.UUID;
 @RequestMapping("/file")
 public class FileController {
 
+    //上传文件
     @PostMapping("/upload")
     public ResponseResult upload(MultipartFile file) throws Exception {
         String originalFilename = file.getOriginalFilename();
@@ -21,4 +21,20 @@ public class FileController {
         String url = FileUtil.uploadFile(filename, file.getInputStream());
         return ResponseResult.success(url);
     }
+
+    //依据文件名删除文件
+    @DeleteMapping("/delete/{objectName}")
+    public ResponseResult delete(@PathVariable("objectName")String objectName){
+        FileUtil.deleteFile(objectName);
+        if(FileUtil.findFile(objectName)==null){
+            return ResponseResult.success();
+        }else return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"删除失败！");
+    }
+
+    //得到文件名
+    @GetMapping("/getname")
+    public String getObjectName(String url){
+        return FileUtil.getObjectName(url);
+    }
+
 }
