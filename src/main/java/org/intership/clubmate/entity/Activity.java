@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Activity {
+
     private int id;
     private int createUserId;
     private int clubId;
