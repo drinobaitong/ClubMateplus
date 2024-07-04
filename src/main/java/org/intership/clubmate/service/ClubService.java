@@ -12,4 +12,6 @@ public interface ClubService extends IService<Club> {
     void update(Club club);
 
     IPage<Club> typeList(int pageNo,int pageSize,int type);
+    IPage<Club> collageList(int pageNo,int pageSize,String collage);
+    void audit(int status,Integer id);
 }
