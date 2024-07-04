@@ -1,6 +1,7 @@
 package org.intership.clubmate.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.intership.clubmate.entity.User;
@@ -25,12 +26,12 @@ public class UserController {
                                      @RequestParam(defaultValue = "10") Integer pageSize,
                                      @RequestParam (defaultValue= "3")int rank
                                      ){
-        Page<User> page = new Page<>(pageNum, pageSize);
+        IPage<User> page = new Page<>(pageNum, pageSize);
         LambdaQueryWrapper<User> queryWrapper = Wrappers.lambdaQuery();
         if (rank == 1||rank==2) {
             queryWrapper.eq(User::getRank,rank);
         }
-        Page<User> userPage= userService.getAll(page,queryWrapper);
+        IPage<User> userPage= userService.getAll(page,queryWrapper);
         return ResponseResult.success(userPage);
     }
 
@@ -38,7 +39,7 @@ public class UserController {
     public ResponseResult addUser(@RequestBody User user){
         User res = userService.addUser(user);
         if(res==null){
-            return ResponseResult.error(HttpCode.SYSTEM_ERROR);
+            return ResponseResult.error(HttpCode.USERNAME_EXIST);
         }else {
             System.out.println("成功");
             return ResponseResult.success();
@@ -57,7 +58,7 @@ public class UserController {
         User res = userService.updateUser(user);
         if(res!=null){
             return ResponseResult.success(res);
-        }else {return ResponseResult.error(HttpCode.SYSTEM_ERROR);}
+        }else {return ResponseResult.error(HttpCode.USER_NULL);}
     }
 
     @RequestMapping("/getInfo/{id}")

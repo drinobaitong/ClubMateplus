@@ -2,6 +2,7 @@ package org.intership.clubmate.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -19,7 +20,7 @@ public class UserServiceImp extends ServiceImpl<UserMapper, User> implements Use
     @Autowired
     private UserMapper userMapper;
     @Override
-    public Page<User> getAll(Page<User> page,Wrapper<User> queryWrapper) {
+    public IPage<User> getAll(IPage<User> page, Wrapper<User> queryWrapper) {
 
         return userMapper.selectPage(page,queryWrapper);
     }
@@ -29,7 +30,7 @@ public class UserServiceImp extends ServiceImpl<UserMapper, User> implements Use
         User res =userMapper.selectOne(Wrappers.<User>lambdaQuery()
                 .eq(User::getId,user.getId()));
         if(res!=null){
-            throw new ServiceException("501","用户已存在");
+            return null;
         }else{
             userMapper.insert(user);
         }
@@ -51,7 +52,7 @@ public class UserServiceImp extends ServiceImpl<UserMapper, User> implements Use
         User res =userMapper.selectOne(Wrappers.<User>lambdaQuery()
                 .eq(User::getId,user.getId()));
         if(res==null){
-            throw new ServiceException("505","用户不存在");
+            return null;
         }else userMapper.updateById(user);
         return user;
     }
@@ -64,10 +65,10 @@ public class UserServiceImp extends ServiceImpl<UserMapper, User> implements Use
                 return user;
             }
             else {
-                throw new ServiceException("503","密码不正确");
+                return null;
             }
         }
-        else throw new ServiceException("503","账号错误");
+        else return null;
     }
 
     @Override

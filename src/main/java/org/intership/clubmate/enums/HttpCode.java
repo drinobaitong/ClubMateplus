@@ -11,7 +11,12 @@ public enum HttpCode {
     CLUBNAME_EXIST(502,"社团名已存在"),
     LOGIN_ERROR(503,"用户名或密码错误"),
     CONTENT_NOT_NULL(504, "填写内容不能为空"),
-    USER_NULL(505,"用户不存在");
+    USER_NULL(505,"用户不存在"),
+    COLLECTION_NOT_NULL(506,"收藏已存在"),
+    COLLECTION_NULL(507,"收藏不存在")
+    ;
+
+
 
     final int code;
     final String msg;
