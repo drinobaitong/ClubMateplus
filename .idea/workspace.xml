@@ -5,13 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e79046d8-1f26-41d9-a948-c5e3e225be7d" name="Changes" comment="细节修改">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/_2024_7_3_8_32___Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/_2024_7_3_8_32___Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/impl/UserServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/impl/UserServiceImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/entity/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/impl/UserServiceImp.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/impl/UserServiceImp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/mapper/CommentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/mapper/CommentMapper.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +52,9 @@
   &quot;associatedIndex&quot;: 4
 }</component>
   <component name="ProjectId" id="2ici9uxcj52Sis6KqSkOWY7uj1Z" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -72,10 +71,11 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.ClubMateApplication.executor": "Run",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "server",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/java/clubMate",
+    "last_opened_file_path": "E:/IDEAProjects/VueProject/testdemo",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -134,6 +134,8 @@
       <workItem from="1719966285872" duration="556000" />
       <workItem from="1719966854719" duration="8274000" />
       <workItem from="1719975392935" duration="14454000" />
+      <workItem from="1720018394889" duration="932000" />
+      <workItem from="1720051550427" duration="471000" />
     </task>
     <task id="LOCAL-00001" summary="后端矿建">
       <option name="closed" value="true" />
