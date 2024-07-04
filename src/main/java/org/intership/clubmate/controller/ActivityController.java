@@ -16,14 +16,14 @@ public class ActivityController {
     @Autowired
     private ActivityService activityService;
 
-    @GetMapping("activity/list/collage")
-    public ResponseResult listByCollage(
-            @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
-            @RequestParam(value = "collage") String collage
-    ){
-        log.info("根据学院分类活动");
-        IPage<Activity> activities=activityService.listByCollage(pageNo,pageSize,collage);
-        return ResponseResult.success(activities);
-    }
+//    @GetMapping("activity/list/club")
+//    public ResponseResult listByCollage(
+//            @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+//            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+//            @RequestParam(value = "collage") String collage
+//    ){
+//        log.info("根据学院分类活动");
+//        IPage<Activity> activities=activityService.listByCollage(pageNo,pageSize,collage);
+//        return ResponseResult.success(activities);
+//    }
 }
