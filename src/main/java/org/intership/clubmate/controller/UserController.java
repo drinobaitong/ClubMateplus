@@ -84,7 +84,14 @@ public class UserController {
 
     @RequestMapping("/register")
     public ResponseResult register(@RequestBody User user){
-        userService.register(user);
+        User res =userService.getById(user.getId());
+        if(res!=null){
+            return ResponseResult.error(HttpCode.USERNAME_EXIST);
+        }
+        res =userService.register(user);
+        if (res==null){
+            return ResponseResult.error(HttpCode.LOGIN_ERROR.hashCode(),"密码不符合格式");
+        }
         return ResponseResult.success();
     }
 

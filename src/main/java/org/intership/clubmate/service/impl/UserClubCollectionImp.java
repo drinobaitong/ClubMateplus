@@ -53,13 +53,9 @@ public class UserClubCollectionImp extends ServiceImpl<UserClubCollectionMapper,
 
     @Override
     public UserClubCollection findUserClubCollection(int uid, int cid) {
-        UserClubCollection res=userClubCollectionMapper.selectOne(Wrappers.<UserClubCollection>lambdaQuery()
+        return userClubCollectionMapper.selectOne(Wrappers.<UserClubCollection>lambdaQuery()
                 .eq(UserClubCollection::getUserId,uid)
                 .eq(UserClubCollection::getClubId,cid));
-        if(res==null){
-            return null;
-        }
-        return res;
     }
 
 
