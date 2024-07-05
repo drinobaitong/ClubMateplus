@@ -74,20 +74,15 @@ public class UserServiceImp extends ServiceImpl<UserMapper, User> implements Use
 
 
     @Override
-    public void register(User user) {
-        User user1 = userMapper.selectOne(Wrappers.<User>lambdaQuery()
-                .eq(User::getId,user.getId()));
-        if(user1!=null){
-            throw new ServiceException("501","用户已存在");
-        }else {
-            String pattern = "^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\\W_]+$)(?![a-z0-9]+$)(?![a-z\\W_]+$)(?![0-9\\W_]+$)[a-zA-Z0-9\\W_]{8,16}$";
-            if(user.getPassword().matches(pattern)){
-               user.setPassword(Md5Util.getMD5String(user.getPassword())) ;
-                userMapper.insert(user);
-                System.out.println("注册成功");
-            }else throw new ServiceException("510","密码不符合格式");
+    public User register(User user) {
+        String pattern = "^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\\W_]+$)(?![a-z0-9]+$)(?![a-z\\W_]+$)(?![0-9\\W_]+$)[a-zA-Z0-9\\W_]{8,16}$";
+        if(user.getPassword().matches(pattern)){
+            user.setPassword(Md5Util.getMD5String(user.getPassword())) ;
+            userMapper.insert(user);
+            System.out.println("注册成功");
+            return user;
+        }else return null;
 
-        }
     }
 
     @Override
