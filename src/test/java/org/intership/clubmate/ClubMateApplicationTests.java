@@ -21,4 +21,9 @@ class ClubMateApplicationTests {
         club.setName("中文");
         clubService.insertClub(club);
     }
+
+    @Test
+    void image(){
+        clubService.updateImage(10086,"url");
+    }
 }

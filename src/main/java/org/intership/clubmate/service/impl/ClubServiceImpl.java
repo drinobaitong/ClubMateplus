@@ -10,6 +10,7 @@ import org.intership.clubmate.mapper.ClubMapper;
 import org.intership.clubmate.service.ClubService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
@@ -40,7 +41,7 @@ public class ClubServiceImpl extends ServiceImpl<ClubMapper, Club> implements Cl
         Page<Club> page=new Page<>(pageNo,pageSize);
         QueryWrapper<Club> queryWrapper=new QueryWrapper<>();
         queryWrapper.orderBy(true,true,"status");
-        return clubMapper.selectPage(page,null);
+        return clubMapper.selectPage(page,queryWrapper);
     }
 
     @Override
@@ -73,6 +74,14 @@ public class ClubServiceImpl extends ServiceImpl<ClubMapper, Club> implements Cl
     public void audit(int status,Integer id) {
         UpdateWrapper<Club> updateWrapper=new UpdateWrapper<>();
         updateWrapper.set("status",status).eq("id",id);
+
+        clubMapper.update(updateWrapper);
+    }
+
+    @Override
+    public void updateImage(Integer clubId, String url) {
+        UpdateWrapper<Club> updateWrapper=new UpdateWrapper<>();
+        updateWrapper.set("avatar_url",url).eq("id",clubId);
 
         clubMapper.update(updateWrapper);
     }
