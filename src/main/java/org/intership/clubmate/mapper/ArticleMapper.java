@@ -41,4 +41,5 @@ public interface ArticleMapper extends BaseMapper<Article> {
     int deleteArticle(int id);//删除某个帖子
 
 
+
 }

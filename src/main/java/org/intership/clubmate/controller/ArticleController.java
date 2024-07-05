@@ -5,12 +5,16 @@ import org.intership.clubmate.entity.Article;
 import org.intership.clubmate.enums.HttpCode;
 import org.intership.clubmate.pojo.ResponseResult;
 import org.intership.clubmate.service.ArticleService;
+import org.intership.clubmate.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/articles")
@@ -97,6 +101,7 @@ public class ArticleController {
     public ResponseResult addArticle(Article article){
         article.setEssence(0);
         article.setRegisterTime(getDateTime());
+        String url=article.getAvatarUrl();
         int i=articleService.addArticle(article);
         if(i>0)return ResponseResult.success(article);
         else return ResponseResult.error(HttpCode.SYSTEM_ERROR);
@@ -144,6 +149,17 @@ public class ArticleController {
         }else return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"文章不存在！");
     }
 
+    @PostMapping("/upload/image")
+    public ResponseResult uploadImage(MultipartFile file) throws Exception {
+        String originalFilename = file.getOriginalFilename();
+        String filename = UUID.randomUUID() + originalFilename.substring(originalFilename.lastIndexOf("."));
+        String url = FileUtil.uploadFile(filename, file.getInputStream());
+        return ResponseResult.success(url);
+    }
+
+    public String getUrl(ResponseResult responseResult){
+        return responseResult.getData().toString();
+    }
 
     public LocalDateTime getDateTime(){
         LocalDateTime localDateTime=LocalDateTime.now();
