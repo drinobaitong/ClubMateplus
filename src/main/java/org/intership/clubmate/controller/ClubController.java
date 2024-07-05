@@ -9,11 +9,15 @@ import org.intership.clubmate.enums.HttpCode;
 import org.intership.clubmate.pojo.ResponseResult;
 import org.intership.clubmate.service.ArticleService;
 import org.intership.clubmate.service.ClubService;
+import org.intership.clubmate.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 
 @RestController
@@ -101,6 +105,19 @@ public class ClubController {
             @PathVariable Integer id
     ){
         clubService.audit(status,id);
+        return ResponseResult.success();
+    }
+
+    @PostMapping("/club/image/{id}")
+    public ResponseResult uploadImage(
+            @PathVariable Integer id,
+            @RequestParam MultipartFile file
+    ) throws Exception {
+        String originalFilename = file.getOriginalFilename();
+        //保证文件的名字是唯一的,从而防止文件覆盖
+        String filename = UUID.randomUUID() + originalFilename.substring(originalFilename.lastIndexOf("."));
+        String url = FileUtil.uploadFile(filename, file.getInputStream());
+        clubService.updateImage(id,url);
         return ResponseResult.success();
     }
 }

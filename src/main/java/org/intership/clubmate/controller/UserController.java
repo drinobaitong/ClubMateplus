@@ -87,4 +87,6 @@ public class UserController {
         userService.register(user);
         return ResponseResult.success();
     }
+
+
 }

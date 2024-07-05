@@ -3,6 +3,7 @@ package org.intership.clubmate.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.intership.clubmate.entity.Club;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface ClubService extends IService<Club> {
     void insertClub(Club club);
@@ -14,4 +15,6 @@ public interface ClubService extends IService<Club> {
     IPage<Club> typeList(int pageNo,int pageSize,int type);
     IPage<Club> collageList(int pageNo,int pageSize,String collage);
     void audit(int status,Integer id);
+
+    void updateImage(Integer clubId, String url);
 }
