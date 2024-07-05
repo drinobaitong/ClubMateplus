@@ -86,4 +86,14 @@ public class ClubServiceImpl extends ServiceImpl<ClubMapper, Club> implements Cl
         clubMapper.update(updateWrapper);
     }
 
+    @Override
+    public void addMember(Integer clubId) {
+        clubMapper.addMember(clubId);
+    }
+
+    @Override
+    public void subMember(Integer clubId) {
+        clubMapper.subMember(clubId);
+    }
+
 }

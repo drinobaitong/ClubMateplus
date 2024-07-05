@@ -32,7 +32,7 @@ public class UCJoinServiceImpl extends ServiceImpl<UCJoinMapper, UCJoin> impleme
         Page<UCJoin> page=new Page<>(pageNo,pageSize);
         //先获取所有的id
         QueryWrapper<UCJoin> UCWrapper=new QueryWrapper<>();
-        UCWrapper.eq("club_id",clubId);
+        UCWrapper.eq("club_id",clubId).eq("status",2);
 
 
         return ucJoinMapper.selectPage(page,UCWrapper);
@@ -40,9 +40,9 @@ public class UCJoinServiceImpl extends ServiceImpl<UCJoinMapper, UCJoin> impleme
 
     @Override
     public void quit(Integer userId, Integer clubId) {
-        QueryWrapper<UCJoin> queryWrapper=new QueryWrapper<>();
-        queryWrapper.eq("user_id",userId).eq("club_id",clubId);
-        ucJoinMapper.delete(queryWrapper);
+        UpdateWrapper<UCJoin> queryWrapper=new UpdateWrapper<>();
+        queryWrapper.set("status",1).eq("user_id",userId).eq("club_id",clubId);
+        ucJoinMapper.update(queryWrapper);
     }
 
     @Override
@@ -63,5 +63,31 @@ public class UCJoinServiceImpl extends ServiceImpl<UCJoinMapper, UCJoin> impleme
         return ucJoinMapper.selectPage(page,UCWrapper);
     }
 
+    @Override
+    public IPage<UCJoin> getJoins(Integer pageNo, Integer pageSize, Integer clubId) {
+        Page<UCJoin> page=new Page<>(pageNo,pageSize);
+        //先获取所有的id
+        QueryWrapper<UCJoin> UCWrapper=new QueryWrapper<>();
+        UCWrapper.eq("club_id",clubId).eq("status",0);
+
+
+        return ucJoinMapper.selectPage(page,UCWrapper);
+    }
+
+    @Override
+    public IPage<UCJoin> getQuits(Integer pageNo, Integer pageSize, Integer clubId) {
+        Page<UCJoin> page=new Page<>(pageNo,pageSize);
+        //先获取所有的id
+        QueryWrapper<UCJoin> UCWrapper=new QueryWrapper<>();
+        UCWrapper.eq("club_id",clubId).eq("status",1);
+
+
+        return ucJoinMapper.selectPage(page,UCWrapper);
+    }
+
+    @Override
+    public int getStatus(Integer clubId, Integer userId) {
+        return ucJoinMapper.getStatus(clubId,userId);
+    }
 
 }

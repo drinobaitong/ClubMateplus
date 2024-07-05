@@ -17,4 +17,7 @@ public interface ClubService extends IService<Club> {
     void audit(int status,Integer id);
 
     void updateImage(Integer clubId, String url);
+
+    void addMember(Integer clubId);
+    void subMember(Integer clubId);
 }
