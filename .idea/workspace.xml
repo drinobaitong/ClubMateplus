@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e79046d8-1f26-41d9-a948-c5e3e225be7d" name="Changes" comment="新增学院">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/MessageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/MessageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/MessageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/MessageService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/impl/MessageServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/impl/MessageServiceImpl.java" afterDir="false" />
-    </list>
+    <list default="true" id="e79046d8-1f26-41d9-a948-c5e3e225be7d" name="Changes" comment="消息推送" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -147,7 +141,7 @@
       <workItem from="1720139753207" duration="14606000" />
       <workItem from="1720227090420" duration="8333000" />
       <workItem from="1720255615157" duration="1057000" />
-      <workItem from="1720278631563" duration="1383000" />
+      <workItem from="1720278631563" duration="1714000" />
     </task>
     <task id="LOCAL-00001" summary="后端矿建">
       <option name="closed" value="true" />
@@ -317,7 +311,23 @@
       <option name="project" value="LOCAL" />
       <updated>1720171354804</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="消息推送">
+      <option name="closed" value="true" />
+      <created>1720280334959</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1720280334959</updated>
+    </task>
+    <task id="LOCAL-00023" summary="消息推送">
+      <option name="closed" value="true" />
+      <created>1720280379745</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1720280379745</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -364,7 +374,8 @@
     <MESSAGE value="Merge remote-tracking branch 'origin/server' into server&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;target/classes/org/intership/clubmate/controller/UserController.class&#10;#&#9;target/classes/org/intership/clubmate/enums/HttpCode.class" />
     <MESSAGE value="社团收藏" />
     <MESSAGE value="新增学院" />
-    <option name="LAST_COMMIT_MESSAGE" value="新增学院" />
+    <MESSAGE value="消息推送" />
+    <option name="LAST_COMMIT_MESSAGE" value="消息推送" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
