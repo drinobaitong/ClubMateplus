@@ -5,12 +5,14 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jakarta.servlet.http.HttpServletRequest;
+import org.intership.clubmate.config.Log;
 import org.intership.clubmate.entity.ErrorLog;
-import org.intership.clubmate.entity.LoginLog;
+import org.intership.clubmate.entity.OperaLog;
 import org.intership.clubmate.entity.User;
 import org.intership.clubmate.enums.HttpCode;
+import org.intership.clubmate.enums.OperaType;
 import org.intership.clubmate.service.ErrorLogService;
-import org.intership.clubmate.service.LoginLogService;
+import org.intership.clubmate.service.OperaLogService;
 import org.intership.clubmate.service.UserService;
 import org.intership.clubmate.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,6 @@ import org.springframework.web.bind.annotation.*;
 import org.intership.clubmate.pojo.ResponseResult;
 
 import java.util.Date;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -33,7 +34,7 @@ public class UserController {
     private HttpServletRequest request;
 
     @Autowired
-    private LoginLogService loginLogService;
+    private OperaLogService operaLogService;
 
     @Autowired
     private ErrorLogService errorLogService;
@@ -88,6 +89,7 @@ public class UserController {
     }
 
     @RequestMapping("/login")
+    @Log(operaModule = "用户管理-新增用户",operaType = "ADD")
     public ResponseResult login(@RequestBody User user){
         System.out.println(user.getId());
         User res =userService.login(user.getId(),user.getPassword());
@@ -96,14 +98,14 @@ public class UserController {
             String token = TokenUtils.genToken( String.valueOf(res.getId()),res.getPassword());
             res.setToken(token);
             System.out.println("成功");
-            LoginLog loginLog =new LoginLog();
-            loginLog.setUserId(user.getId());
-            loginLog.setLoginTime(new Date());
-            loginLog.setIp(request.getRemoteAddr());
+            /*OperaLog operaLog =new OperaLog();
+            operaLog.setUserId(user.getId());
+            operaLog.setOperaTime(new Date());
+            operaLog.setIp(request.getRemoteAddr());
             //将参数所在的数组转为json
-            loginLog.setOperateRequest(JSON.toJSONString(user));
-            loginLog.setOperateResponse(JSON.toJSONString(res));
-            loginLogService.add(loginLog);
+            operaLog.setOperateRequest(JSON.toJSONString(user));
+            operaLog.setOperateResponse(JSON.toJSONString(res));
+            operaLogService.add(operaLog);*/
             return ResponseResult.success(res);
         }else{
             ErrorLog errorLog=new ErrorLog();
@@ -130,5 +132,14 @@ public class UserController {
         return ResponseResult.success();
     }
 
+    @RequestMapping("/changeRank")
+    public ResponseResult changeRank(@RequestParam int id,@RequestParam int rank){
+       User user= userService.getById(id);
+       user.setRank(rank);
+       User res=userService.updateUser(user);
+       if(res!=null){
+           return ResponseResult.success(res);
+       }return ResponseResult.error(HttpCode.USER_NULL);
+    }
 
 }

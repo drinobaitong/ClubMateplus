@@ -72,7 +72,6 @@ public class UserServiceImp extends ServiceImpl<UserMapper, User> implements Use
     }
 
 
-
     @Override
     public User register(User user) {
         String pattern = "^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\\W_]+$)(?![a-z0-9]+$)(?![a-z\\W_]+$)(?![0-9\\W_]+$)[a-zA-Z0-9\\W_]{8,16}$";
