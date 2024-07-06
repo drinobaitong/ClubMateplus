@@ -9,4 +9,6 @@ public interface MessageService extends IService<Message> {
 
     void read(Integer id);
 
+    IPage<Message> getAllMessage(int pageNo,int pageSize,Integer userId);
+
 }
