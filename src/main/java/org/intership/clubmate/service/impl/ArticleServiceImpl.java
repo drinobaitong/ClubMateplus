@@ -1,5 +1,6 @@
 package org.intership.clubmate.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
@@ -57,6 +58,11 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public List<Article> getArticlesFS(String search){
+        log.info("模糊查询帖子");
+        return articleMapper.findArticleFS(search);
+    }
+    @Override
     public IPage<Article> list(int pageNo, int pageSize) {
         log.info("分页展示帖子");
         Page<Article> page=new Page<>(pageNo,pageSize);
@@ -70,20 +76,43 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public IPage<Article> getArticlesListByClub(int pageNo, int pageSize,Integer clubId){
+        log.info("分页获取社团id为"+clubId+"的所有帖子");
+        Page<Article> page=new Page<>(pageNo,pageSize);
+        QueryWrapper<Article> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("club_id",clubId);
+        return articleMapper.selectPage(page,queryWrapper);
+    }
+
+    @Override
     public List<Article> getArticlesByClub(Integer clubId){
         log.info("获取社团id为"+clubId+"的所有帖子");
         return articleMapper.findArticlesByClub(clubId);
     }
 
+//    @Override
+//    public List<Article> getArticlesByCreator(Integer createUserId){
+//        log.info("获取发布人id为"+createUserId+"的所有帖子");
+//        return articleMapper.findArticlesByCreator(createUserId);
+//    }
+
     @Override
-    public List<Article> getArticlesByCreator(Integer createUserId){
-        log.info("获取发布人id为"+createUserId+"的所有帖子");
-        return articleMapper.findArticlesByCreator(createUserId);
+    public IPage<Article> getArticlesListByCreator(int pageNo, int pageSize, Integer createUserId) {
+        log.info("分页展示发布人id为"+createUserId+"的所有帖子");
+        Page<Article> page=new Page<>(pageNo,pageSize);
+        QueryWrapper<Article> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("create_user_id",createUserId);
+        return articleMapper.selectPage(page,queryWrapper);
     }
 
     @Override
-    public List<Article> getEssenceArticles() {
+    public IPage<Article> getEssenceArticles(int pageNo, int pageSize) {
         log.info("获取所有精华帖");
-        return articleMapper.findEssenceArticles();
+        Page<Article> page=new Page<>(pageNo,pageSize);
+        QueryWrapper<Article> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("essence",1);
+        return articleMapper.selectPage(page,queryWrapper);
     }
+
+
 }

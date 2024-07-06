@@ -12,4 +12,9 @@ public interface UCJoinService extends IService<UCJoin> {
     void audit(Integer userId,Integer clubId,int status);
 
     IPage<UCJoin> getClubs(Integer pageNo,Integer pageSize,Integer userId);
+
+    IPage<UCJoin> getJoins(Integer pageNo,Integer pageSize,Integer clubId);
+    IPage<UCJoin> getQuits(Integer pageNo,Integer pageSize,Integer clubId);
+
+    int getStatus(Integer clubId,Integer userId);
 }
