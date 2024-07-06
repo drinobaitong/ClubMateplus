@@ -26,4 +26,9 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
         message.setCreateTime(LocalDateTime.now());
         messageMapper.insert(message);
     }
+
+    @Override
+    public void read(Integer id) {
+
+    }
 }
