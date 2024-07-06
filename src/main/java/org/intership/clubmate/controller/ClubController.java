@@ -120,4 +120,14 @@ public class ClubController {
         clubService.updateImage(id,url);
         return ResponseResult.success();
     }
+
+    @GetMapping("/club/fuzzysearch")
+    public ResponseResult fuzzysearchClub(String search){
+        List<Club> clubs=clubService.getClubFS(search);
+        if(clubs.isEmpty()){
+            return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"未能查找到社团");
+        }else return ResponseResult.success(clubs);
+    }
+
+
 }
