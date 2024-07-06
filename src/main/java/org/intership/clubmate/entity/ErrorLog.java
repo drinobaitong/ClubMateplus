@@ -26,4 +26,8 @@ public class ErrorLog {
     private String operaIp;
     @TableField("opera_time")
     private Date operaTime;
+    @TableField("opera_url")
+    private String operaUrl;
+    @TableField("operate_request")
+    private String operateRequest;
 }

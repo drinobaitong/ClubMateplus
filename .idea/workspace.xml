@@ -4,8 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e79046d8-1f26-41d9-a948-c5e3e225be7d" name="Changes" comment="新增学院">
+    <list default="true" id="e79046d8-1f26-41d9-a948-c5e3e225be7d" name="Changes" comment="登录日志以及错误日志">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/config/Log.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/config/OperationLogAspect.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/enums/OperaType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/entity/ErrorLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/entity/ErrorLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/entity/LoginLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/entity/OperaLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/mapper/LoginLogMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/mapper/OperaLogMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/LoginLogService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/OperaLogService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/impl/ErrorLogServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/impl/ErrorLogServiceImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/impl/LoginLogServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/impl/OperaLogServiceImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/impl/UserServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/impl/UserServiceImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/entity/ErrorLog.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/entity/ErrorLog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/entity/LoginLog.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/mapper/LoginLogMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/ErrorLogService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/ErrorLogService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/LoginLogService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/impl/ErrorLogServiceImp.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/impl/ErrorLogServiceImp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/impl/LoginLogServiceImp.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/impl/UserServiceImp.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/impl/UserServiceImp.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,9 +38,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -131,7 +154,7 @@
       <workItem from="1719975392935" duration="20169000" />
       <workItem from="1720053929123" duration="19727000" />
       <workItem from="1720139753207" duration="14606000" />
-      <workItem from="1720227090420" duration="8333000" />
+      <workItem from="1720227090420" duration="20204000" />
     </task>
     <task id="LOCAL-00001" summary="后端矿建">
       <option name="closed" value="true" />
@@ -301,7 +324,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720171354804</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="登录日志以及错误日志">
+      <option name="closed" value="true" />
+      <created>1720237544179</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1720237544179</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -348,7 +379,8 @@
     <MESSAGE value="Merge remote-tracking branch 'origin/server' into server&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;target/classes/org/intership/clubmate/controller/UserController.class&#10;#&#9;target/classes/org/intership/clubmate/enums/HttpCode.class" />
     <MESSAGE value="社团收藏" />
     <MESSAGE value="新增学院" />
-    <option name="LAST_COMMIT_MESSAGE" value="新增学院" />
+    <MESSAGE value="登录日志以及错误日志" />
+    <option name="LAST_COMMIT_MESSAGE" value="登录日志以及错误日志" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
