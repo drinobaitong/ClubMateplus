@@ -29,7 +29,7 @@ public class ArticleController {
         Article article=articleService.getById(id);
         if(article!=null){
             return ResponseResult.success(article);
-        }else return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"未找到文章！");
+        }else return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"未找到帖子！");
 
     }
 
@@ -38,7 +38,7 @@ public class ArticleController {
     public ResponseResult viewArticlesByCreator(@PathVariable("createUserId")Integer createUserId){
         List<Article> articles=articleService.getArticlesByCreator(createUserId);
         if(articles.isEmpty()){
-            return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"未找到文章！");
+            return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"未找到帖子！");
         }else return ResponseResult.success(articles);
     }
 
@@ -47,9 +47,20 @@ public class ArticleController {
     public ResponseResult viewArticlesByClub(@PathVariable("clubId")Integer clubId){
         List<Article> articles=articleService.getArticlesByClub(clubId);
         if(articles.isEmpty()){
-            return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"未找到文章！");
+            return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"未找到帖子！");
         }else return ResponseResult.success(articles);
     }
+
+
+    //模糊查询
+    @GetMapping("/fuzzysearch")
+    public ResponseResult viewArticlesFS(String search){
+        List<Article> articles=articleService.getArticlesFS(search);
+        if(articles.isEmpty()){
+            return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"找不到帖子！");
+        }else return ResponseResult.success(articles);
+    }
+
 
     //分页列出帖子
     @GetMapping("/all/list")
@@ -66,7 +77,7 @@ public class ArticleController {
     public ResponseResult viewEssenceArticles(){
         List<Article> articles=articleService.getEssenceArticles();
         if(articles.isEmpty()){
-            return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"未找到文章！");
+            return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"未找到帖子！");
         }else return ResponseResult.success(articles);
     }
 
@@ -76,7 +87,7 @@ public class ArticleController {
     public ResponseResult viewAllArticles(){
         List<Article> articles=articleService.getAllArticles();
         if(articles.isEmpty()){
-            return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"未找到文章！");
+            return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"未找到帖子！");
         }else return ResponseResult.success(articles);
     }
 
@@ -115,7 +126,7 @@ public class ArticleController {
         if(article!=null){
             articleService.deleteArticle(article);
             return ResponseResult.success(article);
-        }else return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"文章不存在！");
+        }else return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"帖子不存在！");
 
     }
 
@@ -131,7 +142,7 @@ public class ArticleController {
                 articleService.setEssenceTrue(article);
                 return ResponseResult.success(article);
             }
-        }else return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"文章不存在！");
+        }else return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"帖子不存在！");
     }
 
     //取消设置精华
@@ -146,7 +157,7 @@ public class ArticleController {
                 articleService.setEssenceFalse(article);
                 return ResponseResult.success(article);
             }
-        }else return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"文章不存在！");
+        }else return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"帖子不存在！");
     }
 
     @PostMapping("/upload/image")

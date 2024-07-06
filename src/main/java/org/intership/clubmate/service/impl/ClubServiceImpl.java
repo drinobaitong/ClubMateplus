@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class ClubServiceImpl extends ServiceImpl<ClubMapper, Club> implements ClubService {
@@ -96,4 +97,8 @@ public class ClubServiceImpl extends ServiceImpl<ClubMapper, Club> implements Cl
         clubMapper.subMember(clubId);
     }
 
+    @Override
+    public List<Club> getClubFS(String search){
+        return clubMapper.findClubFS(search);
+    }
 }

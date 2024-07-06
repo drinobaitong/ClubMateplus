@@ -38,6 +38,8 @@ public interface ArticleService {
     //查找所有精华帖
     List<Article> getEssenceArticles();
 
+    List<Article> getArticlesFS(String search);
+
     //分页查询帖子
     IPage<Article> list(int pageNo, int pageSize);
 

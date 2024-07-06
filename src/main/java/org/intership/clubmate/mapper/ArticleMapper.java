@@ -40,6 +40,6 @@ public interface ArticleMapper extends BaseMapper<Article> {
     @Delete("delete from article where id=#{id}")
     int deleteArticle(int id);//删除某个帖子
 
-
-
+    @Select("select * from article where content LIKE CONCAT('%',#{search},'%') OR title LIKE CONCAT('%',#{search},'%')")
+    List<Article> findArticleFS(String search);
 }

@@ -57,6 +57,11 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public List<Article> getArticlesFS(String search){
+        log.info("模糊查询帖子");
+        return articleMapper.findArticleFS(search);
+    }
+    @Override
     public IPage<Article> list(int pageNo, int pageSize) {
         log.info("分页展示帖子");
         Page<Article> page=new Page<>(pageNo,pageSize);

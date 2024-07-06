@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import org.intership.clubmate.entity.Club;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 public interface ClubService extends IService<Club> {
     void insertClub(Club club);
     void deleteById(Integer id);
@@ -14,6 +16,9 @@ public interface ClubService extends IService<Club> {
 
     IPage<Club> typeList(int pageNo,int pageSize,int type);
     IPage<Club> collageList(int pageNo,int pageSize,String collage);
+
+    List<Club> getClubFS(String search);
+
     void audit(int status,Integer id);
 
     void updateImage(Integer clubId, String url);
