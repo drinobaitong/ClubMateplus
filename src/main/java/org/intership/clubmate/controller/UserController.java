@@ -98,24 +98,10 @@ public class UserController {
             String token = TokenUtils.genToken( String.valueOf(res.getId()),res.getPassword());
             res.setToken(token);
             System.out.println("成功");
-            /*OperaLog operaLog =new OperaLog();
-            operaLog.setUserId(user.getId());
-            operaLog.setOperaTime(new Date());
-            operaLog.setIp(request.getRemoteAddr());
-            //将参数所在的数组转为json
-            operaLog.setOperateRequest(JSON.toJSONString(user));
-            operaLog.setOperateResponse(JSON.toJSONString(res));
-            operaLogService.add(operaLog);*/
+
             return ResponseResult.success(res);
         }else{
-            ErrorLog errorLog=new ErrorLog();
-            errorLog.setUserId(user.getId());
-            errorLog.setOperaIp(request.getRemoteAddr());
-            errorLog.setOperaTime(new Date());
-            errorLog.setErrMessage("账号密码有误");
-            errorLog.setOperaMethod("登录");
-            errorLog.setErrCode("503");
-            errorLogService.add(errorLog);
+
             return ResponseResult.error(HttpCode.LOGIN_ERROR);}
     }
 
