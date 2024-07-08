@@ -60,8 +60,8 @@ public class UserClubCollectionImp extends ServiceImpl<UserClubCollectionMapper,
 
 
     @Override
-    public IPage<UserClubCollection> getClub(IPage<UserClubCollection> page, Wrapper<UserClubCollection> queryWrapper) {
+    public IPage<Club> getClub(IPage<UserClubCollection> page,int uid) {
 
-        return userClubCollectionMapper.selectPage(page,queryWrapper);
+        return userClubCollectionMapper.selectClub(page,uid);
     }
 }
