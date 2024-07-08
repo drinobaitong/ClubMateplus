@@ -19,7 +19,7 @@ public interface CommentMapper {
     Comment getComment(Integer id);
 
     //增加评论
-    @Insert("insert into comment values (#{id},#{content},#{createUserId},#{articleId},#{layer})")
+    @Insert("insert into comment values (#{id},#{content},#{createUserId},#{articleId},#{layer},#{registerTime})")
     int addComment(Comment comment);
 
     //按id删除评论
@@ -31,7 +31,7 @@ public interface CommentMapper {
     int getCommentLayersOfArticle(Integer articleId);
 
     //更新层数
-    @Update("update comment set layer=#{layer} where id=#{id}")
+    @Update("update comment set layer=#{layer},register_time=#{registerTime} where id=#{id}")
     int updateLayer(Integer layer,Integer id);
 
 }

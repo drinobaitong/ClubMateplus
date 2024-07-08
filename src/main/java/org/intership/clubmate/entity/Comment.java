@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 @TableName(value = "comment")
 public class Comment {
@@ -25,5 +27,8 @@ public class Comment {
 
     @TableField("layer")
     private Integer layer;//评论所处层数
+
+    @TableField("register_time")
+    private LocalDateTime registerTime;
 
 }

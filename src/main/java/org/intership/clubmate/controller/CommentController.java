@@ -7,6 +7,7 @@ import org.intership.clubmate.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -31,6 +32,7 @@ public class CommentController {
         Integer articleId=comment.getArticleId();
         Integer layer=commentService.getNumOfLayers(articleId);
         comment.setLayer(layer+1);
+        comment.setRegisterTime(LocalDateTime.now());
         int i=commentService.addComment(comment);
         if(i>0)return ResponseResult.success(comment);
         else return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"无法评论！");
