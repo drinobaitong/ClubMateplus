@@ -37,8 +37,9 @@ public class ClubController {
     //新建社团
     @PostMapping("/club/insert")
     public ResponseResult insertClub(@RequestBody Club club){
-        clubService.insertClub(club);
         log.info("新建社团");
+        clubService.insertClub(club);
+        messageService.insert(club.getCreateUserId(),"您的社团："+club.getName()+"的创建申请已提交，目前正等待审核");
         return ResponseResult.success();
     }
 
@@ -111,6 +112,14 @@ public class ClubController {
             @RequestParam int status,
             @PathVariable Integer id
     ){
+        Club club=clubService.getById(id);
+        if(status== 1){
+            log.info("社团创建审核通过");
+            messageService.insert(club.getCreateUserId(),"您的社团："+club.getName()+"创建申请已通过");
+        }else {
+            log.info("社团创建审核未通过");
+            messageService.insert(club.getCreateUserId(),"您的社团："+club.getName()+"创建申请未能通过");
+        }
         clubService.audit(status,id);
         return ResponseResult.success();
     }
