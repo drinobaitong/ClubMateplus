@@ -5,10 +5,13 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.intership.clubmate.entity.Article;
 import org.intership.clubmate.entity.Club;
+import org.intership.clubmate.entity.ClubUpdate;
 import org.intership.clubmate.enums.HttpCode;
 import org.intership.clubmate.pojo.ResponseResult;
 import org.intership.clubmate.service.ArticleService;
 import org.intership.clubmate.service.ClubService;
+import org.intership.clubmate.service.ClubUpdateService;
+import org.intership.clubmate.service.MessageService;
 import org.intership.clubmate.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +30,10 @@ public class ClubController {
     private ClubService clubService;
     @Autowired
     private ArticleService articleService;
+    @Autowired
+    private ClubUpdateService clubUpdateService;
+    @Autowired
+    private MessageService messageService;
     //新建社团
     @PostMapping("/club/insert")
     public ResponseResult insertClub(@RequestBody Club club){
@@ -92,10 +99,10 @@ public class ClubController {
         return ResponseResult.success(clubs);
     }
     @PutMapping("/club/update")
-    public ResponseResult updateClub(@RequestBody Club club){
+    public ResponseResult updateClub(@RequestBody ClubUpdate clubUpdate){
 
-        log.info("更新社团");
-        clubService.update(club);
+        log.info("社团更新请求");
+        clubUpdateService.insertUpdate(clubUpdate);
         return ResponseResult.success();
     }
 
@@ -128,6 +135,32 @@ public class ClubController {
             return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"未能查找到社团");
         }else return ResponseResult.success(clubs);
     }
+
+    @PostMapping("/club/update/audit")
+    public ResponseResult auditUpdate(
+            @RequestParam Integer id,
+            @RequestParam int status
+    ){
+
+        if(status==1){
+            log.info("社团更新审核通过");
+            Club club=clubUpdateService.getClubById(id);
+            clubService.update(club);
+            //发送通知消息
+            messageService.insert(club.getCreateUserId(),"您的社团"+club.getName()+"更新请求已通过");
+            clubUpdateService.cancelUpdate(id);
+
+        }else{
+            log.info("社团更新审核未通过");
+            //删除表的更新请求
+            clubUpdateService.cancelUpdate(id);
+            Club club=clubUpdateService.getClubById(id);
+            //发送通知信息
+            messageService.insert(club.getCreateUserId(),"您的社团"+club.getName()+"更新请求未能通过");
+        }
+        return ResponseResult.success();
+    }
+
 
 
 }
