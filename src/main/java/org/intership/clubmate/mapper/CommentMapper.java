@@ -34,4 +34,6 @@ public interface CommentMapper {
     @Update("update comment set layer=#{layer},register_time=#{registerTime} where id=#{id}")
     int updateLayer(Integer layer,Integer id);
 
+    @Select("select * from comment where article_id IN (select id from article where club_id=#{clubId});")
+    List<Comment> getCommentsByCLub(Integer clubId);
 }

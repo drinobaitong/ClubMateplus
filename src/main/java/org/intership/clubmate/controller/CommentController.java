@@ -18,7 +18,7 @@ public class CommentController {
     private CommentService commentService;
 
     //查看帖子所有评论
-    @GetMapping("/{articleId}")
+    @GetMapping("/article/{articleId}")
     public ResponseResult viewArticleComments(@PathVariable("articleId")Integer articleId){
         List<Comment> comments=commentService.getCommentsByArticle(articleId);
         if(comments.isEmpty()){
@@ -26,6 +26,14 @@ public class CommentController {
         }else return ResponseResult.success(comments);
     }
 
+    //根据社团查看评论
+    @GetMapping("/club/{clubId}")
+    public ResponseResult viewClubComments(@PathVariable("clubId") Integer clubId){
+        List<Comment> comments=commentService.getCommentsByCLub(clubId);
+        if(comments.isEmpty()){
+            return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"暂无评论！");
+        }else return ResponseResult.success(comments);
+    }
     //增加评论
     @PostMapping("/add")
     public ResponseResult addComment(Comment comment){

@@ -49,5 +49,11 @@ public class CommentServiceImpl implements CommentService {
         return commentMapper.getCommentLayersOfArticle(articleId);
     }
 
+    @Override
+    public List<Comment> getCommentsByCLub(Integer clubId) {
+        log.info("获取社团id为"+clubId+"的社团的所有评论");
+        return commentMapper.getCommentsByCLub(clubId);
+    }
+
 
 }

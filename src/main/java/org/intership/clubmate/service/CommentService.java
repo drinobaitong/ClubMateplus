@@ -1,5 +1,6 @@
 package org.intership.clubmate.service;
 
+import org.aspectj.apache.bcel.generic.IINC;
 import org.intership.clubmate.entity.Comment;
 
 import java.util.List;
@@ -21,5 +22,5 @@ public interface CommentService {
     //获取楼数
     int getNumOfLayers(Integer articleId);
 
-
+    List<Comment> getCommentsByCLub(Integer clubId);
 }
