@@ -5,10 +5,8 @@
       <el-aside class="aside" >
         <!---切换--->
         <el-menu
-            active-text-color="#ffd04b"
             background-color="#545c64"
             class="el-menu-vertical-demo"
-            default-active="2"
             text-color="#fff"
         >
           <!---头像--->
@@ -81,7 +79,7 @@
       <!---上边栏--->
       <el-container >
         <el-header class="header">
-              <span class="text-large font-600 mr-3"><h2>系统后台管理 </h2></span>
+              <span class="text-large font-600 mr-3"><h2>社团审核 </h2></span>
         </el-header>
         <!---主界面--->
         <el-main>
@@ -161,6 +159,9 @@
         </el-main>
       </el-container>
     </el-container>
+    <el-button link type="primary" size="small" @click="get" >
+      获取数据
+    </el-button>
   </div>
 </template>
 
@@ -304,6 +305,23 @@ const handleCurrentChange = (newPage) => {
 // 假设初始加载第一页数据
 // fetchData(state.currentPage);
 
+import axios from 'axios';
+
+const config = {
+  method: 'get',
+  url: 'http://localhost:8080/club/list?pageNo&pageSize',
+  headers: {
+    'User-Agent': 'Api fox/1.0.0 (https://apifox.com)'
+  }
+};
+
+axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 </script>
 
 <style scoped>

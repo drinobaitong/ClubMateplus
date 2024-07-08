@@ -5,9 +5,9 @@
       <el-aside class="aside" >
         <!---切换--->
         <el-menu
-            background-color="#545c64"
+            background-color="#f6f1ea"
             class="el-menu-vertical-demo"
-            text-color="#fff"
+            text-color="#090A0B"
         >
           <!---头像--->
           <el-row class="demo-avatar demo-basic">
@@ -25,52 +25,40 @@
               <el-icon><icon-menu /></el-icon>
               <span >首页</span>
             </el-menu-item>
-            <router-link to="/">
+            <router-link to="/CLubMessage">
               <el-menu-item index="2" >
                 <el-icon><document /></el-icon>
-                <span>社团审核</span>
-              </el-menu-item>
-            </router-link>
-            <router-link to="/Cancel">
-              <el-menu-item index="3">
-                <el-icon><setting /></el-icon>
-                <span>社团注销</span>
-              </el-menu-item>
-            </router-link>
-            <router-link to="/ChangeN">
-              <el-menu-item index="4">
-                <el-icon><setting /></el-icon>
-                <span>社团信息变更</span>
-              </el-menu-item>
-            </router-link>
-            <router-link to="/ClubControl">
-              <el-menu-item index="5">
-                <el-icon><setting /></el-icon>
                 <span>社团信息管理</span>
               </el-menu-item>
             </router-link>
-            <router-link to="/NumberR">
-              <el-menu-item index="5">
+            <router-link to="/ClNumberReview">
+              <el-menu-item index="3">
                 <el-icon><setting /></el-icon>
                 <span>成员审核</span>
               </el-menu-item>
             </router-link>
-            <router-link to="/PostR">
+            <router-link to="/ClNumberControl">
+              <el-menu-item index="4">
+                <el-icon><setting /></el-icon>
+                <span>成员管理</span>
+              </el-menu-item>
+            </router-link>
+            <router-link to="/PostControl">
+              <el-menu-item index="5">
+                <el-icon><setting /></el-icon>
+                <span>发帖管理</span>
+              </el-menu-item>
+            </router-link>
+            <router-link to="/ExitControl">
               <el-menu-item index="6">
                 <el-icon><setting /></el-icon>
-                <span>社团发帖审核</span>
+                <span>退出审核</span>
               </el-menu-item>
             </router-link>
-            <router-link to="/ContentControl">
-              <el-menu-item index="8">
+            <router-link to="/clContentControl">
+              <el-menu-item index="7">
                 <el-icon><setting /></el-icon>
-                <span>社团评论管理</span>
-              </el-menu-item>
-            </router-link>
-            <router-link to="/TypeControl">
-              <el-menu-item index="9">
-                <el-icon><setting /></el-icon>
-                <span>社团类型管理</span>
+                <span>评论管理</span>
               </el-menu-item>
             </router-link>
           </div>
@@ -79,7 +67,7 @@
       <!---上边栏--->
       <el-container >
         <el-header class="header">
-              <span class="text-large font-600 mr-3"><h2>社团发帖审核 </h2></span>
+          <span class="text-large font-600 mr-3"><h2>退出审核 </h2></span>
         </el-header>
         <!---主界面--->
         <el-main>
@@ -95,8 +83,18 @@
                 <el-option label="哲学学院" value="哲学学院" />
               </el-select>
             </el-form-item>
+            <el-form-item label="审核状态">
+              <el-select
+                  v-model="formInline.state"
+                  placeholder="未审核"
+                  clearable
+              >
+                <el-option label="未审核" value="未审核" />
+                <el-option label="已审核" value="已审核" />
+              </el-select>
+            </el-form-item>
             <el-form-item >
-              <el-input v-model="formInline.clubName" placeholder="社团名称" clearable />
+              <el-input v-model="formInline.name" placeholder="成员名称" clearable />
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="onSubmit">Query</el-button>
@@ -104,41 +102,33 @@
           </el-form>
           <!---审核数据--->
           <el-table :data="filteredTableData" style="width: 100%">
-            <el-table-column fixed prop="clubName"  label="社团名称"  width="150" />
-            <el-table-column label="社团头像" width="150">
-              <template #default="{ row }">
-                <!-- 使用作用域插槽的 row 参数来访问 proPost 属性 -->
-                <el-image
-                    style="width: 100px; height: 100px"
-                    :src="row.proPost"
-                    fit="cover"
-                ></el-image>
-              </template>
-            </el-table-column>
-            <el-table-column prop="Title"  label="帖子标题" width="120" />
+            <el-table-column prop="date" label="申请时间" width="120" />
+            <el-table-column prop="Sno" label="学号" width="150" />
+            <el-table-column prop="name" label="姓名" width="120" />
             <el-table-column prop="college" label="学院" width="120" />
-            <el-table-column prop="President" label="负责人" width="120" />
-            <el-table-column prop="date" label="活动时间" width="120" />
-            <el-table-column prop="right" label="帖子详情" min-width="120">
-                <el-button >
+            <el-table-column prop="phoneNumber" label="联系电话" width="120" />
+            <el-table-column prop="polOutlook" label="政治面貌" width="120" />
+            <el-table-column prop="grade" label="年级" width="120" />
+            <el-table-column prop="right" label="申请理由" min-width="150">
+              <template #default="scope">
+                <el-button @click="viewDetails(scope.row.context)">
                   查看详情
                 </el-button>
+              </template>
             </el-table-column>
+
+            <el-table-column prop="state" label="审核状态" width="120" />
             <el-table-column fixed="right" label="操作" min-width="120">
               <template #default="scope">
-                <el-popconfirm
-                    confirm-button-text="Yes"
-                    :icon="InfoFilled"
-                    icon-color="#626AEF"
-                    title="确认要删除吗?"
-                    @confirm="cancel(scope.row)"
-                >
-                  <template #reference>
-                    <el-button plain >
-                      删除
-                    </el-button>
-                  </template>
-                </el-popconfirm>
+                <el-button link type="primary" size="small" @click="handleClick(scope.row)"  v-if="scope.row.state==='未审核'">
+                  同意
+                </el-button>
+                <el-button link type="primary" size="small" @click="rejectClick(scope.row)" v-if="scope.row.state==='未审核'">拒绝</el-button>
+                <el-button link type="primary" size="small" v-if="scope.row.state==='已审核'&&scope.row.flag==='0'">已同意</el-button>
+                <el-button link type="primary" size="small" v-if="scope.row.state==='已审核'&&scope.row.flag==='1'">已拒绝</el-button>
+                <el-button link type="primary" size="small" @click="recoverClick(scope.row)" v-if="scope.row.state==='已审核'&&(scope.row.flag==='0'||scope.row.flag==='1')">还原</el-button>
+                <el-button link type="primary" size="small" @click="reAgreeClick(scope.row)" v-if="scope.row.state==='已审核'&&scope.row.flag==='0'">永久同意</el-button>
+                <el-button link type="primary" size="small" @click="reForeverClick(scope.row)" v-if="scope.row.state==='已审核'&&scope.row.flag==='1'">永久拒绝</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -152,7 +142,6 @@
                 :total="pages.total"
             />
           </div>
-
         </el-main>
       </el-container>
     </el-container>
@@ -167,8 +156,6 @@ import {
   Location,
   Setting,
 } from '@element-plus/icons-vue'
-import { ArrowLeft } from '@element-plus/icons-vue'
-import { nextTick } from 'vue';
 
 const state = reactive({
   circleUrl:
@@ -182,51 +169,99 @@ const formInline = reactive({
   college: '',
   category: '',
   state:'',
+  name:'',
 })
 
 const onSubmit = () => {
   console.log('submit!')
 }
-import { InfoFilled } from '@element-plus/icons-vue'
+
 // 使用计算属性根据筛选条件过滤数据
 const filteredTableData = computed(() => {
   return tableData.filter(item => {
     // 如果输入社团名称，也进行名称筛选
-    if (formInline.clubName && !item.clubName.includes(formInline.clubName)) {
+    if (formInline.name && !item.name.includes(formInline.name)) {
       return false;
     }
     // 如果选择了学院，只显示该学院的社团
     if (formInline.college && item.college !== formInline.college) {
       return false;
     }
+    //审核状态
+    if (formInline.state && item.state !== formInline.state) {
+      return false;
+    }
     return true;
   });
 });
 
+//审核同意
+const handleClick = (row) => {
+  //通过 row 来获取当前行数据
+  if (row.state === '未审核') {
+    // 将当前行的审核状态改为 '已审核'
+    row.state = '已审核';
+    row.flag='0';
+    console.log('状态更新为已审核：', row);
+  }
+};
+//审核拒绝
+const rejectClick = (row) => {
+  //通过 row 来获取当前行数据
+  if (row.state === '未审核') {
+    // 将当前行的审核状态改为 '已审核'
+    row.state = '已审核';
+    row.flag='1';
+    console.log('状态更新为已审核：', row);
+  }
+};
+//永久同意
+const reAgreeClick = (row) => {
+  row.flag='';
+}
+//永久拒绝
+const reForeverClick = (row) => {
+  row.flag='';
+}
+//未审核
+const recoverClick = (row) => {
+  //通过 row 来获取当前行数据
+  if (row.state === '已审核') {
+    // 将当前行的审核状态改为 '已审核'
+    row.state = '未审核';
+    row.flag='';
+    console.log('状态更新为已审核：', row);
+  }
+  // 可以添加更多的逻辑来处理其他状态的变更
+};
 
 //初始数据
 const tableData = [
   {
     clubName: '舞蹈队',
-    Title: '打扫卫生',
+    Sno:'2022333333333',
+    context:'https://element-plus.org/zh-CN/component/layout.html#%E6%B7%B7%E5%90%88%E5%B8%83%E5%B1%80',
+    name:'张三',
     college: '计算机学院',
-    President: '🦌',
-    date: '2023-4-5',
+    phoneNumber:'1234444444',
+    polOutlook:'共产党员',
+    grade:'2022级',
+    date: '2022-3-4',
     state: '未审核',
     flag:'',//拒绝1，同意0
-    contextURL:'https://modao.cc/proto/SSYTHFmxsfz4xzr6pnZYqu/sharing?view_mode=device&screen=rbpUHM74DnUJPa8cT&canvasId=sskp59muUHMA6u8NVCoixt',
-    proPost:'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
   },
   {
-    clubName: '排球队',
-    Title: '读书会',
+    clubName: '舞蹈队',
+    Sno:'2023333333333',
+    name:'里斯本',
+    context:'https://element-plus.org/zh-CN/component/layout.html#%E6%B7%B7%E5%90%88%E5%B8%83%E5%B1%80',
     college: '哲学学院',
-    President: '张三',
-    date: '2022-6-7',
+    phoneNumber:'1404444444',
+    polOutlook:'群众',
+    grade:'2023级',
+    date: '2023-6-4',
     state: '已审核',
-    flag:'',
-    contextURL:'',
-    proPost:'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
+    flag:'',//拒绝1，同意0
   },
 ]
 const pages = reactive({
@@ -255,50 +290,8 @@ const handleCurrentChange = (newPage) => {
 
 // 假设初始加载第一页数据
 // fetchData(state.currentPage);
-import { ref } from 'vue'
-const dialogVisible = ref(false)
-const form = reactive({
-  ClubName: '',
-  Type:'',
-  College:'',
-  President: '',
-  PresidentCollege:'',
-  proPost:'',
-  Profile:'',
-})
-
-const url =
-    'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg'
-
-// 用于存储当前正在编辑的社团的索引
-const currentEditingIndex = ref(-1);
-const index = ref(-1);
-
-// 注销社团的方法
-const cancel = (row) => {
-  // 找到要删除的社团的索引
-  const rowIndex = tableData.findIndex(item => item.clubName === row.clubName);
-
-  if (rowIndex !== -1) {
-    // 从 tableData 中删除对应的社团
-    tableData.splice(rowIndex, 1);
-    console.log('Deleted item from tableData:', tableData);
-
-    // 等待 Vue 响应性更新完成
-    nextTick(() => {
-      console.log('filteredTableData after update:', filteredTableData.value);
-    });
-
-    // 更新分页总数
-    pages.total = tableData.length;
-
-    // 如果需要，可以在这里处理分页状态的更新
-    if (pages.total < pages.pageSize * pages.currentPage) {
-      pages.currentPage = Math.max(1, pages.currentPage - 1);
-    }
-  } else {
-    console.error('未找到对应的社团');
-  }
+const viewDetails = (url) => {
+  window.open(url, '_blank');
 };
 </script>
 
@@ -324,13 +317,13 @@ const cancel = (row) => {
 .aside{
   width:200px;
   height:750px;
-  background-color:#545c64;
+  background-color: #f6f1ea;
 }
 .menu-list{
   margin-left: 15px;
 }
 .header{
-  background: rgba(83, 88, 93, 0.15);
+  background: rgba(90, 122, 154, 0.15);
   height:80px;
   display: flex;
   justify-content: space-between;
@@ -350,16 +343,6 @@ const cancel = (row) => {
   right: 50px;
 }
 .common-layout{
-  background: rgba(217, 153, 217, 0.08);
-}
-.demo-image__error .image-slot {
-  font-size: 30px;
-}
-.demo-image__error .image-slot .el-icon {
-  font-size: 30px;
-}
-.demo-image__error .el-image {
-  width: 100%;
-  height: 200px;
+  background: rgba(153, 217, 202, 0.08);
 }
 </style>

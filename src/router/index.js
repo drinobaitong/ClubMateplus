@@ -8,13 +8,45 @@ import PostReview from '../pages/SystemController/PostReview.vue'
 import ClubControl from '../pages/SystemController/ClubControl.vue'
 import ContentControl from '../pages/SystemController/ContentControl.vue'
 import TypeControl from '../pages/SystemController/TypeControl.vue'
-import home from '../pages/ClubController/home.vue'
+import ClNumberReview from '../pages/ClubController/NumberReview.vue'//社团成员审核
+import ClubMessage from '../pages/ClubController/ClubMessage.vue'//社团信息管理
+import ClContentControl from '../pages/ClubController/ContentControl.vue'//社团评论管理
+import ExitControl from '../pages/ClubController/ExitControl.vue'//退出审核
+import ClNumberControl from '../pages/ClubController/NumberControl.vue'//社团成员管理
+import PostControl from '../pages/ClubController/PostControl.vue'//发帖管理
+
+
 
 const routes = [
     {
         path: '/',
         name: 'ClubReview',
         component: ClubReview
+    },
+    {
+        path: '/ClubMessage',
+        name: 'ClubMessage',
+        component: ClubMessage
+    },
+    {
+        path: '/PostControl',
+        name: 'PostControl',
+        component: PostControl
+    },
+    {
+        path: '/ClContentControl',
+        name: 'ClContentControl',
+        component: ClContentControl
+    },
+    {
+        path: '/ExitControl',
+        name: 'ExitControl',
+        component: ExitControl
+    },
+    {
+        path: '/ClNumberControl',
+        name: 'ClNumberControl',
+        component: ClNumberControl
     },
     {
         path: '/Cancel',
@@ -52,9 +84,9 @@ const routes = [
         component: TypeControl
     },
     {
-        path: '/home',
-        name: 'home',
-        component: home
+        path: '/ClNumberReview',
+        name: 'ClNumberReview',
+        component: ClNumberReview
     },
 ]
 

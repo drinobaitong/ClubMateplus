@@ -5,10 +5,8 @@
       <el-aside class="aside" >
         <!---切换--->
         <el-menu
-            active-text-color="#ffd04b"
             background-color="#545c64"
             class="el-menu-vertical-demo"
-            default-active="3"
             text-color="#fff"
         >
           <!---头像--->
@@ -81,7 +79,7 @@
       <!---上边栏--->
       <el-container >
         <el-header class="header">
-          <span class="text-large font-600 mr-3"><h2>系统后台管理 </h2></span>
+          <span class="text-large font-600 mr-3"><h2>社团注销</h2></span>
         </el-header>
         <!---主界面--->
         <el-main>
