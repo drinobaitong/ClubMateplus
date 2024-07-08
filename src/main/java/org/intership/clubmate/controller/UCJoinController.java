@@ -2,9 +2,11 @@ package org.intership.clubmate.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.extern.slf4j.Slf4j;
+import org.intership.clubmate.entity.Message;
 import org.intership.clubmate.entity.UCJoin;
 import org.intership.clubmate.pojo.ResponseResult;
 import org.intership.clubmate.service.ClubService;
+import org.intership.clubmate.service.MessageService;
 import org.intership.clubmate.service.UCJoinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +21,8 @@ public class UCJoinController {
     private UCJoinService ucJoinService;
     @Autowired
     private ClubService clubService;
+    @Autowired
+    private MessageService messageService;
     //申请入社
     @PostMapping("/join")
     public ResponseResult joinClub(
@@ -87,15 +91,26 @@ public class UCJoinController {
         if(theStatus==1){
             //退社
             if (status==1){
+                log.info("退社通过");
                 clubService.subMember(clubId);
                 ucJoinService.audit(userId,clubId,3);
+                messageService.insert(userId,"您的退社请求已通过！");
+            }else{
+                log.info("退社拒绝");
+                ucJoinService.audit(userId,clubId,2);
+                messageService.insert(userId,"您的退社请求未能通过！");
             }
         }
         else {
             //不是社团成员，入社
             if (status==1){
+                log.info("入社通过");
                 clubService.addMember(clubId);
                 ucJoinService.audit(userId,clubId,2);
+                messageService.insert(userId,"您的入社请求已通过！");
+            }else{
+                log.info("入社拒绝");
+                messageService.insert(userId,"您的入社请求未能通过！");
             }
         }
         return ResponseResult.success();

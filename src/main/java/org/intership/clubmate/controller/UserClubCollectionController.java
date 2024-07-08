@@ -60,14 +60,8 @@ public class UserClubCollectionController {
     public ResponseResult getALl(@RequestParam(defaultValue = "1") Integer pageNum,
                                  @RequestParam(defaultValue = "10") Integer pageSize,
                                  @RequestParam int uid){
-        LambdaQueryWrapper<UserClubCollection> queryWrapper = Wrappers.lambdaQuery();
-        queryWrapper.eq(UserClubCollection::getUserId,uid);
-        IPage<UserClubCollection> pages=userClubCollectionService.getClub(new Page<>(pageNum, pageSize),queryWrapper);
-        List<UserClubCollection> page =pages.getRecords();
-        List<Club> clubs = new ArrayList<>();
-        for (UserClubCollection userClubCollection : page) {
-            clubs.add(clubService.getById(userClubCollection.getClubId()));
-        }
+
+        IPage<Club> clubs=userClubCollectionService.getClub(new Page<>(pageNum, pageSize),uid);
         return ResponseResult.success(clubs);
     }
 }

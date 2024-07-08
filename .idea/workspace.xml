@@ -4,16 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e79046d8-1f26-41d9-a948-c5e3e225be7d" name="Changes" comment="评论增加了发布时间">
+    <list default="true" id="e79046d8-1f26-41d9-a948-c5e3e225be7d" name="Changes" comment="1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/CommentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/mapper/CommentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/mapper/CommentMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/CommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/CommentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/impl/CommentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/impl/CommentServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/CommentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/CommentController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/mapper/CommentMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/mapper/CommentMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/CommentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/CommentService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/impl/CommentServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/impl/CommentServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/UserClubCollectionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/UserClubCollectionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/mapper/UserClubCollectionMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/mapper/UserClubCollectionMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/UserClubCollectionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/UserClubCollectionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/impl/UserClubCollectionImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/impl/UserClubCollectionImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/UserClubCollectionController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/UserClubCollectionController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/mapper/UserClubCollectionMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/mapper/UserClubCollectionMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/UserClubCollectionService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/UserClubCollectionService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/impl/UserClubCollectionImp.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/impl/UserClubCollectionImp.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,8 +23,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="Interface" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -58,47 +58,44 @@
   &quot;associatedIndex&quot;: 4
 }</component>
   <component name="ProjectId" id="2ici9uxcj52Sis6KqSkOWY7uj1Z" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="1" id="Add" />
-  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Maven.clubMate [install].executor&quot;: &quot;Run&quot;,
-    &quot;Notification.DisplayName-DoNotAsk-Lombok plugin&quot;: &quot;Lombok 集成问题&quot;,
-    &quot;Notification.DoNotAsk-Lombok plugin&quot;: &quot;true&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.ClubMateApplication.executor&quot;: &quot;Run&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;server&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/java/clubMate&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;Shelf.Project.Settings&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Maven.clubMate [install].executor": "Run",
+    "Notification.DisplayName-DoNotAsk-Lombok plugin": "Lombok 集成问题",
+    "Notification.DoNotAsk-Lombok plugin": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "server",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/java/clubMate",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\java\clubMate\src\main\resources\mapper" />
@@ -122,13 +119,6 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="jdk-17.0.10-corretto-17.0.10-4caba194b151-5cd809f4" />
-      </set>
-    </attachedChunks>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -149,11 +139,8 @@
       <workItem from="1719975392935" duration="20169000" />
       <workItem from="1720053929123" duration="19727000" />
       <workItem from="1720139753207" duration="14606000" />
-      <workItem from="1720227090420" duration="8333000" />
-      <workItem from="1720255615157" duration="1057000" />
-      <workItem from="1720278631563" duration="1714000" />
-      <workItem from="1720399189977" duration="4831000" />
-      <workItem from="1720420169249" duration="453000" />
+      <workItem from="1720227090420" duration="20321000" />
+      <workItem from="1720399515274" duration="19133000" />
     </task>
     <task id="LOCAL-00001" summary="后端矿建">
       <option name="closed" value="true" />
@@ -323,37 +310,37 @@
       <option name="project" value="LOCAL" />
       <updated>1720171354804</updated>
     </task>
-    <task id="LOCAL-00022" summary="消息推送">
+    <task id="LOCAL-00022" summary="登录日志以及错误日志">
       <option name="closed" value="true" />
-      <created>1720280334959</created>
+      <created>1720237544179</created>
       <option name="number" value="00022" />
       <option name="presentableId" value="LOCAL-00022" />
       <option name="project" value="LOCAL" />
-      <updated>1720280334959</updated>
+      <updated>1720237544179</updated>
     </task>
-    <task id="LOCAL-00023" summary="消息推送">
+    <task id="LOCAL-00023" summary="操作日志">
       <option name="closed" value="true" />
-      <created>1720280379745</created>
+      <created>1720258412056</created>
       <option name="number" value="00023" />
       <option name="presentableId" value="LOCAL-00023" />
       <option name="project" value="LOCAL" />
-      <updated>1720280379745</updated>
+      <updated>1720258412056</updated>
     </task>
-    <task id="LOCAL-00024" summary="评论增加了发布时间">
+    <task id="LOCAL-00024" summary="操作日志的修改">
       <option name="closed" value="true" />
-      <created>1720404587160</created>
+      <created>1720408821415</created>
       <option name="number" value="00024" />
       <option name="presentableId" value="LOCAL-00024" />
       <option name="project" value="LOCAL" />
-      <updated>1720404587160</updated>
+      <updated>1720408821415</updated>
     </task>
-    <task id="LOCAL-00025" summary="评论增加了发布时间">
+    <task id="LOCAL-00025" summary="1">
       <option name="closed" value="true" />
-      <created>1720404902937</created>
+      <created>1720427676905</created>
       <option name="number" value="00025" />
       <option name="presentableId" value="LOCAL-00025" />
       <option name="project" value="LOCAL" />
-      <updated>1720404902937</updated>
+      <updated>1720427676905</updated>
     </task>
     <option name="localTasksCounter" value="26" />
     <servers />
@@ -402,9 +389,11 @@
     <MESSAGE value="Merge remote-tracking branch 'origin/server' into server&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;target/classes/org/intership/clubmate/controller/UserController.class&#10;#&#9;target/classes/org/intership/clubmate/enums/HttpCode.class" />
     <MESSAGE value="社团收藏" />
     <MESSAGE value="新增学院" />
-    <MESSAGE value="消息推送" />
-    <MESSAGE value="评论增加了发布时间" />
-    <option name="LAST_COMMIT_MESSAGE" value="评论增加了发布时间" />
+    <MESSAGE value="登录日志以及错误日志" />
+    <MESSAGE value="操作日志" />
+    <MESSAGE value="操作日志的修改" />
+    <MESSAGE value="1" />
+    <option name="LAST_COMMIT_MESSAGE" value="1" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
