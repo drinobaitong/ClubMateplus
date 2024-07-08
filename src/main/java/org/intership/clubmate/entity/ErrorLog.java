@@ -11,23 +11,11 @@ import java.util.Date;
 @Getter
 @Setter
 @TableName("error_log")
-public class ErrorLog {
-    @TableField("id")
-    private int id;
+public class ErrorLog extends BaseLog {
+
     @TableField("err_code")
-    private String errCode;
+    private int errCode;
     @TableField("err_message")
     private String errMessage;
-    @TableField("user_id")
-    private int userId;
-    @TableField("opera_method")
-    private String operaMethod;
-    @TableField("opera_ip")
-    private String operaIp;
-    @TableField("opera_time")
-    private Date operaTime;
-    @TableField("opera_url")
-    private String operaUrl;
-    @TableField("operate_request")
-    private String operateRequest;
+
 }
