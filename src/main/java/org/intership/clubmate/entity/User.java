@@ -29,7 +29,7 @@ public class User  {
     @TableField(exist = false)
     private String token;
     @TableField("political_affiliation")
-    private int politicalAffiliation;
+    private String politicalAffiliation;
     @TableField("department")
     private String department;
     @TableField("phone")
