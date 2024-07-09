@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
+@CrossOrigin(origins="*")
 public class MessageController {
     @Autowired
     private MessageService messageService;

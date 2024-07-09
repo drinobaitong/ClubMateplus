@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins="*")
 @Slf4j
 public class UCJoinController {
     @Autowired
