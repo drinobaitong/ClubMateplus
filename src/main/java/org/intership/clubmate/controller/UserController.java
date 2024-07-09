@@ -24,6 +24,7 @@ import org.intership.clubmate.pojo.ResponseResult;
 import java.util.Date;
 
 @RestController
+@CrossOrigin(origins="*")
 @RequestMapping("/user")
 
 public class UserController {

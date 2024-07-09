@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.UUID;
 
 @RestController
+@CrossOrigin(origins="*")
 @RequestMapping("/file")
 public class FileController {
 
