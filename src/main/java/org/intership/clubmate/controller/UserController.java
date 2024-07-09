@@ -33,21 +33,18 @@ public class UserController {
     @Autowired
     private HttpServletRequest request;
 
-    @Autowired
-    private OperaLogService operaLogService;
 
-    @Autowired
-    private ErrorLogService errorLogService;
     /*获取用户
     根据rank,不写rank默认全部用户*/
     @RequestMapping("/getAll")
+    @Log(operaModule = "获取用户列表",operaType = "GET")
     public ResponseResult getAllUser(@RequestParam(defaultValue = "1") Integer pageNum,
                                      @RequestParam(defaultValue = "10") Integer pageSize,
                                      @RequestParam (defaultValue= "3")int rank
                                      ){
         IPage<User> page = new Page<>(pageNum, pageSize);
         LambdaQueryWrapper<User> queryWrapper = Wrappers.lambdaQuery();
-        if (rank == 1||rank==2) {
+        if (rank==0||rank == 1||rank==2) {
             queryWrapper.eq(User::getRank,rank);
         }
         IPage<User> userPage= userService.getAll(page,queryWrapper);
@@ -55,6 +52,7 @@ public class UserController {
     }
 
     @PostMapping("/add")
+    @Log(operaModule = "新增用户",operaType = "ADD")
     public ResponseResult addUser(@RequestBody User user){
         User res = userService.addUser(user);
         if(res==null){
@@ -67,12 +65,14 @@ public class UserController {
 
 
     @RequestMapping("/delete")
+    @Log(operaModule = "删除用户",operaType = "DELETE")
     public ResponseResult deleteUser(@RequestParam int id){
         userService.deleteUser(id);
         return ResponseResult.success();
     }
 
     @RequestMapping("/update")
+    @Log(operaModule = "更新用户信息",operaType = "UPDATE")
     public ResponseResult updateUser(@RequestBody User user){
         User res = userService.updateUser(user);
         if(res!=null){
@@ -81,6 +81,7 @@ public class UserController {
     }
 
     @RequestMapping("/getInfo/{id}")
+    @Log(operaModule = "获取用户信息",operaType = "GET")
     public ResponseResult getInfo(@PathVariable int id){
         User res =userService.getById(id);
         if(res!=null){
@@ -89,7 +90,7 @@ public class UserController {
     }
 
     @RequestMapping("/login")
-    @Log(operaModule = "用户管理-新增用户",operaType = "ADD")
+    @Log(operaModule = "登录",operaType = "GET")
     public ResponseResult login(@RequestBody User user){
         System.out.println(user.getId());
         User res =userService.login(user.getId(),user.getPassword());
@@ -106,6 +107,7 @@ public class UserController {
     }
 
     @RequestMapping("/register")
+    @Log(operaModule = "注册",operaType = "ADD")
     public ResponseResult register(@RequestBody User user){
         User res =userService.getById(user.getId());
         if(res!=null){
