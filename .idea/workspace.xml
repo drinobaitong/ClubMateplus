@@ -4,16 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e79046d8-1f26-41d9-a948-c5e3e225be7d" name="Changes" comment="1">
+    <list default="true" id="e79046d8-1f26-41d9-a948-c5e3e225be7d" name="Changes" comment="更新">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/UserClubCollectionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/UserClubCollectionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/mapper/UserClubCollectionMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/mapper/UserClubCollectionMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/UserClubCollectionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/UserClubCollectionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/impl/UserClubCollectionImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/impl/UserClubCollectionImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/UserClubCollectionController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/UserClubCollectionController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/mapper/UserClubCollectionMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/mapper/UserClubCollectionMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/UserClubCollectionService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/UserClubCollectionService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/impl/UserClubCollectionImp.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/impl/UserClubCollectionImp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/ArticleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/ClubTypeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/ClubTypeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/ClubController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/ClubController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/UCJoinController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/UCJoinController.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +34,20 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;vakoprs&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="a650fe08-87e4-4a9a-b5bd-784c29cfb3ef" />
+        <option name="url" value="https://github.com/drinobaitong/ClubMateplus.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
   <component name="HttpClientSelectedEnvironments">
     <file url="jar://$APPLICATION_HOME_DIR$/plugins/restClient/lib/restClient.jar!/com/intellij/ws/rest/client/requests/collection/post-requests.http" environment="test" />
   </component>
@@ -46,8 +57,10 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
+        <option name="customMavenHome" value="E:\apache-maven-3.9.8\apache-maven-3.9.8-bin\apache-maven-3.9.8" />
         <option name="localRepository" value="D:\Maven\repository" />
-        <option name="userSettingsFile" value="D:\Maven\apache-maven-3.9.6-bin\apache-maven-3.9.6\conf\settings.xml" />
+        <option name="mavenHomeTypeForPersistence" value="CUSTOM" />
+        <option name="userSettingsFile" value="E:\apache-maven-3.9.8\apache-maven-3.9.8-bin\apache-maven-3.9.8\conf\settings.xml" />
       </MavenGeneralSettings>
     </option>
   </component>
@@ -58,44 +71,47 @@
   &quot;associatedIndex&quot;: 4
 }</component>
   <component name="ProjectId" id="2ici9uxcj52Sis6KqSkOWY7uj1Z" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Maven.clubMate [install].executor": "Run",
-    "Notification.DisplayName-DoNotAsk-Lombok plugin": "Lombok 集成问题",
-    "Notification.DoNotAsk-Lombok plugin": "true",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "server",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/java/clubMate",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Maven.clubMate [install].executor&quot;: &quot;Run&quot;,
+    &quot;Notification.DisplayName-DoNotAsk-Lombok plugin&quot;: &quot;Lombok 集成问题&quot;,
+    &quot;Notification.DoNotAsk-Lombok plugin&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.ClubMateApplication.executor&quot;: &quot;Run&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;server&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/java/clubMate&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\java\clubMate\src\main\resources\mapper" />
@@ -141,6 +157,7 @@
       <workItem from="1720139753207" duration="14606000" />
       <workItem from="1720227090420" duration="20321000" />
       <workItem from="1720399515274" duration="19133000" />
+      <workItem from="1720485501507" duration="2763000" />
     </task>
     <task id="LOCAL-00001" summary="后端矿建">
       <option name="closed" value="true" />

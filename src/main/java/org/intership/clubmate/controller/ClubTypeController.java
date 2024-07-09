@@ -36,7 +36,7 @@ public class ClubTypeController {
         }else return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"此类别不存在！");
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public ResponseResult updateClubType(String type,String newType){
         ClubType clubType=clubTypeService.getClubType(type);
         if(clubType!=null){
