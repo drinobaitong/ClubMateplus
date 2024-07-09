@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+@CrossOrigin(origins = "*")//跨域有用
 @RestController
 @RequestMapping("/articles")
 public class ArticleController {
@@ -91,7 +92,7 @@ public class ArticleController {
     }
 
     //修改帖子
-    @PostMapping("/update/{id}")
+    @PutMapping("/update/{id}")
     public ResponseResult modifyArticle(@PathVariable("id")Integer id,String title,String content,String avatarUrl){
         Article article=articleService.getById(id);
         if(article!=null){
@@ -130,7 +131,7 @@ public class ArticleController {
     }
 
     //设置精华
-    @PostMapping("/setet/{id}")
+    @PutMapping("/setet/{id}")
     public ResponseResult setEssenceTrue(@PathVariable("id")Integer id){
         Article article=articleService.getById(id);
         if(article!=null){
@@ -145,7 +146,7 @@ public class ArticleController {
     }
 
     //取消设置精华
-    @PostMapping("/setef/{id}")
+    @PutMapping("/setef/{id}")
     public ResponseResult setEssenceFalse(@PathVariable("id")Integer id){
         Article article=articleService.getById(id);
         if(article!=null){

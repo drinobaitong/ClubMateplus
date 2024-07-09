@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e79046d8-1f26-41d9-a948-c5e3e225be7d" name="Changes" comment="评论增加了发布时间">
+    <list default="true" id="e79046d8-1f26-41d9-a948-c5e3e225be7d" name="Changes" comment="更新">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/ClubController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/ClubController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/UCJoinController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/UCJoinController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/ArticleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/ClubTypeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/ClubTypeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/ClubController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/ClubController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/UCJoinController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/UCJoinController.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,8 +20,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="Interface" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -32,6 +34,20 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;vakoprs&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="a650fe08-87e4-4a9a-b5bd-784c29cfb3ef" />
+        <option name="url" value="https://github.com/drinobaitong/ClubMateplus.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
   <component name="HttpClientSelectedEnvironments">
     <file url="jar://$APPLICATION_HOME_DIR$/plugins/restClient/lib/restClient.jar!/com/intellij/ws/rest/client/requests/collection/post-requests.http" environment="test" />
   </component>
@@ -41,8 +57,10 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
+        <option name="customMavenHome" value="E:\apache-maven-3.9.8\apache-maven-3.9.8-bin\apache-maven-3.9.8" />
         <option name="localRepository" value="D:\Maven\repository" />
-        <option name="userSettingsFile" value="D:\Maven\apache-maven-3.9.6-bin\apache-maven-3.9.6\conf\settings.xml" />
+        <option name="mavenHomeTypeForPersistence" value="CUSTOM" />
+        <option name="userSettingsFile" value="E:\apache-maven-3.9.8\apache-maven-3.9.8-bin\apache-maven-3.9.8\conf\settings.xml" />
       </MavenGeneralSettings>
     </option>
   </component>
@@ -85,7 +103,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;Shelf.Project.Settings&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -117,13 +135,6 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="jdk-17.0.10-corretto-17.0.10-4caba194b151-5cd809f4" />
-      </set>
-    </attachedChunks>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -144,10 +155,9 @@
       <workItem from="1719975392935" duration="20169000" />
       <workItem from="1720053929123" duration="19727000" />
       <workItem from="1720139753207" duration="14606000" />
-      <workItem from="1720227090420" duration="8333000" />
-      <workItem from="1720255615157" duration="1057000" />
-      <workItem from="1720278631563" duration="1714000" />
-      <workItem from="1720399189977" duration="1778000" />
+      <workItem from="1720227090420" duration="20321000" />
+      <workItem from="1720399515274" duration="19133000" />
+      <workItem from="1720485501507" duration="2763000" />
     </task>
     <task id="LOCAL-00001" summary="后端矿建">
       <option name="closed" value="true" />
@@ -317,23 +327,39 @@
       <option name="project" value="LOCAL" />
       <updated>1720171354804</updated>
     </task>
-    <task id="LOCAL-00022" summary="消息推送">
+    <task id="LOCAL-00022" summary="登录日志以及错误日志">
       <option name="closed" value="true" />
-      <created>1720280334959</created>
+      <created>1720237544179</created>
       <option name="number" value="00022" />
       <option name="presentableId" value="LOCAL-00022" />
       <option name="project" value="LOCAL" />
-      <updated>1720280334959</updated>
+      <updated>1720237544179</updated>
     </task>
-    <task id="LOCAL-00023" summary="消息推送">
+    <task id="LOCAL-00023" summary="操作日志">
       <option name="closed" value="true" />
-      <created>1720280379745</created>
+      <created>1720258412056</created>
       <option name="number" value="00023" />
       <option name="presentableId" value="LOCAL-00023" />
       <option name="project" value="LOCAL" />
-      <updated>1720280379745</updated>
+      <updated>1720258412056</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="操作日志的修改">
+      <option name="closed" value="true" />
+      <created>1720408821415</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1720408821415</updated>
+    </task>
+    <task id="LOCAL-00025" summary="1">
+      <option name="closed" value="true" />
+      <created>1720427676905</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1720427676905</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -380,9 +406,11 @@
     <MESSAGE value="Merge remote-tracking branch 'origin/server' into server&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;target/classes/org/intership/clubmate/controller/UserController.class&#10;#&#9;target/classes/org/intership/clubmate/enums/HttpCode.class" />
     <MESSAGE value="社团收藏" />
     <MESSAGE value="新增学院" />
-    <MESSAGE value="消息推送" />
-    <MESSAGE value="评论增加了发布时间" />
-    <option name="LAST_COMMIT_MESSAGE" value="评论增加了发布时间" />
+    <MESSAGE value="登录日志以及错误日志" />
+    <MESSAGE value="操作日志" />
+    <MESSAGE value="操作日志的修改" />
+    <MESSAGE value="1" />
+    <option name="LAST_COMMIT_MESSAGE" value="1" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

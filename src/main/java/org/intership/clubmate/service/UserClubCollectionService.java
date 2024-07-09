@@ -14,5 +14,5 @@ public interface UserClubCollectionService  extends IService<UserClubCollection>
     public void delete(int uid,int cid);
 
     public UserClubCollection findUserClubCollection(int uid,int cid);
-    public IPage<UserClubCollection> getClub(IPage<UserClubCollection> page, Wrapper<UserClubCollection> queryWrapper);
+    public IPage<Club> getClub(IPage<UserClubCollection> page,int uid);
 }
