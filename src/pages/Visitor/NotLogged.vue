@@ -232,6 +232,10 @@
     margin-top: 15px;
   }
 
+  .a-image:hover{
+    cursor:pointer;
+  }
+
   .a-text{
     margin-left:55px;
     width: 445px;
