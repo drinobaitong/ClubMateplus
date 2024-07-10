@@ -26,10 +26,10 @@
               <span >首页</span>
             </el-menu-item>
             <router-link to="/">
-            <el-menu-item index="2" >
-              <el-icon><document /></el-icon>
+              <el-menu-item index="2" >
+                <el-icon><document /></el-icon>
                 <span>社团审核</span>
-            </el-menu-item>
+              </el-menu-item>
             </router-link>
             <router-link to="/Cancel">
               <el-menu-item index="3">
@@ -38,10 +38,10 @@
               </el-menu-item>
             </router-link>
             <router-link to="/ChangeN">
-            <el-menu-item index="4">
-              <el-icon><setting /></el-icon>
-              <span>社团信息变更</span>
-            </el-menu-item>
+              <el-menu-item index="4">
+                <el-icon><setting /></el-icon>
+                <span>社团信息变更</span>
+              </el-menu-item>
             </router-link>
             <router-link to="/ClubControl">
               <el-menu-item index="5">
@@ -50,16 +50,16 @@
               </el-menu-item>
             </router-link>
             <router-link to="/NumberR">
-            <el-menu-item index="6">
-              <el-icon><setting /></el-icon>
-              <span>成员审核</span>
-            </el-menu-item>
+              <el-menu-item index="6">
+                <el-icon><setting /></el-icon>
+                <span>成员审核</span>
+              </el-menu-item>
             </router-link>
             <router-link to="/PostR">
-            <el-menu-item index="7">
-              <el-icon><setting /></el-icon>
-              <span>社团发帖审核</span>
-            </el-menu-item>
+              <el-menu-item index="7">
+                <el-icon><setting /></el-icon>
+                <span>社团发帖审核</span>
+              </el-menu-item>
             </router-link>
             <router-link to="/ContentControl">
               <el-menu-item index="8">
@@ -79,7 +79,7 @@
       <!---上边栏--->
       <el-container >
         <el-header class="header">
-              <span class="text-large font-600 mr-3"><h2>社团审核 </h2></span>
+          <span class="text-large font-600 mr-3"><h2>社团审核 </h2></span>
         </el-header>
         <!---主界面--->
         <el-main>
@@ -87,7 +87,7 @@
           <el-form :inline="true" :model="formInline" class="demo-form-inline">
             <el-form-item label="学院">
               <el-select
-                  v-model="formInline.collage"
+                  v-model="formInline.college"
                   placeholder="计算机学院"
                   clearable
               >
@@ -95,9 +95,9 @@
                 <el-option label="哲学学院" value="哲学学院" />
               </el-select>
             </el-form-item>
-<!--            <el-form-item label="类别">
+            <el-form-item label="类别">
               <el-select
-                  v-model="formInline.tags"
+                  v-model="formInline.category"
                   placeholder="创新创业类"
                   clearable
               >
@@ -108,55 +108,43 @@
             </el-form-item>
             <el-form-item label="审核状态">
               <el-select
-                  v-model="formInline.status"
+                  v-model="formInline.state"
                   placeholder="未审核"
                   clearable
               >
                 <el-option label="未审核" value="未审核" />
                 <el-option label="已审核" value="已审核" />
               </el-select>
-            </el-form-item>-->
+            </el-form-item>
             <el-form-item >
-              <el-input v-model="formInline.name" placeholder="社团名称" clearable />
+              <el-input v-model="formInline.clubName" placeholder="社团名称" clearable />
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="onSubmit">Query</el-button>
             </el-form-item>
           </el-form>
           <!---审核数据--->
-          <el-table :data="filteredTableData" style="width: 100%">
-            <el-table-column fixed prop="name" label="社团名称"  width="150" />
-            <el-table-column prop="tags" label="类别" width="120">
+          <el-table :data="tableData" style="width: 100%">
+            <el-table-column fixed prop="id" label="社团名称"  width="150" />
+            <el-table-column prop="name" label="类别" width="120" />
+            <el-table-column prop="introduce" label="学院" width="120" />
+            <el-table-column prop="createUserId" label="负责人" width="120" />
+            <el-table-column prop="avatarUrl" label="负责人学院" width="120" />
+            <el-table-column prop="status" label="成立日期" width="120" />
+            <el-table-column prop="registerTime" label="审核状态" width="120" />
+            <el-table-column fixed="right" label="操作" min-width="120">
               <template #default="scope">
-                <!-- 根据 tags 的值显示不同的类别名称 -->
-                <span v-if="scope.row.tags === '1'">文学创作类</span>
-                <span v-if="scope.row.tags === '3'">文化体育类</span>
-                <!-- 如果需要，可以添加更多的条件分支 -->
-              </template>
-          </el-table-column>
-          <el-table-column prop="collage" label="学院" width="120" />
-          <el-table-column prop="pname" label="负责人" width="120" />
-          <el-table-column prop="department" label="负责人学院" width="120" />
-          <el-table-column prop="registerTime" label="成立日期" width="120" />
-            <el-table-column prop="status" label="审核状态" width="120" >
-              <template #default="scope">
-              <span v-if="scope.row.status === 0">未审核</span>
-              <span v-if="scope.row.status === 1">已审核</span>
+                <el-button link type="primary" size="small" @click="handleClick(scope.row)"  v-if="scope.row.state==='未审核'">
+                  同意
+                </el-button>
+                <el-button link type="primary" size="small" @click="rejectClick(scope.row)" v-if="scope.row.state==='未审核'">拒绝</el-button>
+                <el-button link type="primary" size="small" v-if="scope.row.state==='已审核'&&scope.row.flag==='0'">已同意</el-button>
+                <el-button link type="primary" size="small" v-if="scope.row.state==='已审核'&&scope.row.flag==='1'">已拒绝</el-button>
+                <el-button link type="primary" size="small" @click="recoverClick(scope.row)" v-if="scope.row.state==='已审核'&&(scope.row.flag==='0'||scope.row.flag==='1')">还原</el-button>
+                <el-button link type="primary" size="small" @click="reAgreeClick(scope.row)" v-if="scope.row.state==='已审核'&&scope.row.flag==='0'">永久同意</el-button>
+                <el-button link type="primary" size="small" @click="reForeverClick(scope.row)" v-if="scope.row.state==='已审核'&&scope.row.flag==='1'">永久拒绝</el-button>
               </template>
             </el-table-column>
-          <el-table-column fixed="right" label="操作" min-width="120">
-            <template #default="scope">
-              <el-button link type="primary" size="small" @click="handleClick(scope.row)"  v-if="scope.row.status===0">
-                同意
-              </el-button>
-              <el-button link type="primary" size="small" @click="rejectClick(scope.row)" v-if="scope.row.status===0">拒绝</el-button>
-              <el-button link type="primary" size="small" v-if="scope.row.state===1">已同意</el-button>
-              <el-button link type="primary" size="small" v-if="scope.row.state===1">已拒绝</el-button>
-              <el-button link type="primary" size="small" @click="recoverClick(scope.row)" v-if="scope.row.status===1&&(scope.row.flag==='0'||scope.row.flag==='1')">还原</el-button>
-              <el-button link type="primary" size="small" @click="reAgreeClick(scope.row)" v-if="scope.row.status===1&&scope.row.flag===0">永久同意</el-button>
-              <el-button link type="primary" size="small" @click="reForeverClick(scope.row)" v-if="scope.row.status===1&&scope.row.flag==='1'">永久拒绝</el-button>
-            </template>
-          </el-table-column>
           </el-table>
           <!---分页--->
           <div class="changePage">
@@ -171,21 +159,21 @@
         </el-main>
       </el-container>
     </el-container>
-    <el-button link type="primary" size="small" @click="getList" >
+    <el-button link type="primary" size="small" @click="get" >
       获取数据
     </el-button>
   </div>
 </template>
 
 <script lang="ts" setup>
-import {computed,reactive,onMounted,getCurrentInstance,toRefs,watch} from 'vue'
+import {computed, reactive, toRefs,watch} from 'vue'
 import {
   Document,
   Menu as IconMenu,
   Location,
   Setting,
 } from '@element-plus/icons-vue'
-const tableData=reactive([])
+
 const state = reactive({
   circleUrl:
       'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
@@ -194,33 +182,33 @@ const state = reactive({
 
 const { circleUrl} = toRefs(state)
 const formInline = reactive({
-  id:'',
-  collage: '',
-  status:'',
-  tags:'',
-  name:''
+  clubName:'',
+  college: '',
+  category: '',
+  state:'',
 })
 
 const onSubmit = () => {
   console.log('submit!')
 }
+
 // 使用计算属性根据筛选条件过滤数据
 const filteredTableData = computed(() => {
   return tableData.filter(item => {
     // 如果输入社团名称，也进行名称筛选
-    if (formInline.name && !item.name.includes(formInline.name)) {
+    if (formInline.clubName && !item.clubName.includes(formInline.clubName)) {
       return false;
     }
     // 如果选择了学院，只显示该学院的社团
-    if (formInline.collage && item.collage !== formInline.collage) {
+    if (formInline.college && item.college !== formInline.college) {
       return false;
     }
     // 如果选择了类别，只显示该类别的社团
-    if (formInline.tags && item.tags !== formInline.tags) {
+    if (formInline.category && item.category !== formInline.category) {
       return false;
     }
     //审核状态
-    if (formInline.status && item.state !== formInline.status) {
+    if (formInline.state && item.state !== formInline.state) {
       return false;
     }
     return true;
@@ -230,30 +218,30 @@ const filteredTableData = computed(() => {
 //审核同意
 const handleClick = (row) => {
   //通过 row 来获取当前行数据
-  if (row.status === 0) {
+  if (row.state === '未审核') {
     // 将当前行的审核状态改为 '已审核'
-    row.status = 1;
-    //row.flag='0';
+    row.state = '已审核';
+    row.flag='0';
     console.log('状态更新为已审核：', row);
   }
 };
 //审核拒绝
 const rejectClick = (row) => {
   //通过 row 来获取当前行数据
-  if (row.status === 0) {
+  if (row.state === '未审核') {
     // 将当前行的审核状态改为 '已审核'
-    row.status = 1;
-    //row.flag='1';
+    row.state = '已审核';
+    row.flag='1';
     console.log('状态更新为已审核：', row);
   }
 };
 //永久同意
 const reAgreeClick = (row) => {
-    row.flag='';
+  row.flag='';
 }
 //永久拒绝
 const reForeverClick = (row) => {
-    row.flag='';
+  row.flag='';
 }
 //未审核
 const recoverClick = (row) => {
@@ -295,52 +283,31 @@ const handleCurrentChange = (newPage) => {
 
 // 假设初始加载第一页数据
 // fetchData(state.currentPage);
-const { proxy } = getCurrentInstance();
+
 import axios from 'axios';
-async function getList() {
-  try {
-    // 第一次调用：获取社团列表数据
-    const clubRes = await axios.get('http://localhost:8080/club/list');
-    const clubRecords = clubRes.data.data.records;
-    // 将社团列表数据存储到 tableData
-    tableData.splice(0, tableData.length, ...clubRecords);
-    console.log('第一次获取的社团数据:', tableData);
 
-    // 异步函数数组，用于存储第二次调用的 Promise
-    const userPromises = clubRecords.map(record => {
-      // 为每个社团的 CreateUserId 调用第二个接口
-      return axios.get(`http://localhost:8080/user/getInfo/${record.createUserId}`);
-    });
 
-    // 等待所有第二次调用完成
-    const userResponses = await Promise.all(userPromises);
-
-    // 根据 CreateUserId 将用户信息与社团数据合并
-    userResponses.forEach((response, index) => {
-      const userInfo = response.data; // 获取用户信息
-      const club = tableData.find(item => item.createUserId === clubRecords[index].createUserId);
-      if (club) {
-        // 假设用户信息存储在一个新的字段中，例如 creatorInfo
-        club.pname = userInfo.data.name;
-        club.department=userInfo.data.department;
-      }
-    });
-
-    console.log('更新后的 tableData:', tableData);
-  } catch (error) {
-    console.error("Error fetching data: ", error);
+const config = {
+  method: 'get',
+  url: 'http://127.0.0.1:4523/m1/4751967-4405137-default/club/list',
+  headers: {
+    'User-Agent': 'Api fox/1.0.0 (https://apifox.com)'
   }
-}
-/*axios.get('http://localhost:8080/club/list?pageNo&pageSize')
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });*/
+};
 
-// 在组件挂载时调用 getList 函数
-onMounted(getList);
+const get = () => {
+  axios(config)
+      .then(function (response) {
+        var _this=this;
+        //this.tableData=response.data.data;
+        //console.log(JSON.stringify(tableData));
+        console.log(JSON.stringify(response.data.data));
+        this.tableData=response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+}
 
 
 </script>
