@@ -5,121 +5,79 @@
         <el-aside>
          <!-- 侧边栏 -->
          <div class="sidebar">
-            <ul class="nav2">
-                <li>
-                    <a href="#" data-target="whole">
-                        全部分类
-                    </a>
-                </li>
-                <li>
-                    <a href="#" data-target="mind">
-                        思想政治类
-                    </a>
-                </li>
-                <li>
-                    <a href="#" data-target="tech">
-                        学术科技类
-                    </a>
-                </li>
-                <li>
-                    <a href="#" data-target="sport">
-                        文化体育类
-                    </a>
-                </li>
-                <li>
-                    <a href="#" data-target="innovation">
-                        创新创业类
-                    </a>
-                </li>
-                <li>
-                    <a href="#" data-target="volunteer">
-                        志愿公益类
-                    </a>
-                </li>
-                <li>
-                    <a href="#" data-target="help">
-                        自律互助类
-                    </a>
-                </li>
-            </ul>
+          <ul class = "nav2">
+            <li v-for="category in categories" :key="category.target">  
+               <a href="#" :data-target="category.target" :class="{ 'active': activeTarget === category.target }">  
+                  {{ category.name }}  
+               </a>  
+          </li>  
+       </ul>
         </div>
         </el-aside>
 
         <el-main>
-          
+
+          <!-- 搜索区域 -->
+          <el-select
+      v-model="value"
+      placeholder="计算机学院"
+      size="large"
+      style="width: 240px; float:right ;height: 60px; font-size: 25px;font-weight: 700;"
+    ><el-option
+        v-for="item in options"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value"
+      />
+    </el-select>
+
            <!-- 内容区域 -->
-        <div id="content">
+        <div id="content" style="overflow: hidden;">
             <div class="container-fluid">
                 <div id="whole" class="page">
-                  <div class = "box">
-                    <div class = "image"></div>
-                      <div>
-                        <h3>我是街舞社</h3>
-                        <p>机务段回款及哦孩子小·</p>
-                        <p>何须问i哦健康码</p>
-                      </div>
-                  </div>
-                  <div class = "box">这是一个社团</div>
-                  <div class = "box">这是一个社团</div>
-                  <div class = "box">这是一个社团</div>
-                
+                  <div class = "box" v-for="(club, index) in lists" :key="index">
+                    <NotLogged :club = club :setDialogVisible = setDialogVisible :wid=300 :hei=300 />
+                    <div style="margin-left:40px ;">
+                   <h4 style="font-size: 24px;">{{club.name}}</h4>
+                   <p>{{club.tags}}</p>
+                   <p>{{club.unit}}</p>
                 </div>
-                <div id="mind" class="page" style="display:none">
-                  <div v-for = "club in lists" class = "box">
-                    <div class = "image"></div>
-                        <h3>{{club.name}}</h3>
-                        <p>{{club.class}}</p>
-                        <p>指导单位{{club.unit}}</p>
-                        <p>指导老师：{{club.teacher}}</p>
-                      </div>
+           </div>
                 </div>
-                <div id="tech" class="page" style="display:none">
-                    <h1>概览内容</h1>
-                    <p>这是概览的内容。</p>
-                </div>
-                <div id="sport" class="page" style="display:none">
-                    <h1>事件内容</h1>
-                    <p>这是事件的内容。</p>
-                </div>
-                <div id="innovation" class="page" style="display:none">
-                    <h1>关于内容</h1>
-                    <p>这是关于的内容。</p>
-                </div>
-                <div id="volunteer" class="page" style="display:none">
-                    
-  <div class = "box" v-for="(club, index) in lists" :key="index">
-    <el-button plain @click="setDialogVisible(index, true)" class = "image"></el-button>
-    
-  <el-dialog
-    v-model="dialogVisible[index]"
-    width="600"
-    destroy-on-close
-    center
-    align-center
-  >
-  <div class = "detail">
-    <h3 class = "detail-h">社团介绍</h3>
-  <p><strong class = "detail-s">社团名称:</strong>{{club.name}}</p>
-  <p><strong class = "detail-s">社团分类:</strong>{{club.tags}}</p>
-  <p><strong class = "detail-s">社团介绍:</strong>{{club.introduce}}</p>
-  </div>
-  </el-dialog>
-    <div>
-      <h4>{{club.name}}</h4>
-      <p>指导单位：{{club.unit}}</p>
-    </div>
-  </div>
 
+                <!-- 思想政治类 -->
+                <div id="mind" class="page" style="display:none">
                 </div>
+
+                <!-- 学术科技类 -->
+                <div id="tech" class="page" style="display:none">
+                </div>
+
+                <!-- 文化体育类 -->
+                <div id="sport" class="page" style="display:none">
+                </div>
+
+                <!-- 创新创业类 -->
+                <div id="innovation" class="page" style="display:none">
+                </div>
+
+                <!-- 志愿公益类 -->
+                <div id="volunteer" class="page" style="display:none">
+                </div>
+
+                <!-- 自律互助类 -->
                 <div id="help" class="page" style="display:none">
-                    <h1>联系我们内容</h1>
-                    <p>这是联系我们的内容。</p>
                 </div>
             </div>
 
         <!-- 添加分页 -->
-
+         <div class = "pagination">
+        <el-pagination background layout="prev, pager, next"    class="mt-4"  :total="50"/>
+      </div>
         </div>
+
+        <div class = "bgi"></div>
+
         </el-main>
       </el-container>
     </el-container>
@@ -128,42 +86,98 @@
 
 
 <script setup name = "Overview">
-  import { onMounted, ref } from 'vue';  
-  import { Search } from '@element-plus/icons-vue';
+  import { ref } from 'vue';  
+  import NotLogged from './NotLogged.vue';
 
-  const input2 = ref('')
   const dialogVisible = ref({}); 
 
   function setDialogVisible(index, isVisible) {  
   dialogVisible.value[index] = isVisible;  
 }  
 
+// 存储当前选中的链接的data-target值  
+const activeTarget = ref('');  
+  
+const categories = [  
+  { name: '全部分类', target: 'whole' },  
+  { name: '思想政治类', target: 'mind' },  
+  { name: '学术科技类', target: 'tech' },  
+  { name: '文化体育类', target: 'sport' },  
+  { name: '创新创业类', target: 'innovation' },  
+  { name: '志愿公益类', target: 'volunteer' },  
+  { name: '自律互助类', target: 'help' }  
+];  
+  
+const value = ref('')
 
-  const lists = [
+const options = [
+  {
+    value: 'Option1',
+    label: '计算机学院',
+  },
+  {
+    value: 'Option2',
+    label: '数学与统计学院',
+  },
+  {
+    value: 'Option3',
+    label: '法学院',
+  },
+  {
+    value: 'Option4',
+    label: '哲学学院',
+  },
+  {
+    value: 'Option5',
+    label: '信息管理学院',
+  },
+]
+ 
+const lists = [
     {
-      name:"AOE舞蹈社",
-      class:"文化体育类",
-      unit:"武汉大学计算机学院",
-      teacher:"周晓晓"
+      id: 90,
+      createUserId: 75,
+      name:'珞珈晨跑队',
+      tags:'文化体育类',
+      unit:'弘毅学堂',
+      registerTime: "1974-05-20 16:53:33",
+      totalNumber:56,
+      avatarUrl: "http://dummyimage.com/100x100",
+      introduce:'这里是一个汇聚晨光与活力的温暖集体。不论你是跑步的初学者，还是经验丰富的马拉松爱好者，都能找到属于自己的节奏与伙伴。社团定期组织晨跑活动，享受运动带来的快乐与释放。我们鼓励成员间相互激励，分享跑步心得，共同成长。加入晨跑社团，不仅能让你的身体更加强健，更能让你的心灵在晨曦中得到净化与升华，开启一天满满的正能量。让我们一起，用奔跑的姿态，迎接每一个充满希望的新开始！'
     },
     {
-      name:"超级爱发电社",
-      class:"自律互助类",
-      unit:"武汉大学计算机学院",
-      teacher:"程嘉佳"
+      id: 90,
+      createUserId: 75,
+      registerTime: "1974-05-20 16:53:33",
+      totalNumber:56,
+      avatarUrl: "http://dummyimage.com/100x100",
+      name:'AOE舞蹈队',
+      tags:'文化体育类',
+      unit:'计算机学院',
+      introduce:'舞动青春，韵动梦想！我们是一支充满热情与创意的舞蹈队，以舞为媒，融合多元风格，用每一个跃动的节拍诠释对生活的热爱与追求。'
     },
     {
-      name:"作业好多写不完社",
-      class:"自律互助类",
-      unit:"北京大学计算机学院",
-      teacher:"three"
+      id: 90,
+      createUserId: 75,
+      registerTime: "1974-05-20 16:53:33",
+      totalNumber:56,
+      avatarUrl: "http://dummyimage.com/100x100",
+      name:'安全工作协会',
+      tags:'自律互助类',
+      unit:'保卫部',
+      introduce:'安全护航，责任为先。安全工作协会，致力于构建安全文化，提升安全意识，通过专业培训与交流，共筑安全防线，守护每一份安心与和谐。'
     },
     {
-      name:"AOE舞蹈社",
-      class:"文化体育类",
-      unit:"武汉大学计算机学院",
-      teacher:"周晓晓"
-    },
+      id: 90,
+      createUserId: 75,
+      registerTime: "1974-05-20 16:53:33",
+      totalNumber:56,
+      avatarUrl: "http://dummyimage.com/100x100",
+      name:'安全工作协会',
+      tags:'自律互助类',
+      unit:'保卫部',
+      introduce:'安全护航，责任为先。安全工作协会，致力于构建安全文化，提升安全意识，通过专业培训与交流，共筑安全防线，守护每一份安心与和谐。'
+    }
   ]
   
   document.addEventListener('DOMContentLoaded', function () {  
@@ -239,10 +253,6 @@
     overflow-y: auto;
 }
 
-.sidebar .nav2{
-
-}
-
 .sidebar .nav2 a{
     font-size:1.5rem;
     display:block;
@@ -257,6 +267,10 @@
     color: #1684FC;
 }
 
+.nav2 a .active {  
+  color: #1684FC;
+} 
+
 .el-main{
   background-color:#EFEFEF;
 }
@@ -270,16 +284,42 @@
 .box{
   margin-left:50px;
   display:flex;
-  background-color:#1684FC;
   width:500px;
   height:300px;
   margin-top:35px;
   margin-bottom:30px;
 }
 
-.image{
-  background-color:#d1d9e6;
-  width:300px;
-  height:300px;
-}
+.detail{
+    font-size:18px;
+    line-height:30px;
+  }
+
+  .detail-h{
+    text-align:center;
+    font-size:25px;
+    margin-top:-5px;
+    margin-bottom:30px;
+  }
+
+  .detail-s{
+    font-size:20px;
+    margin-right:15px;
+  }
+
+  .pagination{
+    margin-top: 20px;
+    margin-left: 650px;
+  }
+
+  .bgi{
+    z-index: 0;
+    position: absolute; 
+    left: 1530px;
+    top:600px;
+    width: 360px;
+    height: 250px;
+    background-size: cover;
+    background-image: url(.../picture/bgimage.png);
+  }
 </style>
