@@ -6,8 +6,8 @@
           <RouterLink to = "/" class = "nav" active-class = "active">首页</RouterLink>
           <RouterLink to = "/overview" class = "nav" active-class = "active">社团概览</RouterLink>
           <RouterLink to = "/login" class = "nav" active-class = "active" v-if = "!webStore.web.status">登录/注册</RouterLink>
-          <RouterLink to = "/Participation" class = "nav" active-class = "active" v-if = "webStore.web.status">个人信息</RouterLink>
-          <RouterLink to = "/Administration" class = "nav" active-class = "active" v-if = "webStore.web.status">后台管理</RouterLink>
+          <RouterLink to = "/Administration" class = "nav" active-class = "active" v-if = "webStore.web.status && webStore.web.identity === 'club'">个人信息</RouterLink>
+          <RouterLink to = "/ClubReview" class = "nav" active-class = "active" v-if = "webStore.web.status && webStore.web.identity === 'admin'">后台管理</RouterLink>
         </div>
         <el-input v-model="input2" style="width: 240px" placeholder="Please Input" :suffix-icon="Search" class = "search"/>
       </el-header> 
@@ -29,9 +29,12 @@
   const webStore = useWebStore();
 
   watch(() => webStore.web.status, (newStatus) => {  
-  if (newStatus && router.currentRoute.value.path === '/login') {  
+  if (newStatus && router.currentRoute.value.path === '/login' && webStore.web.identity === 'admin') {  
+    router.push('/ClubReview');  
+  }
+  if(newStatus && router.currentRoute.value.path === '/login' && webStore.web.identity !== 'admin')  {
     router.push('/Administration');  
-  }  
+  }
 });  
   
 

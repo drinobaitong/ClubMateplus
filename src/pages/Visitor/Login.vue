@@ -108,6 +108,7 @@
 
   function handleLogin(){//登录
     webStore.web.status = true;
+    //设置身份变量
   }
 
   onMounted(() => {  
