@@ -22,11 +22,31 @@ import ExitControl from '../pages/ClubController/ExitControl.vue'//退出审核
 import ClNumberControl from '../pages/ClubController/NumberControl.vue'//社团成员管理
 import PostControl from '../pages/ClubController/PostControl.vue'//发帖管理
 
+import HomePage from '../pages/Visitor/HomePage.vue'//主页
+import Login from '../pages/Visitor/Login.vue'//登录注册
+import NotLogged from '../pages/Visitor/NotLogged.vue'//社团详情
+import Overview from '../pages/Visitor/Overview.vue'//社团概览
+
 
 
 const routes = [
     {
         path: '/',
+        name: 'HomePage',
+        component: HomePage
+    },
+    {
+        path: '/overview',
+        name: 'Overview',
+        component: Overview
+    },
+    {
+        path: '/login',
+        name: 'Login',
+        component: Login
+    },
+    {
+        path: '/ClubReview',
         name: 'ClubReview',
         component: ClubReview
     },
