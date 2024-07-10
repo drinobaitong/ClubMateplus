@@ -320,6 +320,6 @@ const lists = [
     width: 360px;
     height: 250px;
     background-size: cover;
-    background-image: url(.../picture/bgimage.png);
+    background-image: url(@/picture/bgimage.png);
   }
 </style>
