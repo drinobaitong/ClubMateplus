@@ -1,5 +1,12 @@
 // createRouter用来新建路由实例，createWebHashHistory用来配置我们内容使用hash的模式（也就是路径上会通过#来区分）
 import { createRouter, createWebHashHistory } from 'vue-router'
+import Collection from '../pages/MeHome/collection.vue'
+import Participation from '../pages/MeHome/Participation.vue'
+import Administration from '../pages/MeHome/Administration.vue'
+import SetUpClub from '../pages/MeHome/SetUpClub.vue'
+import JoinClub from '../pages/ClubDetail/JoinClub.vue'
+import Post from '../pages/ClubDetail/Post.vue'
+
 import ClubReview from '../pages/SystemController/ClubReview.vue'
 import ClubCancellation from '../pages/SystemController/ClubCancellation.vue'
 import ChangeMessage from '../pages/SystemController/ChangeMessage.vue'
@@ -33,6 +40,37 @@ const routes = [
         name: 'PostControl',
         component: PostControl
     },
+    {
+        path: '/Collection',
+        name: 'Collection',
+        component: Collection
+    },
+    {
+        path: '/Participation',
+        name: 'Participation',
+        component: Participation
+    },
+    {
+        path: '/Administration',
+        name: 'Administration',
+        component: Administration
+    },
+    {
+        path: '/SetUpClub',
+        name: 'SetUpClub',
+        component: SetUpClub
+    },
+    {
+        path: '/JoinClub',
+        name: 'JoinClub',
+        component: JoinClub
+    },
+    {
+        path: '/Post',
+        name: 'Post',
+        component: Post
+    },
+
     {
         path: '/ClContentControl',
         name: 'ClContentControl',
@@ -89,6 +127,8 @@ const routes = [
         component: ClNumberReview
     },
 ]
+
+
 
 const router = createRouter({
     history: createWebHashHistory(),
