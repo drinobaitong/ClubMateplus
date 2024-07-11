@@ -42,6 +42,7 @@ public class ClubUpdateServiceImpl extends ServiceImpl<ClubUpdateMapper, ClubUpd
         club.setIntroduce(clubUpdate.getIntroduce());
         club.setCollage(clubUpdate.getCollage());
         club.setCreateUserId(clubUpdate.getCreateUserId());
+        club.setTags(clubUpdate.getType());
 
         return club;
     }

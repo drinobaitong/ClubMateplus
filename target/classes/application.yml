@@ -1,7 +1,9 @@
 
 server:
     port: 8080
-ai-api-key: sk-3f91d7ed4d75465e92ad5f154341f8e7
+ai:
+    api:
+        key: sk-3f91d7ed4d75465e92ad5f154341f8e7
 
 spring:
     application:

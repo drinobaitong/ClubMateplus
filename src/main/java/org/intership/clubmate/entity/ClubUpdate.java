@@ -13,4 +13,5 @@ public class ClubUpdate {
     private String introduce;
     private Integer createUserId;
     private String collage;
+    private String type;
 }
