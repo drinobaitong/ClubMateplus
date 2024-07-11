@@ -14,6 +14,7 @@ import org.intership.clubmate.service.ClubUpdateService;
 import org.intership.clubmate.service.MessageService;
 import org.intership.clubmate.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,6 +26,7 @@ import java.util.UUID;
 
 @RestController
 @Slf4j
+@CrossOrigin(origins="*")
 public class ClubController {
     @Autowired
     private ClubService clubService;
@@ -39,7 +41,7 @@ public class ClubController {
     public ResponseResult insertClub(@RequestBody Club club){
         log.info("新建社团");
         clubService.insertClub(club);
-        messageService.insert(club.getCreateUserId(),"您的社团："+club.getName()+"的创建申请已提交，目前正等待审核");
+       // messageService.insert(club.getCreateUserId(),"您的社团："+club.getName()+"的创建申请已提交，目前正等待审核");
         return ResponseResult.success();
     }
 
@@ -168,6 +170,13 @@ public class ClubController {
             messageService.insert(club.getCreateUserId(),"您的社团"+club.getName()+"更新请求未能通过");
         }
         return ResponseResult.success();
+    }
+
+    @GetMapping("club/update/list")
+    public ResponseResult updateList(){
+        log.info("社团更新列表");
+
+        return  ResponseResult.success(clubUpdateService.getUpdate());
     }
 
 
