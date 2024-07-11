@@ -19,22 +19,10 @@
 <div class = "introduction">
 
   <div class = "left" v-for="(club, index) in lists" :key="index">
-    <el-button plain @click="setDialogVisible(index, true)" class = "image"></el-button>
+    <!-- <el-button plain @click="setDialogVisible(index, true)" class = "image"></el-button> -->
     
-  <el-dialog
-    v-model="dialogVisible[index]"
-    width="600"
-    destroy-on-close
-    center
-    align-center
-  >
-  <div class = "detail">
-    <h3 class = "detail-h">社团介绍</h3>
-  <p><strong class = "detail-s">社团名称:</strong>{{club.name}}</p>
-  <p><strong class = "detail-s">社团分类:</strong>{{club.tags}}</p>
-  <p><strong class = "detail-s">社团介绍:</strong>{{club.introduce}}</p>
-  </div>
-  </el-dialog>
+  <NotLogged :club = club :setDialogVisible = setDialogVisible :wid=200 :hei=200 />
+
     <div>
       <h4>{{club.name}}</h4>
       <p>指导单位：{{club.unit}}</p>
@@ -47,8 +35,7 @@
   </template>
 
 <script setup name = "HomePage">
-  import { Search } from '@element-plus/icons-vue';
-  import {useRouter} from 'vue-router';
+  import NotLogged from './NotLogged.vue';
   import {ref} from 'vue';
 
   const dialogVisible = ref({}); // 使用对象来跟踪每个对话框的可见性 
@@ -59,25 +46,39 @@
 
   const lists = [
     {
+      id: 90,
+      createUserId: 75,
       name:'珞珈晨跑队',
       tags:'文化体育类',
       unit:'弘毅学堂',
+      registerTime: "1974-05-20 16:53:33",
+      totalNumber:56,
+      avatarUrl: "http://dummyimage.com/100x100",
       introduce:'这里是一个汇聚晨光与活力的温暖集体。不论你是跑步的初学者，还是经验丰富的马拉松爱好者，都能找到属于自己的节奏与伙伴。社团定期组织晨跑活动，享受运动带来的快乐与释放。我们鼓励成员间相互激励，分享跑步心得，共同成长。加入晨跑社团，不仅能让你的身体更加强健，更能让你的心灵在晨曦中得到净化与升华，开启一天满满的正能量。让我们一起，用奔跑的姿态，迎接每一个充满希望的新开始！'
     },
     {
+      id: 90,
+      createUserId: 75,
+      registerTime: "1974-05-20 16:53:33",
+      totalNumber:56,
+      avatarUrl: "http://dummyimage.com/100x100",
       name:'AOE舞蹈队',
       tags:'文化体育类',
       unit:'计算机学院',
       introduce:'舞动青春，韵动梦想！我们是一支充满热情与创意的舞蹈队，以舞为媒，融合多元风格，用每一个跃动的节拍诠释对生活的热爱与追求。'
     },
     {
-      name:'武汉大学大学生安全工作协会',
+      id: 90,
+      createUserId: 75,
+      registerTime: "1974-05-20 16:53:33",
+      totalNumber:56,
+      avatarUrl: "http://dummyimage.com/100x100",
+      name:'武汉大学安全工作协会',
       tags:'自律互助类',
       unit:'保卫部',
       introduce:'安全护航，责任为先。安全工作协会，致力于构建安全文化，提升安全意识，通过专业培训与交流，共筑安全防线，守护每一份安心与和谐。'
     }
   ]
-  const router = useRouter()
 
 </script>
 
@@ -169,17 +170,17 @@
   }
 
   .item:nth-child(1){
-    background-image:url(../picture/01.jpg);
+    background-image:url(@/picture/01.jpg);
     transform:rotateY(0) translateZ(35vw);
   }
 
   .item:nth-child(2){
-    background-image:url(../picture/02.jpg);
+    background-image:url(@/picture/02.jpg);
     transform:rotateY(120deg) translateZ(35vw);
   }
 
   .item:nth-child(3){
-    background-image:url(../picture/03.jpg);
+    background-image:url(@/picture/03.jpg);
     transform:rotateY(240deg) translateZ(35vw);
   }
 
@@ -234,7 +235,7 @@
   }
 
   .introduction .image:nth-child(1){
-    background-image:url(../picture/02.jpg);
+    background-image:url(@/picture/02.jpg);
   }
   
   .detail{

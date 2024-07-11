@@ -51,6 +51,10 @@
   import { ref, reactive, computed} from 'vue'
   import axios from 'axios'
 
+  import { useWebStore } from '@/stores/web.js';
+
+  const webStore = useWebStore();
+
   // 定义数据类型
   const registerData = reactive({
     username:'',
@@ -103,7 +107,8 @@
   }
 
   function handleLogin(){//登录
-    console.log("我点了")
+    webStore.web.status = true;
+    //设置身份变量
   }
 
   onMounted(() => {  

@@ -1,5 +1,12 @@
-// createRouter用来新建路由实例，createWebHashHistory用来配置我们内容使用hash的模式（也就是路径上会通过#来区分）
-import { createRouter, createWebHashHistory } from 'vue-router'
+// createRouter用来新建路由实例
+import { createRouter, createWebHistory } from 'vue-router'
+import Collection from '../pages/MeHome/collection.vue'
+import Participation from '../pages/MeHome/Participation.vue'
+import Administration from '../pages/MeHome/Administration.vue'
+import SetUpClub from '../pages/MeHome/SetUpClub.vue'
+import JoinClub from '../pages/ClubDetail/JoinClub.vue'
+import Post from '../pages/ClubDetail/Post.vue'
+
 import ClubReview from '../pages/SystemController/ClubReview.vue'
 import ClubCancellation from '../pages/SystemController/ClubCancellation.vue'
 import ChangeMessage from '../pages/SystemController/ChangeMessage.vue'
@@ -15,11 +22,30 @@ import ExitControl from '../pages/ClubController/ExitControl.vue'//退出审核
 import ClNumberControl from '../pages/ClubController/NumberControl.vue'//社团成员管理
 import PostControl from '../pages/ClubController/PostControl.vue'//发帖管理
 
+import HomePage from '../pages/Visitor/HomePage.vue'//主页
+import Login from '../pages/Visitor/Login.vue'//登录注册
+import Overview from '../pages/Visitor/Overview.vue'//社团概览
+
 
 
 const routes = [
     {
         path: '/',
+        name: 'HomePage',
+        component: HomePage
+    },
+    {
+        path: '/overview',
+        name: 'Overview',
+        component: Overview
+    },
+    {
+        path: '/login',
+        name: 'Login',
+        component: Login
+    },
+    {
+        path: '/ClubReview',
         name: 'ClubReview',
         component: ClubReview
     },
@@ -33,6 +59,37 @@ const routes = [
         name: 'PostControl',
         component: PostControl
     },
+    {
+        path: '/Collection',
+        name: 'Collection',
+        component: Collection
+    },
+    {
+        path: '/Participation',
+        name: 'Participation',
+        component: Participation
+    },
+    {
+        path: '/Administration',
+        name: 'Administration',
+        component: Administration
+    },
+    {
+        path: '/SetUpClub',
+        name: 'SetUpClub',
+        component: SetUpClub
+    },
+    {
+        path: '/JoinClub',
+        name: 'JoinClub',
+        component: JoinClub
+    },
+    {
+        path: '/Post',
+        name: 'Post',
+        component: Post
+    },
+
     {
         path: '/ClContentControl',
         name: 'ClContentControl',
@@ -91,7 +148,7 @@ const routes = [
 ]
 
 const router = createRouter({
-    history: createWebHashHistory(),
+    history: createWebHistory(import.meta.env.BASE_URL),
     routes
 })
 
