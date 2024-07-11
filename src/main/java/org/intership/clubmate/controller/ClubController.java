@@ -109,6 +109,15 @@ public class ClubController {
         return ResponseResult.success();
     }
 
+    @PostMapping("/club/update/direct")
+    public ResponseResult update(
+            @RequestBody Club club
+    ){
+        log.info("社团直接更新");
+        clubService.update(club);
+        return ResponseResult.success();
+    }
+
     @PutMapping("/club/audit/{id}")
     public ResponseResult audit(
             @RequestParam int status,
