@@ -76,7 +76,7 @@
               <el-col :span="6">
                 社团名称
                 <el-input
-                    v-model="tableData.clubName"
+                    v-model="data.tableData.name"
                     style="width: 240px"
                     placeholder="Please input"
                     clearable
@@ -85,7 +85,7 @@
                 <div class="grid-content ep-bg-purple" />
                 社团分类
                 <el-select
-                    v-model="tableData.type"
+                    v-model="data.tableData.type"
                     placeholder="Select"
                     style="width: 240px"
                 >
@@ -119,7 +119,7 @@
               <el-col :span="6">
                 创建日期
                 <el-input
-                    v-model="tableData.date"
+                    v-model="data.tableData.date"
                     style="width: 240px"
                     disabled
                 />
@@ -128,7 +128,7 @@
                 <div class="grid-content ep-bg-purple" />
                 学院
                 <el-select
-                    v-model="tableData.college"
+                    v-model="data.tableData.college"
                     placeholder="Select"
                     style="width: 240px"
                 >
@@ -149,7 +149,7 @@
               <el-col :span="6">
                 <div >社团简介</div>
                 <el-input
-                    v-model="tableData.introduction"
+                    v-model="data.tableData.introduction"
                     style="width: 340px"
                     :rows="7"
                     type="textarea"
@@ -160,7 +160,7 @@
                 <div class="grid-content ep-bg-purple" />
                 负责人姓名
                 <el-input
-                    v-model="tableData.name"
+                    v-model="data.tableData.createUser"
                     style="width: 240px"
                     placeholder="Please input"
                     clearable
@@ -197,19 +197,29 @@ import { Plus } from '@element-plus/icons-vue'
 import type { UploadProps, UploadUserFile } from 'element-plus'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import type { Action } from 'element-plus'
+import request from "@/request/request";
 //初始数据
-const tableData = reactive(
+const data = reactive(
   {
-    clubName: '舞蹈队',
-    type:'文化体育类',
-    name:'张三',
-    college: '计算机学院',
-    date: '2022-3-4',
-    postURL:'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
-    introduction:'这是一个社团简介',
+    tableData:{
+      name: '',
+      type:'',
+      college: '',
+      date: '',
+      postURL:'',
+      introduction:'',
+      createUserId:'',
+    },
+    createUser:'',
   });
 
-
+const load=()=>{
+  request.get('/club/get/6'
+  ).then(res=>{
+    data.tableData=res.data;
+  })
+}
+load();
 const options = [
   {
     value: '文学创作类',
@@ -220,8 +230,6 @@ const options = [
     label: '文化体育类',
   },
 ]
-
-
 const option = [
   {
     value: '计算机学院',
