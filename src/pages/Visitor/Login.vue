@@ -2,7 +2,7 @@
   <div class = "body">
     <div class = "shell">
       <div class = "container a-container" id = "a-container">
-        <form action = "" method = "" class = "form" id = "a-form" @submit.prevent = "handleCreate">
+        <form action = "" method = "" class = "form" id = "a-form">
           <h2 class = "form_title title">创建账号</h2>
           <input type="text" class="form_input" placeholder="用户名" v-model="registerData.username" />  
           <span v-if="errors.username" class="error-message">{{ errors.username }}</span>  
@@ -17,10 +17,13 @@
       <div class = "container b-container" id = "b-container">
         <form action = "" method = "" class = "form" id = "b-form">
           <h2 class = "form_title title">登入账号</h2>
-          <input type = "text" class = "form_input" placeholder="用户名">
-          <input type = "text" class = "form_input" placeholder="密码">
-          <a href = "#" class = "form_link" @click = "handleForget">忘记密码？</a>
-          <button class = "form_button button submit" @click = "handleLogin">SIGN IN</button>
+          <input type = "text" class = "form_input" placeholder="用户名" v-model="loginData.username">
+          <span v-if="errors2.username" class="error-message">{{ errors2.username }}</span>  
+          <input type = "password" class = "form_input" placeholder="密码" v-model="loginData.password" >
+          <span v-if="errors2.password" class="error-message">{{ errors2.password }}</span>  
+          <a href = "#" class = "form_link" @click="dialogFormVisible = true">忘记密码？</a>
+
+          <button class = "form_button button submit" @click = "validateForm2">SIGN IN</button>
         </form>
       </div>
 
@@ -44,6 +47,40 @@
 
     </div>
   </div>
+
+    <!-- 忘记密码弹窗 -->
+  <el-dialog v-model="dialogFormVisible" width="450">
+    <p class="el-p-h">忘记密码</p>
+    <el-form :model="form">
+      <div class = "item">
+        <p class = "el-p">账号名</p>
+        <el-input v-model="form.name" autocomplete="off" style="width: 380px;" />
+      </div>
+
+      <div class = "item">
+        <p class = "el-p">新密码</p>
+        <el-input v-model="form.name" autocomplete="off" style="width: 380px;" />
+        </div>
+
+        <div class = "item">
+        <p class = "el-p">验证码</p>
+        <el-input v-model="form.name" autocomplete="off" style="width: 320px;" />
+        <el-button type="primary">获取</el-button>
+        </div>
+
+    </el-form>
+    <template #footer>
+      <div style="
+        margin-top: 20px;
+        text-align: left ;
+        margin-left: 20px;">
+        <el-button type="primary" @click="dialogFormVisible = false">
+          重置密码
+        </el-button>
+        <el-button @click="dialogFormVisible = false">返回</el-button>
+      </div>
+    </template>
+  </el-dialog>
   </template>
 
 <script setup name = "Login">
@@ -55,11 +92,17 @@
 
   const webStore = useWebStore();
 
-  // 定义数据类型
+  // 定义注册表单的数据类型
   const registerData = reactive({
     username:'',
     password:'',
     rePassword:''
+  })
+
+  //定义登录表单的数据类型
+  const loginData = reactive({
+    username:'',
+    password:'',
   })
 
   const errors = reactive({  
@@ -68,9 +111,16 @@
       rePassword: ''  
     });  
 
+  const errors2 = reactive({
+    username:'',
+    password:''
+  })
+
   const validateForm = () => {  
       errors.username = registerData.username.trim() === '' ? '用户名不能为空' : '';  
+      errors.username = registerData.username.trim().length < 5 ? '用户名应至少为5位':'';
       errors.password = registerData.password.trim() === '' ? '密码不能为空' : '';  
+      errors.password = registerData.password.trim().length < 5 ? '密码应至少为5位':'';
       errors.rePassword = registerData.rePassword.trim() === '' ? '请再次输入密码' :  
                           registerData.rePassword !== registerData.password ? '两次输入密码不一致' : '';  
   
@@ -86,30 +136,84 @@
       } 
     };  
 
+    //忘记密码
+  const dialogFormVisible = ref(false)
+
+const form = reactive({
+  name: '',
+  region: '',
+  date1: '',
+  date2: '',
+  delivery: false,
+  type: [],
+  resource: '',
+  desc: '',
+})
+
+const validateForm2 = () => {  
+      errors2.username = loginData.username.trim() === '' ? '用户名不能为空' : '';  
+      errors2.password = loginData.password.trim() === '' ? '密码不能为空' : '';  
+  
+      if (!errors2.username && !errors2.password) {  
+        handleLogin();  
+      } 
+      else{
+        Object.assign(loginData,{
+          username:'',
+          password:'',
+        })
+      } 
+    };  
+
+
+    //注册账号
     const handleCreate = async () => {  
-      // 处理表单提交的逻辑  
+      // 将reactive对象转换为普通对象  
+      const plainObject = JSON.parse(JSON.stringify(registerData)); 
       try {  
         // 发送POST请求到后端API  
-        const response = await axios.post('http://127.0.0.1:4523/m1/4751967-4405137-default/user/register', registerData);  
+        const response = await axios.post('http://127.0.0.1:4523/m1/4751967-4405137-default/user/register', plainObject);  
+        console.log('注册表单数据',plainObject)
         // 处理响应  
         console.log('注册成功', response);  
-        // 页面跳转（更新导航栏)
+        ElNotification({
+          title: 'Success',
+          message: '注册成功!去登录吧~',
+          type: 'success',
+  })
+        
       } catch (error) {  
         // 处理错误  
         console.error('注册失败', error);  
-        // 你可以在这里显示错误消息给用户  
+   
       }  
-      console.log('表单提交成功', registerData);  
     };  
 
-  function handleForget(){//忘记密码
-    console.log("我点了")
-  }
-
-  function handleLogin(){//登录
-    webStore.web.status = true;
-    //设置身份变量
-  }
+    //登录
+  const handleLogin = async() =>{
+    const plainObject = JSON.parse(JSON.stringify(loginData)); 
+    try {  
+        const response = await axios.get('http://127.0.0.1:4523/m1/4751967-4405137-default/user/login', plainObject);  
+        console.log('登录表单数据',plainObject)
+        // 处理响应  
+        console.log('登录成功', response);
+        if(response.data.rank === 1)  {//鉴权为系统管理员
+          webStore.web.identity = "admin";
+        }
+        else{
+          webStore.web.identity = "user";
+        }
+        ElNotification({
+          title: 'Success',
+          message: '登录成功!',
+          type: 'success',
+  })
+      webStore.web.status = true;    
+      } catch (error) {  
+        // 处理错误  
+        console.error('登录失败', error);  
+      }  
+    };  
 
   onMounted(() => {  
     let switchCtn = document.querySelector("#switch-cnt");
@@ -415,4 +519,19 @@
   font-size:16px;
   font-weight:700;
 }
+
+.item{
+  margin-left: 20px;
+}
+
+.el-p-h{
+  font-size: 24px;
+  font-weight: 700;
+  margin-left: 20px;
+}
+
+.el-p{
+  margin-top: 25px;
+}
+
 </style>
