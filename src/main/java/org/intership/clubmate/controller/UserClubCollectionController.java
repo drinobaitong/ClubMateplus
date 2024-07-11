@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.intership.clubmate.config.Log;
 import org.intership.clubmate.entity.Club;
 import org.intership.clubmate.entity.User;
 import org.intership.clubmate.entity.UserClubCollection;
@@ -29,6 +30,7 @@ public class UserClubCollectionController {
     private ClubService clubService;
 
     @RequestMapping("/add")
+    @Log(operaModule = "添加收藏",operaType = "ADD")
     public ResponseResult addCollection(@RequestBody UserClubCollection userClubCollection){
         UserClubCollection ucc= userClubCollectionService.add(userClubCollection);
         if(ucc==null){
@@ -38,6 +40,7 @@ public class UserClubCollectionController {
     }
 
     @RequestMapping("/delete")
+    @Log(operaModule = "取消收藏",operaType = "DELETE")
     public ResponseResult deleteCollection(@RequestBody UserClubCollection userClubCollection){
         userClubCollectionService.delete(userClubCollection.getUserId(),userClubCollection.getClubId());
         UserClubCollection ucc =userClubCollectionService.findUserClubCollection(userClubCollection.getUserId(),userClubCollection.getClubId());
@@ -49,6 +52,7 @@ public class UserClubCollectionController {
 
     //感觉没用
     @RequestMapping("/getCollection/{clubId}")
+    @Log(operaModule = "获取收藏的社团",operaType = "GET")
     public ResponseResult getCollection(@RequestParam int uid,@PathVariable int clubId){
         UserClubCollection ucc =userClubCollectionService.findUserClubCollection(uid, clubId);
         if(ucc!=null){
@@ -58,10 +62,14 @@ public class UserClubCollectionController {
     }
 
     @RequestMapping("/getAll")
+    @Log(operaModule = "获取收藏列表",operaType = "GET")
     public ResponseResult getALl(@RequestParam(defaultValue = "1") Integer pageNum,
                                  @RequestParam(defaultValue = "10") Integer pageSize,
                                  @RequestParam int uid){
-
+        UserClubCollection res =userClubCollectionService.getBaseMapper().selectOne(Wrappers.<UserClubCollection>lambdaQuery().eq(UserClubCollection::getUserId,uid));
+        if(res==null){
+            return ResponseResult.error(HttpCode.USER_NULL);
+        }
         IPage<Club> clubs=userClubCollectionService.getClub(new Page<>(pageNum, pageSize),uid);
         return ResponseResult.success(clubs);
     }
