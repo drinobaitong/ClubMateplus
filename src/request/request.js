@@ -1,7 +1,7 @@
 //根域名配置和请求拦截器的js文件
 import axios from 'axios'
 const request = axios.create({
-    baseURL:"http://127.0.0.1:4523/m1/4751967-4405137-default",
+    baseURL:"http://localhost:8080",
 })
 // 请求拦截器
 request.interceptors.request.use(config=>{

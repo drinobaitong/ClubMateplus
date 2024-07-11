@@ -205,30 +205,7 @@ const filteredTableData = computed(() => {
 
 
 //初始数据
-const tableData = [
-  {
-    clubName: '舞蹈队',
-    Title: '打扫卫生',
-    college: '计算机学院',
-    President: '🦌',
-    date: '2023-4-5',
-    state: '未审核',
-    flag:'',//拒绝1，同意0
-    contextURL:'https://modao.cc/proto/SSYTHFmxsfz4xzr6pnZYqu/sharing?view_mode=device&screen=rbpUHM74DnUJPa8cT&canvasId=sskp59muUHMA6u8NVCoixt',
-    proPost:'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
-  },
-  {
-    clubName: '排球队',
-    Title: '读书会',
-    college: '哲学学院',
-    President: '张三',
-    date: '2022-6-7',
-    state: '已审核',
-    flag:'',
-    contextURL:'',
-    proPost:'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
-  },
-]
+const tableData = reactive([])
 const pages = reactive({
   currentPage: 1, // 当前页码
   pageSize: 10, // 每页显示的条目数
@@ -256,6 +233,8 @@ const handleCurrentChange = (newPage) => {
 // 假设初始加载第一页数据
 // fetchData(state.currentPage);
 import { ref } from 'vue'
+import axios from "axios";
+import {onMounted} from "vue";
 const dialogVisible = ref(false)
 const form = reactive({
   ClubName: '',
@@ -300,6 +279,43 @@ const cancel = (row) => {
     console.error('未找到对应的社团');
   }
 };
+
+async function getList() {
+  try {
+    // 第一次调用：获取社团列表数据
+    const clubRes = await axios.get('http://localhost:8080/club/list');
+    const clubRecords = clubRes.data.data.records;
+    // 将社团列表数据存储到 tableData
+    tableData.splice(0, tableData.length, ...clubRecords);
+    console.log('第一次获取的社团数据:', tableData);
+
+    // 异步函数数组，用于存储第二次调用的 Promise
+    const userPromises = clubRecords.map(record => {
+      // 为每个社团的 CreateUserId 调用第二个接口
+      return axios.get(`http://localhost:8080/user/getInfo/${record.createUserId}`);
+    });
+
+    // 等待所有第二次调用完成
+    const userResponses = await Promise.all(userPromises);
+
+    // 根据 CreateUserId 将用户信息与社团数据合并
+    userResponses.forEach((response, index) => {
+      const userInfo = response.data; // 获取用户信息
+      const club = tableData.find(item => item.createUserId === clubRecords[index].createUserId);
+      if (club) {
+        // 假设用户信息存储在一个新的字段中，例如 creatorInfo
+        club.pname = userInfo.data.name;
+        club.department=userInfo.data.department;
+        club.status+='';
+      }
+    });
+
+    console.log('更新后的 tableData:', tableData);
+  } catch (error) {
+    console.error("Error fetching data: ", error);
+  }
+}
+onMounted(getList);
 </script>
 
 <style scoped>
