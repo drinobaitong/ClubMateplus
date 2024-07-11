@@ -182,7 +182,7 @@ const tableData = [
               <el-input v-model="search" size="small" placeholder="搜索社团名称" />
             </template>
             <template #default="scope">
-              <el-button size="small" @click="lookDetail(scope.$index, scope.row)">查看</el-button>
+              <el-button size="small" @click="lookDetail(scope.$index, scope.row)">管理</el-button>
               <el-button size="small" type="danger" @click="deleteClub(scope.$index, scope.row)">删除</el-button>
             </template>
           </el-table-column>
