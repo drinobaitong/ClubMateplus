@@ -6,8 +6,8 @@
          <!-- 侧边栏 -->
          <div class="sidebar">
           <ul class = "nav2">
-            <li v-for="category in categories" :key="category.target">  
-               <a href="#" :data-target="category.target" :class="{ 'active': activeTarget === category.target }">  
+            <li v-for="category in categories" :key="category.name">  
+               <a @click="filterByTag(category.name)" href="#" :data-target="category.name">  
                   {{ category.name }}  
                </a>  
           </li>  
@@ -34,46 +34,8 @@
            <!-- 内容区域 -->
         <div id="content" style="overflow: hidden;">
             <div class="container-fluid">
-                <div id="whole" class="page">
-                  <div class = "box" v-for="(club, index) in lists" :key="index">
-                    <NotLogged :club = club :setDialogVisible = setDialogVisible :wid=300 :hei=300 />
-                    <div style="margin-left:40px ;">
-                   <h4 style="font-size: 24px;">{{club.name}}</h4>
-                   <p>{{club.tags}}</p>
-                   <p>{{club.unit}}</p>
-                </div>
-           </div>
-                </div>
-
-                <!-- 思想政治类 -->
-                <div id="mind" class="page" style="display:none">
-                </div>
-
-                <!-- 学术科技类 -->
-                <div id="tech" class="page" style="display:none">
-                </div>
-
-                <!-- 文化体育类 -->
-                <div id="sport" class="page" style="display:none">
-                </div>
-
-                <!-- 创新创业类 -->
-                <div id="innovation" class="page" style="display:none">
-                </div>
-
-                <!-- 志愿公益类 -->
-                <div id="volunteer" class="page" style="display:none">
-                </div>
-
-                <!-- 自律互助类 -->
-                <div id="help" class="page" style="display:none">
-                </div>
+              <Pagination :lists="filteredLists" />
             </div>
-
-        <!-- 添加分页 -->
-         <div class = "pagination">
-        <el-pagination background layout="prev, pager, next"    class="mt-4"  :total="50"/>
-      </div>
         </div>
 
         <div class = "bgi"></div>
@@ -86,54 +48,48 @@
 
 
 <script setup name = "Overview">
-  import { ref } from 'vue';  
-  import NotLogged from './NotLogged.vue';
+  import { ref,computed } from 'vue';  
+  import Pagination from './Pagination.vue';
 
-  const dialogVisible = ref({}); 
-
-  function setDialogVisible(index, isVisible) {  
-  dialogVisible.value[index] = isVisible;  
-}  
-
-// 存储当前选中的链接的data-target值  
-const activeTarget = ref('');  
+  // 当前选中的标签 
+  const currentTag = ref(''); 
   
-const categories = [  
-  { name: '全部分类', target: 'whole' },  
-  { name: '思想政治类', target: 'mind' },  
-  { name: '学术科技类', target: 'tech' },  
-  { name: '文化体育类', target: 'sport' },  
-  { name: '创新创业类', target: 'innovation' },  
-  { name: '志愿公益类', target: 'volunteer' },  
-  { name: '自律互助类', target: 'help' }  
-];  
+  const categories = [  
+    { name: '全部分类'},  
+    { name: '思想政治类'},  
+    { name: '学术科技类'},  
+    { name: '文化体育类'},  
+    { name: '创新创业类'},  
+    { name: '志愿公益类'},  
+    { name: '自律互助类'}  
+  ];  
   
-const value = ref('')
+  const value = ref('')
 
-const options = [
-  {
-    value: 'Option1',
-    label: '计算机学院',
-  },
-  {
-    value: 'Option2',
-    label: '数学与统计学院',
-  },
-  {
-    value: 'Option3',
-    label: '法学院',
-  },
-  {
-    value: 'Option4',
-    label: '哲学学院',
-  },
-  {
-    value: 'Option5',
-    label: '信息管理学院',
-  },
-]
+  const options = [
+    {
+      value: 'Option1',
+      label: '计算机学院',
+    },
+   {
+      value: 'Option2',
+      label: '数学与统计学院',
+    },
+    {
+      value: 'Option3',
+      label: '法学院',
+    },
+    {
+      value: 'Option4',
+      label: '哲学学院',
+    },
+    {
+      value: 'Option5',
+      label: '信息管理学院',
+    },
+  ]
  
-const lists = [
+  const lists = [
     {
       id: 90,
       createUserId: 75,
@@ -177,38 +133,35 @@ const lists = [
       tags:'自律互助类',
       unit:'保卫部',
       introduce:'安全护航，责任为先。安全工作协会，致力于构建安全文化，提升安全意识，通过专业培训与交流，共筑安全防线，守护每一份安心与和谐。'
+    },
+    {
+      id: 90,
+      createUserId: 75,
+      registerTime: "1974-05-20 16:53:33",
+      totalNumber:56,
+      avatarUrl: "http://dummyimage.com/100x100",
+      name:'安全工作协会',
+      tags:'自律互助类',
+      unit:'保卫部',
+      introduce:'安全护航，责任为先。安全工作协会，致力于构建安全文化，提升安全意识，通过专业培训与交流，共筑安全防线，守护每一份安心与和谐。'
     }
   ]
   
-  document.addEventListener('DOMContentLoaded', function () {  
-    // 给左侧菜单栏添加点击事件处理程序  
-    const navLinks = document.querySelectorAll(".sidebar .nav2 a");  
-    navLinks.forEach(link => {  
-        link.addEventListener('click', function (event) {  
-            event.preventDefault(); // 阻止链接的默认行为（如果它们是真正的链接）  
-  
-            const target = this.getAttribute('data-target');  
-  
-            // 隐藏所有页面内容  
-            const pages = document.querySelectorAll('.page');  
-            pages.forEach(page => {  
-                page.style.display = 'none';  
-            });  
-  
-            // 显示目标页面内容  
-            const targetPage = document.querySelector('#' + target);  
-            if (targetPage) {  
-                targetPage.style.display = 'flex';  
-            }  
-        });  
-    });  
-  
-    // 显示默认的页面 全部分类 
-    const whole = document.querySelector('#whole');  
-    if (whole) {  
-        whole.style.display = 'flex';  
+    
+  // 根据当前标签过滤列表  
+  const filteredLists = computed(() => {  
+    if (currentTag.value === '全部分类' || currentTag.value === '') {  
+      return lists;
     }  
-});
+    console.log('点击了此标签',lists.filter(item => item.tags === currentTag.value))
+    return lists.filter(item => item.tags === currentTag.value);  
+  });  
+
+  // 根据点击的标签来过滤列表  
+  function filterByTag(tag) {  
+    currentTag.value = tag;  
+  }  
+
 </script>
 
 <style scoped>
@@ -218,7 +171,7 @@ const lists = [
 
   a{
     text-decoration:none;
-    padding:auto auto;
+    /* padding:auto auto; */
   }
 
   .header{
@@ -305,11 +258,6 @@ const lists = [
   .detail-s{
     font-size:20px;
     margin-right:15px;
-  }
-
-  .pagination{
-    margin-top: 20px;
-    margin-left: 650px;
   }
 
   .bgi{

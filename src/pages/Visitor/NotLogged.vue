@@ -38,7 +38,7 @@
     <el-avatar shape="square" :size="50" src="https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png" />
     <span class = "publisher">排球队队长</span> <span class = "p-time">20小时前</span>
   </div>
- <div class = "a-image"></div>
+ <div class = "a-image" @click = "openArticle"></div>
  <div class = "a-text"> <p>{{ club.introduce }}</p></div>
 </div>
 
@@ -46,14 +46,14 @@
   <div class = "a-header">
     <el-avatar shape="square" :size="50" src="https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png" />
   </div>
- <div class = "a-image"></div>
+ <div class = "a-image" @click = "openArticle"></div>
 </div>
 
 <div class = "a-content">
   <div class = "a-header">
     <el-avatar shape="square" :size="50" src="https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png" />
   </div>
- <div class = "a-image"></div>
+ <div class = "a-image" @click = "openArticle"></div>
 </div>
 
 </div>
@@ -73,6 +73,13 @@
   import { Search } from '@element-plus/icons-vue';
   import { ElNotification } from 'element-plus'
   import { useWebStore } from '@/stores/web.js';
+  import router from '@/router';
+  import { useRouter } from 'vue-router';
+
+  const rt = useRouter()
+
+  //声明接收的props
+  defineProps(['club','setDialogVisible','wid','hei'])
 
   //是否加入社团
   let isIn = ref(false)
@@ -117,8 +124,11 @@
     })}
   }
 
-  //声明接收的props
-  defineProps(['club','setDialogVisible','wid','hei'])
+  //打开对应帖子页
+  function openArticle(){
+    //是否需要进行登录验证？
+    rt.push('/MePost')
+  }
 
 </script>
 

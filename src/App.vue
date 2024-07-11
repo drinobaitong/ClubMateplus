@@ -20,10 +20,10 @@
     <span style="font-size: 20px;">请确认是否退出登录？</span>
     <template #footer>
       <div class="dialog-footer">
-        <el-button @click="dialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="reConfirm">
+      <el-button type="primary" @click="reConfirm">
           确认
         </el-button>
+        <el-button @click="dialogVisible = false">取消</el-button>
       </div>
     </template>
   </el-dialog>
