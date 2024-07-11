@@ -129,6 +129,7 @@
           </el-form>
           <!---审核数据--->
           <el-table :data="filteredTableData" style="width: 100%">
+
             <el-table-column fixed prop="name" label="社团名称"  width="150" />
             <el-table-column prop="tags" label="类别" width="120" >
               <template #default="scope">

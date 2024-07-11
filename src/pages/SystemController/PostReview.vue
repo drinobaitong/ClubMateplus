@@ -87,7 +87,7 @@
           <el-form :inline="true" :model="formInline" class="demo-form-inline">
             <el-form-item label="学院">
               <el-select
-                  v-model="formInline.college"
+                  v-model="formInline.collage"
                   placeholder="计算机学院"
                   clearable
               >
@@ -96,7 +96,7 @@
               </el-select>
             </el-form-item>
             <el-form-item >
-              <el-input v-model="formInline.clubName" placeholder="社团名称" clearable />
+              <el-input v-model="formInline.name" placeholder="社团名称" clearable />
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="onSubmit">Query</el-button>
@@ -115,14 +115,16 @@
                 ></el-image>
               </template>
             </el-table-column>
-            <el-table-column prop="Title"  label="帖子标题" width="120" />
-            <el-table-column prop="college" label="学院" width="120" />
-            <el-table-column prop="President" label="负责人" width="120" />
-            <el-table-column prop="date" label="活动时间" width="120" />
+            <el-table-column prop="title"  label="帖子标题" width="120" />
+            <el-table-column prop="collage" label="学院" width="120" />
+            <el-table-column prop="pname" label="用户" width="120" />
+            <el-table-column prop="registerTime" label="发布时间" width="120" />
             <el-table-column prop="right" label="帖子详情" min-width="120">
-                <el-button >
+              <template #default="scope">
+                <el-button plain @click="concrete(scope.row)" >
                   查看详情
                 </el-button>
+              </template>
             </el-table-column>
             <el-table-column fixed="right" label="操作" min-width="120">
               <template #default="scope">
@@ -152,7 +154,37 @@
                 :total="pages.total"
             />
           </div>
-
+          <!---帖子详情--->
+          <el-dialog v-model="dialogVisible" title="帖子详情" width="500" draggable>
+            <el-form :model="form" label-width="auto" style="max-width: 600px">
+              <el-form-item label="帖子标题">
+                <el-input v-model="form.title" placeholder=""/>
+              </el-form-item>
+              <el-form-item label="帖子图片">
+                <div class="demo-image__preview">
+                  <el-image
+                      style="width: 100px; height: 100px"
+                      :src="form.avatarUrl"
+                      :zoom-rate="1.2"
+                      :max-scale="7"
+                      :min-scale="0.2"
+                      :preview-src-list="srcList"
+                      :initial-index="4"
+                      fit="cover"
+                  />
+                </div>
+              </el-form-item>
+              <el-form-item label="发布人">
+                <el-input v-model="form.pname"/>
+              </el-form-item>
+              <el-form-item label="内容">
+                <el-input type="textarea" :rows="5"v-model="form.content"/>
+              </el-form-item>
+              <el-form-item label="发布时间">
+                <el-input v-model="form.registerTime"/>
+              </el-form-item>
+            </el-form>
+          </el-dialog>
         </el-main>
       </el-container>
     </el-container>
@@ -178,10 +210,11 @@ const state = reactive({
 
 const { circleUrl} = toRefs(state)
 const formInline = reactive({
-  clubName:'',
-  college: '',
+  name:'',
+  collage: '',
   category: '',
   state:'',
+  id:''
 })
 
 const onSubmit = () => {
@@ -192,17 +225,27 @@ import { InfoFilled } from '@element-plus/icons-vue'
 const filteredTableData = computed(() => {
   return tableData.filter(item => {
     // 如果输入社团名称，也进行名称筛选
-    if (formInline.clubName && !item.clubName.includes(formInline.clubName)) {
+    if (formInline.name && !item.clubName.includes(formInline.name)) {
       return false;
     }
     // 如果选择了学院，只显示该学院的社团
-    if (formInline.college && item.college !== formInline.college) {
+    if (formInline.collage && item.collage !== formInline.collage) {
       return false;
     }
     return true;
   });
 });
 
+const concrete = (row) => {
+  // 将当前行的数据赋值给 form 对象
+  form.title = row.title;
+  form.avatarUrl= row.avatarUrl;
+  form.content = row.content;
+  form.pname = row.pname;
+  form.registerTime = row.registerTime;
+  // 显示对话框
+  dialogVisible.value = true;
+};
 
 //初始数据
 const tableData = reactive([])
@@ -237,13 +280,11 @@ import axios from "axios";
 import {onMounted} from "vue";
 const dialogVisible = ref(false)
 const form = reactive({
-  ClubName: '',
-  Type:'',
-  College:'',
-  President: '',
-  PresidentCollege:'',
-  proPost:'',
-  Profile:'',
+  title: '',
+  avatarUrl:'',
+  content:'',
+  pname:"",
+  registerTime:''
 })
 
 const url =
@@ -254,45 +295,36 @@ const currentEditingIndex = ref(-1);
 const index = ref(-1);
 
 // 注销社团的方法
-const cancel = (row) => {
-  // 找到要删除的社团的索引
-  const rowIndex = tableData.findIndex(item => item.clubName === row.clubName);
-
-  if (rowIndex !== -1) {
-    // 从 tableData 中删除对应的社团
-    tableData.splice(rowIndex, 1);
-    console.log('Deleted item from tableData:', tableData);
-
-    // 等待 Vue 响应性更新完成
-    nextTick(() => {
-      console.log('filteredTableData after update:', filteredTableData.value);
-    });
-
+async function cancel (row) {
+  const response=await axios({
+    url: `http://localhost:8080/articles/delete/${encodeURIComponent(row.id)}`,
+    method: 'delete',
+  });
+  console.log('状态更新成功：', response.data);
     // 更新分页总数
     pages.total = tableData.length;
 
     // 如果需要，可以在这里处理分页状态的更新
     if (pages.total < pages.pageSize * pages.currentPage) {
       pages.currentPage = Math.max(1, pages.currentPage - 1);
-    }
-  } else {
+    } else {
     console.error('未找到对应的社团');
   }
-};
+}
 
 async function getList() {
   try {
     // 第一次调用：获取社团列表数据
-    const clubRes = await axios.get('http://localhost:8080/club/list');
+    const clubRes = await axios.get('http://localhost:8080/articles/all/list');
     const clubRecords = clubRes.data.data.records;
     // 将社团列表数据存储到 tableData
     tableData.splice(0, tableData.length, ...clubRecords);
-    console.log('第一次获取的社团数据:', tableData);
+    console.log('第一次获取的帖子数据:', tableData);
 
     // 异步函数数组，用于存储第二次调用的 Promise
     const userPromises = clubRecords.map(record => {
       // 为每个社团的 CreateUserId 调用第二个接口
-      return axios.get(`http://localhost:8080/user/getInfo/${record.createUserId}`);
+      return axios.get(`http://localhost:8080/club/get/${record.clubId}`);
     });
 
     // 等待所有第二次调用完成
@@ -301,12 +333,31 @@ async function getList() {
     // 根据 CreateUserId 将用户信息与社团数据合并
     userResponses.forEach((response, index) => {
       const userInfo = response.data; // 获取用户信息
+      const club = tableData.find(item => item.clubId === clubRecords[index].clubId);
+      if (club) {
+        // 假设用户信息存储在一个新的字段中，例如 creatorInfo
+        club.clubName = userInfo.data.name;
+        club.proPost=userInfo.data.avatarUrl;
+      }
+    });
+
+    // 异步函数数组，用于存储第三次调用的 Promise
+    const userPromise = clubRecords.map(record => {
+      // 为每个社团的 CreateUserId 调用第二个接口
+      return axios.get(`http://localhost:8080/user/getInfo/${record.createUserId}`);
+    });
+
+    // 等待所有第二次调用完成
+    const userResponse = await Promise.all(userPromise);
+
+    // 根据 CreateUserId 将用户信息与社团数据合并
+    userResponse.forEach((response, index) => {
+      const userInfo = response.data; // 获取用户信息
       const club = tableData.find(item => item.createUserId === clubRecords[index].createUserId);
       if (club) {
         // 假设用户信息存储在一个新的字段中，例如 creatorInfo
         club.pname = userInfo.data.name;
-        club.department=userInfo.data.department;
-        club.status+='';
+        club.collage=userInfo.data.department;
       }
     });
 
