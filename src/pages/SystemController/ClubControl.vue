@@ -21,11 +21,13 @@
             </el-col>
           </el-row>
           <div class="menu-list">
+                <router-link to="/">
             <el-menu-item index="1">
               <el-icon><icon-menu /></el-icon>
               <span >首页</span>
             </el-menu-item>
-            <router-link to="/">
+              </router-link>
+            <router-link to="/ClubReview">
               <el-menu-item index="2" >
                 <el-icon><document /></el-icon>
                 <span>社团审核</span>
@@ -87,7 +89,7 @@
           <el-form :inline="true" :model="formInline" class="demo-form-inline">
             <el-form-item label="学院">
               <el-select
-                  v-model="formInline.college"
+                  v-model="formInline.collage"
                   placeholder="计算机学院"
                   clearable
               >
@@ -97,17 +99,20 @@
             </el-form-item>
             <el-form-item label="类别">
               <el-select
-                  v-model="formInline.category"
+                  v-model="formInline.tags"
                   placeholder="创新创业类"
                   clearable
               >
-                <el-option label="创新创业类" value="创新创业类" />
-                <el-option label="文学创作类" value="文学创作类" />
-                <el-option label="文化体育类" value="文化体育类" />
+                <el-option label="思想政治类" value="0" />
+                <el-option label="学术科技类" value="1" />
+                <el-option label="文化体育类" value="2" />
+                <el-option label="创新创业类" value="3" />
+                <el-option label="志愿公益类" value="4" />
+                <el-option label="自律互助类" value="5" />
               </el-select>
             </el-form-item>
             <el-form-item >
-              <el-input v-model="formInline.clubName" placeholder="社团名称" clearable />
+              <el-input v-model="formInline.name" placeholder="社团名称" clearable />
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="onSubmit">Query</el-button>
@@ -115,21 +120,32 @@
           </el-form>
           <!---审核数据--->
           <el-table :data="filteredTableData" style="width: 100%">
-            <el-table-column fixed prop="clubName"  label="社团名称"  width="150" />
+            <el-table-column fixed prop="name"  label="社团名称"  width="150" />
             <el-table-column label="社团头像" width="150">
               <template #default="{ row }">
                 <!-- 使用作用域插槽的 row 参数来访问 proPost 属性 -->
                 <el-image
                     style="width: 100px; height: 100px"
-                    :src="row.proPost"
+                    :src="row.avatarUrl"
                 fit="cover"
                 ></el-image>
               </template>
             </el-table-column>
-            <el-table-column prop="category"  label="类别" width="120" />
-            <el-table-column prop="college" label="学院" width="120" />
-            <el-table-column prop="President" label="负责人" width="120" />
-            <el-table-column prop="preCollege" label="负责人学院" width="120" />
+            <el-table-column prop="tags"  label="类别" width="120" >
+              <template #default="scope">
+                <!-- 根据 tags 的值显示不同的类别名称 -->
+                <span v-if="scope.row.tags === '1'">学术科技类</span>
+                <span v-if="scope.row.tags === '3'">创新创业类</span>
+                <span v-if="scope.row.tags === '0'">思想政治类</span>
+                <span v-if="scope.row.tags === '2'">文化体育类</span>
+                <span v-if="scope.row.tags === '4'">志愿公益类</span>
+                <span v-if="scope.row.tags === '5'">自律互助类</span>
+                <!-- 如果需要，可以添加更多的条件分支 -->
+              </template>
+            </el-table-column>
+            <el-table-column prop="collage" label="学院" width="120" />
+            <el-table-column prop="pname" label="负责人" width="120" />
+            <el-table-column prop="department" label="负责人学院" width="120" />
             <el-table-column fixed="right" label="社团变更信息" min-width="120">
               <template #default="scope">
                 <el-button plain @click="openEditDialog(scope.row)">
@@ -175,7 +191,7 @@
                 <div class="demo-image__preview">
                   <el-image
                       style="width: 100px; height: 100px"
-                      :src="url"
+                      :src="form.proPost"
                       :zoom-rate="1.2"
                       :max-scale="7"
                       :min-scale="0.2"
@@ -197,13 +213,6 @@
                 <el-select v-model="form.PresidentCollege">
                 <el-option label="计算机学院" value="计算机学院"/>
                 <el-option label="哲学学院" value="哲学学院" />
-                </el-select>
-              </el-form-item>
-              <el-form-item label="社团类型">
-                <el-select v-model="form.Type" >
-                  <el-option label="创新创业类" value="创新创业类"/>
-                  <el-option label="文化体育类" value="文化体育类" />
-                  <el-option label="文化创作类" value="文学创作类"/>
                 </el-select>
               </el-form-item>
               <el-form-item  label="社团简介">
@@ -253,65 +262,43 @@ const state = reactive({
 
 const { circleUrl} = toRefs(state)
 const formInline = reactive({
-  clubName:'',
-  college: '',
-  category: '',
-  state:'',
+  id:'',
+  collage: '',
+  status:'',
+  tags:'',
+  name:''
 })
 
 const onSubmit = () => {
   console.log('submit!')
 }
 
-// 使用计算属性根据筛选条件过滤数据
 const filteredTableData = computed(() => {
   return tableData.filter(item => {
     // 如果输入社团名称，也进行名称筛选
-    if (formInline.clubName && !item.clubName.includes(formInline.clubName)) {
+    if (formInline.name && !item.name.includes(formInline.name)) {
       return false;
     }
     // 如果选择了学院，只显示该学院的社团
-    if (formInline.college && item.college !== formInline.college) {
+    if (formInline.collage && item.collage !== formInline.collage) {
       return false;
     }
     // 如果选择了类别，只显示该类别的社团
-    if (formInline.category && item.category !== formInline.category) {
+    if (formInline.tags && item.tags !== formInline.tags) {
       return false;
     }
     //审核状态
-    if (formInline.state && item.state !== formInline.state) {
+    if (formInline.status && item.status !== formInline.status) {
       return false;
     }
+    return item.status !== '2';
     return true;
   });
 });
 
 
 //初始数据
-const tableData = [
-  {
-    clubName: '舞蹈队',
-    category: '文化体育类',
-    college: '计算机学院',
-    President: '🦌',
-    preCollege: '计算机学院',
-    state: '未审核',
-    flag:'',//拒绝1，同意0
-    proPost:'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
-    profile:'这是一个简介',
-  },
-  {
-    clubName: '排球队',
-    category: '文学创作类',
-    college: '哲学学院',
-    President: '张三',
-    preCollege: '哲学学院',
-    state: '已审核',
-    flag:'',
-    proPost:'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
-    profile:'这是一个简介',
-  },
-]
+const tableData = reactive([])
 const pages = reactive({
   currentPage: 1, // 当前页码
   pageSize: 10, // 每页显示的条目数
@@ -350,8 +337,7 @@ const form = reactive({
   Profile:'',
 })
 
-const url =
-    'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg'
+
 
 // 用于存储当前正在编辑的社团的索引
 const currentEditingIndex = ref(-1);
@@ -360,17 +346,17 @@ const index = ref(-1);
 // 打开编辑对话框并设置表单数据的方法
 const openEditDialog = (row) => {
   // 将当前行的数据同步到 form 中
-  form.ClubName = row.clubName;
-  form.President = row.President;
-  form.College = row.college;
-  form.PresidentCollege = row.preCollege;
-  form.Profile = row.profile;
-  form.Type = row.category; // 确保这里的值与el-select绑定的v-model匹配
+  form.ClubName = row.name;
+  form.President = row.pname;
+  form.College = row.collage;
+  form.PresidentCollege = row.department;
+  form.Profile = row.introduce;
+  form.Type = row.tags; // 确保这里的值与el-select绑定的v-model匹配
   // 如果需要显示头像，也更新头像的 URL
-  form.proPost = row.proPost;
+  form.proPost = row.avatarUrl;
   // 记录当前编辑的社团索引
-  currentEditingIndex.value = row.clubName;
-  index.value = tableData.findIndex(item => item.clubName === row.clubName);
+  currentEditingIndex.value = row.name;
+  index.value = tableData.findIndex(item => item.name === row.name);
   if (index.value !== -1) {
     // 记录当前编辑的社团索引
     currentEditingIndex.value = index.value;
@@ -387,52 +373,105 @@ watch(() => pages.currentPage, (newPage) => {
 });
 
 import { InfoFilled } from '@element-plus/icons-vue'
+import axios from "axios";
+import {onMounted} from "vue";
 
 
 // 确认修改社团信息的方法
 const confirmUpdate = () => {
   // 确保 currentEditingIndex 已经在 openEditDialog 中设置
   // 获取当前编辑的社团对象
-  let club = tableData[index.value];
+ /* let club = tableData[index.value];
   // 只更新 form 中存在的字段到 club
+   club.id=tableData[index.value].id;
    club.clubName = form.ClubName;
    club.college = form.College;
    club.President = form.President;
    club.preCollege = form.PresidentCollege;
    club.profile = form.Profile;
    club.category = form.Type;
-   club.proPost = form.proPost;
+   club.proPost = form.proPost;*/
+
+  var data = {
+    id: tableData[index.value].id,
+    name: tableData[index.value].name,
+    introduce: tableData[index.value].introduce,
+    createUserId: tableData[index.value].createUserId,
+    avatarUrl: tableData[index.value].avatarUrl,
+    tags: tableData[index.value].tags,
+    collage: tableData[index.value].collage
+  };
+
+  // 移除了字符串中的多余字符
+  var config = {
+    method: 'post',
+    url: 'http://localhost:8080/club/update/direct', // 确保URL正确
+    headers: {
+      'User-Agent': 'Apifox/1.0.0 (https://apifox.com)', // 修正了User-Agent
+      'Content-Type': 'application/json' // 修正了Content-Type的字符串格式
+    },
+    data: JSON.stringify(data) // 如果API需要JSON字符串格式的数据
+  };
+
+  axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   // 关闭对话框
   dialogVisible.value = false;
   // 重置当前编辑的索引（如果需要）
   currentEditingIndex.value = -1;
 };
 // 注销社团的方法
-const cancel = (row) => {
-  // 找到要删除的社团的索引
-  const rowIndex = tableData.findIndex(item => item.clubName === row.clubName);
+async function cancel (row) {
+  const response = await axios({
+    url: `http://localhost:8080/club/delete/${encodeURIComponent(row.id)}`,
+    method: 'delete',
+  });
+  console.log('状态更新成功：', response.data);
+};
 
-  if (rowIndex !== -1) {
-    // 从 tableData 中删除对应的社团
-    tableData.splice(rowIndex, 1);
-    console.log('Deleted item from tableData:', tableData);
+async function getList() {
+  try {
+    // 第一次调用：获取社团列表数据
+    const clubRes = await axios.get('http://localhost:8080/club/list');
+    const clubRecords = clubRes.data.data.records;
+    // 将社团列表数据存储到 tableData
+    tableData.splice(0, tableData.length, ...clubRecords);
+    console.log('第一次获取的社团数据:', tableData);
 
-    // 等待 Vue 响应性更新完成
-    nextTick(() => {
-      console.log('filteredTableData after update:', filteredTableData.value);
+    // 异步函数数组，用于存储第二次调用的 Promise
+    const userPromises = clubRecords.map(record => {
+      // 为每个社团的 CreateUserId 调用第二个接口
+      return axios.get(`http://localhost:8080/user/getInfo/${record.createUserId}`);
     });
 
-    // 更新分页总数
-    pages.total = tableData.length;
+    // 等待所有第二次调用完成
+    const userResponses = await Promise.all(userPromises);
 
-    // 如果需要，可以在这里处理分页状态的更新
-    if (pages.total < pages.pageSize * pages.currentPage) {
-      pages.currentPage = Math.max(1, pages.currentPage - 1);
-    }
-  } else {
-    console.error('未找到对应的社团');
+    // 根据 CreateUserId 将用户信息与社团数据合并
+    userResponses.forEach((response, index) => {
+      const userInfo = response.data; // 获取用户信息
+      const club = tableData.find(item => item.createUserId === clubRecords[index].createUserId);
+      if (club) {
+        // 假设用户信息存储在一个新的字段中，例如 creatorInfo
+        club.pname = userInfo.data.name;
+        club.department=userInfo.data.department;
+        club.status+='';
+        club.avatarUrl=userInfo.data.avatarUrl;
+      }
+    });
+    console.log('更新后的 tableData:', tableData);
+  } catch (error) {
+    console.error("Error fetching data: ", error);
   }
-};
+
+}
+
+onMounted(getList);
 </script>
 
 <style scoped>

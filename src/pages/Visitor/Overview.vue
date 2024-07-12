@@ -6,8 +6,8 @@
          <!-- 侧边栏 -->
          <div class="sidebar">
           <ul class = "nav2">
-            <li v-for="category in categories" :key="category.target">  
-               <a href="#" :data-target="category.target" :class="{ 'active': activeTarget === category.target }">  
+            <li v-for="category in categories" :key="category.name">  
+               <a @click="filterByTag(category.name)" href="#" :data-target="category.name">  
                   {{ category.name }}  
                </a>  
           </li>  
@@ -19,10 +19,10 @@
 
           <!-- 搜索区域 -->
           <el-select
-      v-model="value"
-      placeholder="计算机学院"
-      size="large"
-      style="width: 240px; float:right ;height: 60px; font-size: 25px;font-weight: 700;"
+            v-model="currentC"
+            placeholder="计算机学院"
+            size="large"
+            class ="search2"
     ><el-option
         v-for="item in options"
         :key="item.value"
@@ -34,46 +34,8 @@
            <!-- 内容区域 -->
         <div id="content" style="overflow: hidden;">
             <div class="container-fluid">
-                <div id="whole" class="page">
-                  <div class = "box" v-for="(club, index) in lists" :key="index">
-                    <NotLogged :club = club :setDialogVisible = setDialogVisible :wid=300 :hei=300 />
-                    <div style="margin-left:40px ;">
-                   <h4 style="font-size: 24px;">{{club.name}}</h4>
-                   <p>{{club.tags}}</p>
-                   <p>{{club.unit}}</p>
-                </div>
-           </div>
-                </div>
-
-                <!-- 思想政治类 -->
-                <div id="mind" class="page" style="display:none">
-                </div>
-
-                <!-- 学术科技类 -->
-                <div id="tech" class="page" style="display:none">
-                </div>
-
-                <!-- 文化体育类 -->
-                <div id="sport" class="page" style="display:none">
-                </div>
-
-                <!-- 创新创业类 -->
-                <div id="innovation" class="page" style="display:none">
-                </div>
-
-                <!-- 志愿公益类 -->
-                <div id="volunteer" class="page" style="display:none">
-                </div>
-
-                <!-- 自律互助类 -->
-                <div id="help" class="page" style="display:none">
-                </div>
+              <Pagination :lists="finalList" />
             </div>
-
-        <!-- 添加分页 -->
-         <div class = "pagination">
-        <el-pagination background layout="prev, pager, next"    class="mt-4"  :total="50"/>
-      </div>
         </div>
 
         <div class = "bgi"></div>
@@ -86,60 +48,59 @@
 
 
 <script setup name = "Overview">
-  import { ref } from 'vue';  
-  import NotLogged from './NotLogged.vue';
+  import { ref,computed } from 'vue';  
+  import Pagination from './Pagination.vue';
 
-  const dialogVisible = ref({}); 
+  // 当前选中的标签 
+  const currentTag = ref(''); 
 
-  function setDialogVisible(index, isVisible) {  
-  dialogVisible.value[index] = isVisible;  
-}  
-
-// 存储当前选中的链接的data-target值  
-const activeTarget = ref('');  
+  // 当前选择的学院
+  const currentC = ref('')
   
-const categories = [  
-  { name: '全部分类', target: 'whole' },  
-  { name: '思想政治类', target: 'mind' },  
-  { name: '学术科技类', target: 'tech' },  
-  { name: '文化体育类', target: 'sport' },  
-  { name: '创新创业类', target: 'innovation' },  
-  { name: '志愿公益类', target: 'volunteer' },  
-  { name: '自律互助类', target: 'help' }  
-];  
-  
-const value = ref('')
+  const categories = [  
+    { name: '全部分类'},  
+    { name: '思想政治类'},  
+    { name: '学术科技类'},  
+    { name: '文化体育类'},  
+    { name: '创新创业类'},  
+    { name: '志愿公益类'},  
+    { name: '自律互助类'}  
+  ];  
 
-const options = [
-  {
-    value: 'Option1',
-    label: '计算机学院',
-  },
-  {
-    value: 'Option2',
-    label: '数学与统计学院',
-  },
-  {
-    value: 'Option3',
-    label: '法学院',
-  },
-  {
-    value: 'Option4',
-    label: '哲学学院',
-  },
-  {
-    value: 'Option5',
-    label: '信息管理学院',
-  },
-]
+  const options = [
+    {
+      value: '计算机学院',
+      label: '计算机学院',
+    },
+   {
+      value: '数学与统计学院',
+      label: '数学与统计学院',
+    },
+    {
+      value: '法学院',
+      label: '法学院',
+    },
+    {
+      value: '哲学学院',
+      label: '哲学学院',
+    },
+    {
+      value: '信息管理学院',
+      label: '信息管理学院',
+    },
+    {
+      value: '',
+      label: '所有学院',
+    },
+  ]
  
-const lists = [
+  const lists = [
     {
       id: 90,
       createUserId: 75,
       name:'珞珈晨跑队',
       tags:'文化体育类',
-      unit:'弘毅学堂',
+      collage:'弘毅学堂',
       registerTime: "1974-05-20 16:53:33",
       totalNumber:56,
       avatarUrl: "http://dummyimage.com/100x100",
@@ -153,7 +114,7 @@ const lists = [
       avatarUrl: "http://dummyimage.com/100x100",
       name:'AOE舞蹈队',
       tags:'文化体育类',
-      unit:'计算机学院',
+      collage:'计算机学院',
       introduce:'舞动青春，韵动梦想！我们是一支充满热情与创意的舞蹈队，以舞为媒，融合多元风格，用每一个跃动的节拍诠释对生活的热爱与追求。'
     },
     {
@@ -164,7 +125,7 @@ const lists = [
       avatarUrl: "http://dummyimage.com/100x100",
       name:'安全工作协会',
       tags:'自律互助类',
-      unit:'保卫部',
+      collage:'计算机学院',
       introduce:'安全护航，责任为先。安全工作协会，致力于构建安全文化，提升安全意识，通过专业培训与交流，共筑安全防线，守护每一份安心与和谐。'
     },
     {
@@ -175,40 +136,47 @@ const lists = [
       avatarUrl: "http://dummyimage.com/100x100",
       name:'安全工作协会',
       tags:'自律互助类',
-      unit:'保卫部',
+      collage:'计算机学院',
+      introduce:'安全护航，责任为先。安全工作协会，致力于构建安全文化，提升安全意识，通过专业培训与交流，共筑安全防线，守护每一份安心与和谐。'
+    },
+    {
+      id: 90,
+      createUserId: 75,
+      registerTime: "1974-05-20 16:53:33",
+      totalNumber:56,
+      avatarUrl: "http://dummyimage.com/100x100",
+      name:'安全工作协会',
+      tags:'自律互助类',
+      collage:'保卫部',
       introduce:'安全护航，责任为先。安全工作协会，致力于构建安全文化，提升安全意识，通过专业培训与交流，共筑安全防线，守护每一份安心与和谐。'
     }
   ]
   
-  document.addEventListener('DOMContentLoaded', function () {  
-    // 给左侧菜单栏添加点击事件处理程序  
-    const navLinks = document.querySelectorAll(".sidebar .nav2 a");  
-    navLinks.forEach(link => {  
-        link.addEventListener('click', function (event) {  
-            event.preventDefault(); // 阻止链接的默认行为（如果它们是真正的链接）  
-  
-            const target = this.getAttribute('data-target');  
-  
-            // 隐藏所有页面内容  
-            const pages = document.querySelectorAll('.page');  
-            pages.forEach(page => {  
-                page.style.display = 'none';  
-            });  
-  
-            // 显示目标页面内容  
-            const targetPage = document.querySelector('#' + target);  
-            if (targetPage) {  
-                targetPage.style.display = 'flex';  
-            }  
-        });  
-    });  
-  
-    // 显示默认的页面 全部分类 
-    const whole = document.querySelector('#whole');  
-    if (whole) {  
-        whole.style.display = 'flex';  
+    
+  // 根据当前标签过滤列表  
+  const filteredLists = computed(() => {  
+    if (currentTag.value === '全部分类' || currentTag.value === '') {  
+      return lists;
     }  
-});
+    return lists.filter(item => item.tags === currentTag.value);  
+  });  
+
+  // 根据点击的标签来过滤列表  
+  function filterByTag(tag) {  
+    currentTag.value = tag;  
+  }  
+
+  //根据选择的学院过滤列表
+  const finalList = computed(() =>{
+    if(currentC.value === ''){
+      return filteredLists.value;
+    }
+    console.log("选择的学院",currentC.value)
+    console.log("最终传入列表",filteredLists.value.filter(item => item.collage === currentC.value))
+    return filteredLists.value.filter(item => item.collage === currentC.value);
+  })
+
+ 
 </script>
 
 <style scoped>
@@ -218,7 +186,7 @@ const lists = [
 
   a{
     text-decoration:none;
-    padding:auto auto;
+    /* padding:auto auto; */
   }
 
   .header{
@@ -242,6 +210,15 @@ const lists = [
 
   .search{
     margin-left:10rem;
+  }
+
+  /* 学院搜索栏 */
+  .search2{
+    width: 240px;
+    float: right;
+    height: 60px;
+    font-size:25px;
+    font-weight:700;
   }
 
 /* 侧边栏样式 */
@@ -305,11 +282,6 @@ const lists = [
   .detail-s{
     font-size:20px;
     margin-right:15px;
-  }
-
-  .pagination{
-    margin-top: 20px;
-    margin-left: 650px;
   }
 
   .bgi{

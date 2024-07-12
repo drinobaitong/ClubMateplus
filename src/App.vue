@@ -10,7 +10,23 @@
           <RouterLink to = "/ClubReview" class = "nav" active-class = "active" v-if = "webStore.web.status && webStore.web.identity === 'admin'">后台管理</RouterLink>
         </div>
         <el-input v-model="input" style="width: 240px" placeholder="Please Input" :suffix-icon="Search" class = "search"/>
+        <span class = "nav-exit nav" v-if = "webStore.web.status" @click="dropLogin">退出登录</span>
       </el-header> 
+      <!-- 确认退出 -->
+      <el-dialog
+    v-model="dialogVisible"
+    width="500"
+  >
+    <span style="font-size: 20px;">请确认是否退出登录？</span>
+    <template #footer>
+      <div class="dialog-footer">
+      <el-button type="primary" @click="reConfirm">
+          确认
+        </el-button>
+        <el-button @click="dialogVisible = false">取消</el-button>
+      </div>
+    </template>
+  </el-dialog>
 
   <div class = "main-content">
     <RouterView></RouterView>
@@ -23,6 +39,8 @@
   import { Search } from '@element-plus/icons-vue';
   import { useWebStore } from './stores/web.js';
   import { watch ,ref} from 'vue';
+
+  const dialogVisible = ref(false)
 
   const input = ref('');
 
@@ -38,7 +56,24 @@
     router.push('/Administration');  
   }
 });  
-  
+
+
+function dropLogin () {//退出登录
+  dialogVisible.value = true
+}
+
+function reConfirm(){
+  dialogVisible.value = false
+  webStore.web.identity = ''
+  webStore.web.status = ''
+  router.push('/')
+  ElNotification({
+          title: 'Success',
+          message: '退出登录成功',
+          type: 'success',
+  })
+}
+
 
 </script>
 
@@ -76,6 +111,15 @@
   .search{
     font-size:20px;
     margin-left:10rem;
+  }
+
+  .nav-exit{
+    font-size: 20px;
+    text-decoration: underline;
+  }
+
+  .nav-exit:hover{
+    color:#4095e5;
   }
 
   .active{

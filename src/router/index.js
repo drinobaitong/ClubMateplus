@@ -6,6 +6,7 @@ import Administration from '../pages/MeHome/Administration.vue'
 import SetUpClub from '../pages/MeHome/SetUpClub.vue'
 import JoinClub from '../pages/ClubDetail/JoinClub.vue'
 import Post from '../pages/ClubDetail/Post.vue'
+import MePost from '../pages/ClubDetail/MePost.vue'
 
 import ClubReview from '../pages/SystemController/ClubReview.vue'
 import ClubCancellation from '../pages/SystemController/ClubCancellation.vue'
@@ -88,6 +89,11 @@ const routes = [
         path: '/Post',
         name: 'Post',
         component: Post
+    },
+    {
+        path: '/MePost',
+        name: 'MePost',
+        component: MePost
     },
 
     {

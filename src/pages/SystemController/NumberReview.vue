@@ -21,11 +21,13 @@
             </el-col>
           </el-row>
           <div class="menu-list">
+              <router-link to="/">
             <el-menu-item index="1">
               <el-icon><icon-menu /></el-icon>
               <span >首页</span>
             </el-menu-item>
-            <router-link to="/">
+              </router-link>
+            <router-link to="/ClubReview">
               <el-menu-item index="2" >
                 <el-icon><document /></el-icon>
                 <span>社团审核</span>
@@ -240,32 +242,7 @@ const recoverClick = (row) => {
 };
 
 //初始数据
-const tableData = [
-  {
-    clubName: '舞蹈队',
-    Sno:'2022333333333',
-    name:'张三',
-    college: '计算机学院',
-    phoneNumber:'1234444444',
-    polOutlook:'共产党员',
-    grade:'2022级',
-    date: '2022-3-4',
-    state: '未审核',
-    flag:'',//拒绝1，同意0
-  },
-  {
-    clubName: '排球队',
-    Sno:'2023333333333',
-    name:'里斯本',
-    college: '哲学学院',
-    phoneNumber:'1404444444',
-    polOutlook:'群众',
-    grade:'2023级',
-    date: '2023-6-4',
-    state: '已审核',
-    flag:'',//拒绝1，同意0
-  },
-]
+const tableData = reactive([])
 const pages = reactive({
   currentPage: 1, // 当前页码
   pageSize: 10, // 每页显示的条目数

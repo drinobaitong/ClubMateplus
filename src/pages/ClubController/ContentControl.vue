@@ -165,18 +165,7 @@ import { InfoFilled } from '@element-plus/icons-vue'
 
 
 //初始数据
-const tableData = [
-  {
-    user:'张三',
-    content:'今天是个好日子',
-    date:'2022-3-4'
-  },
-  {
-    user:'李四',
-    content:'噢噢噢噢噢噢噢噢噢噢噢噢噢噢噢噢噢噢噢噢噢',
-    date:'2024-3-4'
-  },
-]
+const tableData = reactive([])
 const pages = reactive({
   currentPage: 1, // 当前页码
   pageSize: 10, // 每页显示的条目数
