@@ -1,5 +1,6 @@
 package org.intership.clubmate.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,5 +17,6 @@ public class UCJoin {
     private Integer clubId;
     private int status;
     private LocalDateTime joinTime;
+    @TableField("`rank`")
     private int rank;
 }
