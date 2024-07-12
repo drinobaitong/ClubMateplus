@@ -6,12 +6,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.intership.clubmate.entity.Article;
 import org.intership.clubmate.entity.Club;
 import org.intership.clubmate.entity.ClubUpdate;
+import org.intership.clubmate.entity.User;
 import org.intership.clubmate.enums.HttpCode;
 import org.intership.clubmate.pojo.ResponseResult;
-import org.intership.clubmate.service.ArticleService;
-import org.intership.clubmate.service.ClubService;
-import org.intership.clubmate.service.ClubUpdateService;
-import org.intership.clubmate.service.MessageService;
+import org.intership.clubmate.service.*;
 import org.intership.clubmate.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -36,6 +34,8 @@ public class ClubController {
     private ClubUpdateService clubUpdateService;
     @Autowired
     private MessageService messageService;
+    @Autowired
+    private UserService userService;
     //新建社团
     @PostMapping("/club/insert")
     public ResponseResult insertClub(@RequestBody Club club){
@@ -68,6 +68,8 @@ public class ClubController {
     public ResponseResult getClub(@PathVariable Integer id){
         Club club=clubService.getById(id);
         log.info("根据id查找社团");
+        User user =userService.getById(club.getCreateUserId());
+        club.setCreateUserName(user.getName());
         return  ResponseResult.success(club);
     }
 

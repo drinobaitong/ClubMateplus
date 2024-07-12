@@ -9,6 +9,8 @@ import org.intership.clubmate.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DepartmentServiceImp extends ServiceImpl<DepartmentMapper, Department> implements DepartmentService {
 
@@ -36,5 +38,10 @@ public class DepartmentServiceImp extends ServiceImpl<DepartmentMapper, Departme
         else
             departmentMapper.insert(department);
         return department;
+    }
+
+    @Override
+    public List<Department> getAll() {
+        return departmentMapper.selectList((Wrappers.<Department>lambdaQuery()));
     }
 }

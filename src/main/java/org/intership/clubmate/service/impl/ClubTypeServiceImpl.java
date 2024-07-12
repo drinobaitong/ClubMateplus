@@ -7,6 +7,8 @@ import org.intership.clubmate.service.ClubTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Slf4j
 @Service("clubTypeService")
 public class ClubTypeServiceImpl implements ClubTypeService {
@@ -31,5 +33,10 @@ public class ClubTypeServiceImpl implements ClubTypeService {
     @Override
     public ClubType getClubType(String type) {
         return clubTypeMapper.selectClubType(type);
+    }
+
+    @Override
+    public List<ClubType> getALl() {
+        return clubTypeMapper.selectAll();
     }
 }

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 
-@TableName(value="clubtype")
+@TableName(value="club_type")
 public class ClubType {
     @TableId("type")
     private String Type;

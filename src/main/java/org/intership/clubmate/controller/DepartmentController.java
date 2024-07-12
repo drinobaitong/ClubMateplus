@@ -8,6 +8,8 @@ import org.intership.clubmate.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins="*")
 @RequestMapping("/department")
@@ -38,5 +40,11 @@ public class DepartmentController {
             return ResponseResult.error(HttpCode.SYSTEM_ERROR);
         }
         return ResponseResult.success(res);
+    }
+
+    @RequestMapping("/getAll")
+    public ResponseResult getAll(){
+        List<Department> departmentList =departmentService.getAll();
+        return ResponseResult.success(departmentList);
     }
 }

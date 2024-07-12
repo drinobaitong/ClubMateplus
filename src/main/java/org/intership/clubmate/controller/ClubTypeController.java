@@ -8,6 +8,8 @@ import org.intership.clubmate.service.ClubTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins="*")
 @RequestMapping("/clubtype")
@@ -56,6 +58,12 @@ public class ClubTypeController {
         if(clubType!=null){
             return ResponseResult.success(clubType);
         }else return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"找不到此类别！");
+    }
+
+    @RequestMapping("/allType")
+    public ResponseResult allType(){
+        List<ClubType> types=clubTypeService.getALl();
+        return ResponseResult.success(types);
     }
 
 }
