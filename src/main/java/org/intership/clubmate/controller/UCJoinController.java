@@ -91,7 +91,7 @@ public class UCJoinController {
         //判断是入社还是退社
         if(theStatus==1){
             //退社
-            if (status==1){
+            if (status==3){
                 log.info("退社通过");
                 clubService.subMember(clubId);
                 ucJoinService.audit(userId,clubId,3);
@@ -104,13 +104,14 @@ public class UCJoinController {
         }
         else {
             //不是社团成员，入社
-            if (status==1){
+            if (status==2){
                 log.info("入社通过");
                 clubService.addMember(clubId);
                 ucJoinService.audit(userId,clubId,2);
                 messageService.insert(userId,"您的入社请求已通过！");
             }else{
                 log.info("入社拒绝");
+                ucJoinService.delete(userId,clubId);
                 messageService.insert(userId,"您的入社请求未能通过！");
             }
         }
@@ -128,5 +129,16 @@ public class UCJoinController {
         IPage<UCJoin> ucs= ucJoinService.getClubs(pageNo,pageSize,userId);
 
         return ResponseResult.success(ucs);
+    }
+
+    @PostMapping("join/rank")
+    public ResponseResult changeRank(
+            @RequestParam Integer userId,
+            @RequestParam Integer clubId,
+            @RequestParam int rank
+    ){
+        log.info("设置用户社团中的权限");
+        ucJoinService.setRank(clubId,userId,rank);
+        return ResponseResult.success();
     }
 }

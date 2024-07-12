@@ -16,4 +16,5 @@ public class UCJoin {
     private Integer clubId;
     private int status;
     private LocalDateTime joinTime;
+    private int rank;
 }
