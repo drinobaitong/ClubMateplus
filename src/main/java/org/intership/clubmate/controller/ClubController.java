@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.intership.clubmate.entity.Article;
 import org.intership.clubmate.entity.Club;
 import org.intership.clubmate.entity.ClubUpdate;
+import org.intership.clubmate.entity.User;
 import org.intership.clubmate.enums.HttpCode;
 import org.intership.clubmate.pojo.ResponseResult;
 import org.intership.clubmate.service.*;
@@ -34,7 +35,11 @@ public class ClubController {
     @Autowired
     private MessageService messageService;
     @Autowired
+
     private UCJoinService ucJoinService;
+
+    private UserService userService;
+
     //新建社团
     @PostMapping("/club/insert")
     public ResponseResult insertClub(@RequestBody Club club){
@@ -68,6 +73,8 @@ public class ClubController {
     public ResponseResult getClub(@PathVariable Integer id){
         Club club=clubService.getById(id);
         log.info("根据id查找社团");
+        User user =userService.getById(club.getCreateUserId());
+        club.setCreateUserName(user.getName());
         return  ResponseResult.success(club);
     }
 
