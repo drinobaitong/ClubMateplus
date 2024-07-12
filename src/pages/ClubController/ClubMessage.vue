@@ -14,7 +14,7 @@
             <el-col :span="20">
               <div class="demo-basic--circle">
                 <div class="block">
-                  <el-avatar :size="50" :src="circleUrl" />
+                  <el-avatar :size="50"  />
                 </div>
                 <div class="sub-title">admin</div>
               </div>
@@ -90,10 +90,10 @@
                     style="width: 240px"
                 >
                   <el-option
-                      v-for="item in options"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
+                      v-for="item in data.type"
+                      :key="item.type"
+                      :label="item.type"
+                      :value="item.type"
                   />
                 </el-select>
               </el-col>
@@ -119,7 +119,7 @@
               <el-col :span="6">
                 创建日期
                 <el-input
-                    v-model="data.tableData.date"
+                    v-model="data.tableData.registerTime"
                     style="width: 240px"
                     disabled
                 />
@@ -128,15 +128,15 @@
                 <div class="grid-content ep-bg-purple" />
                 学院
                 <el-select
-                    v-model="data.tableData.college"
+                    v-model="data.tableData.collage"
                     placeholder="Select"
                     style="width: 240px"
                 >
                   <el-option
-                      v-for="item in option"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
+                      v-for="item in data.department"
+                      :key="item.name"
+                      :label="item.name"
+                      :value="item.name"
                   />
                 </el-select>
               </el-col>
@@ -149,7 +149,7 @@
               <el-col :span="6">
                 <div >社团简介</div>
                 <el-input
-                    v-model="data.tableData.introduction"
+                    v-model="data.tableData.introduce"
                     style="width: 340px"
                     :rows="7"
                     type="textarea"
@@ -160,7 +160,7 @@
                 <div class="grid-content ep-bg-purple" />
                 负责人姓名
                 <el-input
-                    v-model="data.tableData.createUser"
+                    v-model="data.tableData.createUserName"
                     style="width: 240px"
                     placeholder="Please input"
                     clearable
@@ -204,47 +204,38 @@ const data = reactive(
     tableData:{
       name: '',
       type:'',
-      college: '',
-      date: '',
-      postURL:'',
-      introduction:'',
+      collage: '',
+      registerTime: '',
+      avatarUrl:'',
+      introduce:'',
       createUserId:'',
+      createUserName:'',
+      status:''
     },
-    createUser:'',
+    department:[],
+    type:[],
   });
 
 const load=()=>{
   request.get('/club/get/6'
   ).then(res=>{
-    data.tableData=res.data;
+    data.tableData=res.data.data
+  })
+  request.get('/department/getAll').then(res=>{
+    console.log(res)
+    data.department=res.data.data
+  })
+  request.get('/clubtype/allType').then(res=>{
+    data.type=res.data.data
   })
 }
-load();
-const options = [
-  {
-    value: '文学创作类',
-    label: '文学创作类',
-  },
-  {
-    value: '文化体育类',
-    label: '文化体育类',
-  },
-]
-const option = [
-  {
-    value: '计算机学院',
-    label: '计算机学院',
-  },
-  {
-    value: '哲学学院',
-    label: '哲学学院',
-  },
-]
+load()
+
 
 const fileList = ref<UploadUserFile[]>([
   {
     name: 'food.jpeg',
-    url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100',
+    url: data.tableData.avatarUrl,
   },
 ])
 
@@ -264,10 +255,20 @@ const open = () => {
     autofocus: false,
     confirmButtonText: 'OK',
     callback: (action: Action) => {
-      ElMessage({
-        type: 'info',
-        message: `action: ${action}`,
+      data.tableData.status='5'
+      request.put('/club/update',data.tableData).then(res=>{
+        console.log(res)
+        if(res.data.code=='200'){
+          ElMessage({
+            type: 'info',
+            message: '注销成功',
+          })
+        }else {
+          ElMessage.error('注销失败')
+        }
+
       })
+
     },
   })
 }
@@ -277,9 +278,17 @@ const open2 = () => {
     autofocus: false,
     confirmButtonText: 'OK',
     callback: (action: Action) => {
-      ElMessage({
-        type: 'info',
-        message: `action: ${action}`,
+      data.tableData.status='3'
+      request.put('/club/update',data.tableData).then(res=>{
+        console.log(res)
+        if(res.data.code=='200'){
+          ElMessage({
+            type: 'info',
+            message: '提交成功',
+          })
+        }else {
+          ElMessage.error('提交失败')
+        }
       })
     },
   })
