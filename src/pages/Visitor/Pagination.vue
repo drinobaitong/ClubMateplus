@@ -1,8 +1,7 @@
   <template>    
    <div id="whole" class="page">
     <div class="box" v-for="(club, index) in paginatedLists" :key="index">    
-      <NotLogged :club="club" :setDialogVisible="someDialogVisibilityMethod" :wid="300" :hei="300" />  
-      <!-- 注意：setDialogVisible 应该是从父组件传递的方法或内部定义的方法 -->  
+      <NotLogged :club="club" :setDialogVisible="someDialogVisibilityMethod" :wid="300" :hei="300" />   
       <div style="margin-left: 40px;">    
         <h4 style="font-size: 24px;">{{ club.name }}</h4>    
         <p>{{ club.tags }}</p>    
@@ -11,7 +10,6 @@
     </div>    
   </div>    
   <div class="pagination">    
-      <!-- 假设你使用的是 Element Plus 或类似的 UI 库 -->  
       <el-pagination    
         @current-change="handleCurrentChange"    
         :current-page="currentPage"    

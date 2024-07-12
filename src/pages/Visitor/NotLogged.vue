@@ -73,7 +73,6 @@
   import { Search } from '@element-plus/icons-vue';
   import { ElNotification } from 'element-plus'
   import { useWebStore } from '@/stores/web.js';
-  import router from '@/router';
   import { useRouter } from 'vue-router';
 
   const rt = useRouter()

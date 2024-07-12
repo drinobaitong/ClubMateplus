@@ -19,10 +19,10 @@
 
           <!-- 搜索区域 -->
           <el-select
-      v-model="value"
-      placeholder="计算机学院"
-      size="large"
-      style="width: 240px; float:right ;height: 60px; font-size: 25px;font-weight: 700;"
+            v-model="currentC"
+            placeholder="计算机学院"
+            size="large"
+            class ="search2"
     ><el-option
         v-for="item in options"
         :key="item.value"
@@ -34,7 +34,7 @@
            <!-- 内容区域 -->
         <div id="content" style="overflow: hidden;">
             <div class="container-fluid">
-              <Pagination :lists="filteredLists" />
+              <Pagination :lists="finalList" />
             </div>
         </div>
 
@@ -53,6 +53,9 @@
 
   // 当前选中的标签 
   const currentTag = ref(''); 
+
+  // 当前选择的学院
+  const currentC = ref('')
   
   const categories = [  
     { name: '全部分类'},  
@@ -63,29 +66,31 @@
     { name: '志愿公益类'},  
     { name: '自律互助类'}  
   ];  
-  
-  const value = ref('')
 
   const options = [
     {
-      value: 'Option1',
+      value: '计算机学院',
       label: '计算机学院',
     },
    {
-      value: 'Option2',
+      value: '数学与统计学院',
       label: '数学与统计学院',
     },
     {
-      value: 'Option3',
+      value: '法学院',
       label: '法学院',
     },
     {
-      value: 'Option4',
+      value: '哲学学院',
       label: '哲学学院',
     },
     {
-      value: 'Option5',
+      value: '信息管理学院',
       label: '信息管理学院',
+    },
+    {
+      value: '',
+      label: '所有学院',
     },
   ]
  
@@ -95,7 +100,7 @@
       createUserId: 75,
       name:'珞珈晨跑队',
       tags:'文化体育类',
-      unit:'弘毅学堂',
+      collage:'弘毅学堂',
       registerTime: "1974-05-20 16:53:33",
       totalNumber:56,
       avatarUrl: "http://dummyimage.com/100x100",
@@ -109,7 +114,7 @@
       avatarUrl: "http://dummyimage.com/100x100",
       name:'AOE舞蹈队',
       tags:'文化体育类',
-      unit:'计算机学院',
+      collage:'计算机学院',
       introduce:'舞动青春，韵动梦想！我们是一支充满热情与创意的舞蹈队，以舞为媒，融合多元风格，用每一个跃动的节拍诠释对生活的热爱与追求。'
     },
     {
@@ -120,7 +125,7 @@
       avatarUrl: "http://dummyimage.com/100x100",
       name:'安全工作协会',
       tags:'自律互助类',
-      unit:'保卫部',
+      collage:'计算机学院',
       introduce:'安全护航，责任为先。安全工作协会，致力于构建安全文化，提升安全意识，通过专业培训与交流，共筑安全防线，守护每一份安心与和谐。'
     },
     {
@@ -131,7 +136,7 @@
       avatarUrl: "http://dummyimage.com/100x100",
       name:'安全工作协会',
       tags:'自律互助类',
-      unit:'保卫部',
+      collage:'计算机学院',
       introduce:'安全护航，责任为先。安全工作协会，致力于构建安全文化，提升安全意识，通过专业培训与交流，共筑安全防线，守护每一份安心与和谐。'
     },
     {
@@ -142,7 +147,7 @@
       avatarUrl: "http://dummyimage.com/100x100",
       name:'安全工作协会',
       tags:'自律互助类',
-      unit:'保卫部',
+      collage:'保卫部',
       introduce:'安全护航，责任为先。安全工作协会，致力于构建安全文化，提升安全意识，通过专业培训与交流，共筑安全防线，守护每一份安心与和谐。'
     }
   ]
@@ -153,7 +158,6 @@
     if (currentTag.value === '全部分类' || currentTag.value === '') {  
       return lists;
     }  
-    console.log('点击了此标签',lists.filter(item => item.tags === currentTag.value))
     return lists.filter(item => item.tags === currentTag.value);  
   });  
 
@@ -162,6 +166,17 @@
     currentTag.value = tag;  
   }  
 
+  //根据选择的学院过滤列表
+  const finalList = computed(() =>{
+    if(currentC.value === ''){
+      return filteredLists.value;
+    }
+    console.log("选择的学院",currentC.value)
+    console.log("最终传入列表",filteredLists.value.filter(item => item.collage === currentC.value))
+    return filteredLists.value.filter(item => item.collage === currentC.value);
+  })
+
+ 
 </script>
 
 <style scoped>
@@ -195,6 +210,15 @@
 
   .search{
     margin-left:10rem;
+  }
+
+  /* 学院搜索栏 */
+  .search2{
+    width: 240px;
+    float: right;
+    height: 60px;
+    font-size:25px;
+    font-weight:700;
   }
 
 /* 侧边栏样式 */
