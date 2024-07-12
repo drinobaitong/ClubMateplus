@@ -72,30 +72,34 @@
         <!---主界面--->
         <el-main>
           <!---搜索框--->
-          <el-form :inline="true" :model="formInline" class="demo-form-inline">
+          <el-form :inline="true" :model="data.formInline" class="demo-form-inline">
             <el-form-item label="学院">
               <el-select
-                  v-model="formInline.college"
+                  v-model="data.formInline.college"
                   placeholder="计算机学院"
                   clearable
               >
-                <el-option label="计算机学院" value="计算机学院" />
-                <el-option label="哲学学院" value="哲学学院" />
+                <el-option
+                    v-for="item in data.department"
+                    :key="item.name"
+                    :label="item.name"
+                    :value="item.name"
+                />
               </el-select>
             </el-form-item>
             <el-form-item label="职位">
               <el-select
-                  v-model="formInline.position"
+                  v-model="data.formInline.rank"
                   placeholder="成员"
                   clearable
               >
-                <el-option label="负责人" value="负责人" />
-                <el-option label="管理员" value="管理员" />
-                <el-option label="成员" value="成员" />
+                <el-option label="负责人" value="2" />
+                <el-option label="管理员" value="1" />
+                <el-option label="成员" value="0" />
               </el-select>
             </el-form-item>
             <el-form-item >
-              <el-input v-model="formInline.name" placeholder="成员名称" clearable />
+              <el-input v-model="data.formInline.name" placeholder="成员名称" clearable />
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="onSubmit">Query</el-button>
@@ -160,14 +164,15 @@
           </el-form>
           <!---审核数据--->
           <el-table :data="filteredTableData" style="width: 100%">
-            <el-table-column prop="position" label="职位" width="120" />
-            <el-table-column prop="Sno" label="学号" width="220" />
-            <el-table-column prop="name" label="姓名" width="120" />
-            <el-table-column prop="college" label="学院" width="120" />
-            <el-table-column prop="phoneNumber" label="联系电话" width="120" />
-            <el-table-column prop="polOutlook" label="政治面貌" width="120" />
-            <el-table-column prop="grade" label="年级" width="120" />
-            <el-table-column prop="date" label="申请时间" width="120" />
+            <el-table-column prop="rank" label="职位" width="120" >
+              <template v-slot="scope">{{positionList[scope.row.rank].position}}</template></el-table-column>
+            <el-table-column prop="user.sno" label="学号" width="220" />
+            <el-table-column prop="user.name" label="姓名" width="120" />
+            <el-table-column prop="user.department" label="学院" width="120" />
+            <el-table-column prop="user.phone" label="联系电话" width="120" />
+            <el-table-column prop="user.politicalAffiliation" label="政治面貌" width="120" />
+            <el-table-column prop="user.grade" label="年级" width="120"></el-table-column>
+            <el-table-column prop="joinTime" label="申请时间" width="120" />
             <el-table-column fixed="right" label="操作" min-width="120">
               <template #default="scope">
                 <el-popconfirm
@@ -175,15 +180,16 @@
                     :icon="InfoFilled"
                     icon-color="#626AEF"
                     title="确认要移除此成员吗?"
-                    @confirm="cancel(scope.row)"
+                    prop="userId"
+                    @confirm="cancel(scope.row,scope.row.userId)"
                 >
                   <template #reference>
                     <el-button  plain link type=danger size="small" >
                       移除
                     </el-button>
                   </template>
-                </el-popconfirm>
-                <el-button link type="success" @click="openEditDialog(scope.row)" size="small">更改职位</el-button>
+                </el-popconfirm >
+                <el-button link type="success" @click="openEditDialog(scope.row)" size="small" prop="userId">更改职位</el-button>
                 <!-- 修改社团类型的对话框 -->
                 <el-dialog
                     v-model="editDialogVisible"
@@ -193,18 +199,21 @@
                   <el-form :model="editCategoryForm" label-width="100px">
                     <el-form-item label="成员职位">
                       <el-select
-                          v-model="editCategoryForm.position"
+                          v-model="editCategoryForm.rank"
                           placeholder="成员"
                           clearable
                       >
-                        <el-option label="管理员" value="管理员" />
-                        <el-option label="成员" value="成员" />
+                        <el-option
+                            v-for="item in positionList"
+                            :label="item.position"
+                            :value="item.rank"
+                        />
                       </el-select>
                     </el-form-item>
                   </el-form>
-                  <template #footer>
+                  <template #footer >
                     <el-button @click="editDialogVisible = false">取消</el-button>
-                    <el-button type="primary" @click="confirmEdit">确认修改</el-button>
+                    <el-button type="primary" @click="confirmEdit(scope.row.userId)">确认修改</el-button>
                   </template>
                 </el-dialog>
               </template>
@@ -214,10 +223,10 @@
           <div class="changePage">
             <el-pagination
                 @current-change="handleCurrentChange"
-                :current-page.sync="pages.currentPage"
-                :page-size="pages.pageSize"
+                :current-page.sync="data.currentPage"
+                :page-size="data.pageSize"
                 layout="prev, pager, next, jumper"
-                :total="pages.total"
+                :total="data.total"
             />
           </div>
         </el-main>
@@ -235,6 +244,7 @@ import {
   Setting,
 } from '@element-plus/icons-vue'
 import { ref } from 'vue'
+import request from '@/request/request';
 
 const state = reactive({
   circleUrl:
@@ -243,95 +253,83 @@ const state = reactive({
 })
 
 const { circleUrl} = toRefs(state)
-const formInline = reactive({
-  clubName: '',
-  Sno:'',
-  name:'',
-  position:'',
-  college: '',
-  phoneNumber:'',
-  polOutlook:'',
-  grade:'',
-  date: '',
+const data= reactive({
+  formInline:{
+    name:'',
+    rank:'',
+    college: '',
+  },
+  currentPage: 1, // 当前页码
+  pageSize: 10, // 每页显示的条目数
+  total: 100,
+  members:[],
+  department:[]
 })
 
 const onSubmit = () => {
   console.log('submit!')
 }
 
+const load=()=>{
+  request.get('/club/users/6',{
+    params:{
+      pageNo:data.currentPage,
+      pageSize:data.pageSize
+    }
+  }).then(res=>{
+    console.log(res)
+    data.members=res.data.data.records
+    console.log(data.members)
+  })
+  request.get('/department/getAll').then(res=>{
+    console.log(res)
+    data.department=res.data.data
+  })
+}
+load()
 // 使用计算属性根据筛选条件过滤数据
 const filteredTableData = computed(() => {
-  return tableData.filter(item => {
+  return data.members.filter(item => {
     // 如果输入成员名称，也进行名称筛选
-    if (formInline.name && !item.name.includes(formInline.name)) {
+    if (data.formInline.name && !item.name.includes(data.formInline.name)) {
       return false;
     }
     // 如果选择了学院，只显示该学院的社团
-    if (formInline.college && item.college !== formInline.college) {
+    if (data.formInline.college && item.college !== data.formInline.college) {
       return false;
     }
     //职位
-    if (formInline.position && item.position !== formInline.position) {
+    if (data.formInline.rank && item.position !== data.formInline.rank) {
       return false;
     }
     return true;
   });
 });
 
-//初始数据
-const tableData = [
-  {
-    clubName: '舞蹈队',
-    Sno:'2022333333333',
-    name:'张三',
-    position:'负责人',
-    college: '计算机学院',
-    phoneNumber:'1234444444',
-    polOutlook:'共产党员',
-    grade:'2022级',
-    date: '2022-3-4',
-    flag:'',//拒绝1，同意0
+const positionList=[
+    {
+  rank:0,
+  position:'成员'
   },
   {
-    clubName: '舞蹈队',
-    Sno:'2023333333333',
-    name:'里斯本',
-    position:'管理员',
-    college: '哲学学院',
-    phoneNumber:'1404444444',
-    polOutlook:'群众',
-    grade:'2023级',
-    date: '2023-6-4',
+    rank:1,
+    position: '管理员'
   },
   {
-    clubName: '舞蹈队',
-    Sno:'2023333333333',
-    name:'菲亚特',
-    position:'成员',
-    college: '哲学学院',
-    phoneNumber:'1404443444',
-    polOutlook:'群众',
-    grade:'2024级',
-    date: '2024-6-4',
-  },
-]
-const pages = reactive({
-  currentPage: 1, // 当前页码
-  pageSize: 10, // 每页显示的条目数
-  total: 100, // 总条目数
-});
+    rank:2,
+    position: '负责人'
+  }]
 
 // 监听页码变化
-watch(() => pages.currentPage, (newPage) => {
+watch(() => data.currentPage, (newPage) => {
   // 这里可以请求数据或使用计算属性更新数据
   // 例如: fetchData(newPage);
 });
 
 // 分页变化事件处理
 const handleCurrentChange = (newPage) => {
-  pages.currentPage = newPage;
-  // 这里可以请求新页的数据
-  // fetchData(newPage);
+  data.currentPage = newPage;
+  load();
 };
 
 // 假设的请求数据方法，需要根据实际情况实现
@@ -362,13 +360,13 @@ const addType = () => {
     return;
   }
   // 确保不添加重复的社团类型
-  const exists = tableData.some(item => item.Sno === newType.Sno);
+  const exists = data.members.some(item => item.Sno === newType.Sno);
   if (exists) {
     // 可以提示用户社团类型已存在
     return;
   }
   // 添加新社团类型
-  tableData.push({
+  data.members.push({
     clubName: newType.clubName,
     Sno: newType.Sno,
     college: newType.college,
@@ -380,51 +378,67 @@ const addType = () => {
     position: newType.position
   });
   // 关闭对话框
-  console.warn(tableData);
+  console.warn(data.members);
   addTypeDialogVisible.value = false;
 }
 
 // 修改对话框状态
 const editDialogVisible = ref(false);
 // 注销类型的方法
-const cancel = (row) => {
+const cancel = (row, userId) => {
   // 找到要删除的成员的索引
-  const rowIndex = tableData.findIndex(item => item.Sno === row.Sno);
+  const rowIndex = data.members.findIndex(item => item.Sno === row.Sno);
   if (rowIndex !== -1&&row.position!=='负责人') {
     // 从 tableData 中删除对应的社团
-    tableData.splice(rowIndex, 1);
+    //data.members.splice(rowIndex, 1);
+    request.delete('/join/quit',{
+      params:{
+        clubId:6,
+        userId:userId
+      }
+    }).then(res=>{
+      if(res.data.code=='200'){
+        load()
+        ElMessage.success("成功删除")
+      }else ElMessage.error("删除失败")
+    });
     // 更新分页总数
-    pages.total = tableData.length;
+    data.total = data.members.length;
     // 如果需要，可以在这里处理分页状态的更新
-    if (pages.total < pages.pageSize * pages.currentPage) {
-      pages.currentPage = Math.max(1, pages.currentPage - 1);
+    if (data.total < data.pageSize * data.currentPage) {
+      data.currentPage = Math.max(1, data.currentPage - 1);
     }
   } else {
     console.error('未找到对应的类型');
   }
 };
 // 存储要编辑的社团类型
-const editCategoryForm = reactive({ position: '' });
+const editCategoryForm = reactive({ rank: '' });
 // 用于存储当前正在编辑的社团的索引
 const currentEditingIndex = ref(-1);
 const index = ref(-1);
 // 打开修改对话框并设置要编辑的社团类型
 const openEditDialog = (row) => {
-  editCategoryForm.position = row.position; // 设置要编辑的社团类型
+  editCategoryForm.rank = row.rank; // 设置要编辑的社团类型
   editDialogVisible.value = true; // 打开对话框
-  index.value = tableData.findIndex(item => item.position === row.position);
+  index.value = data.members.findIndex(item => item.position === row.position);
 };
 import { InfoFilled } from '@element-plus/icons-vue'
+import {ElMessage} from "element-plus";
 // 确认修改社团类型的逻辑
-const confirmEdit = () => {
+const confirmEdit = (userId) => {
   // 找到要修改的社团类型在 tableData 中的索引
-  console.warn(index.value);
-  let club = tableData[index.value];
-  if (index.value !== -1) {
-    // 更新社团类型
-    if(club.position=='负责人') {editDialogVisible.value = false; return;}
-    else club.position = editCategoryForm.position;
+  console.log(editCategoryForm.rank);
+  let member={
+    userId:userId,
+    clubId:6,
+    rank:editCategoryForm.rank
   }
+  request.post('/join/rank',member).then(res=>{
+    if(res.data.code=='200')
+      ElMessage.success('修改成功')
+    else ElMessage.error('修改失败')
+  })
   editDialogVisible.value = false; // 关闭对话框
   currentEditingIndex.value = -1;
 };
