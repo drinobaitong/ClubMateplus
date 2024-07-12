@@ -12,4 +12,5 @@ public interface UserClubCollectionMapper extends BaseMapper<UserClubCollection>
     @Select("select c.* from user_club_collection u left join club c on c.id=u.club_id " +
             "where u.user_id = #{uid}")
     IPage<Club> selectClub(IPage<UserClubCollection> page,int uid);
+
 }
