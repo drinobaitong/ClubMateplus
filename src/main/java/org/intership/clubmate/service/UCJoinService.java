@@ -8,7 +8,7 @@ import org.intership.clubmate.entity.User;
 import javax.persistence.criteria.CriteriaBuilder;
 
 public interface UCJoinService extends IService<UCJoin> {
-    void insert(Integer userId,Integer clubId);
+    void insert(Integer userId,Integer clubId,int rank);
     void delete(Integer userId,Integer clubId);
     IPage<UCJoin> getUsers(Integer pageNo,Integer pageSize,Integer clubId);
     void quit(Integer userId,Integer clubId);
@@ -18,7 +18,10 @@ public interface UCJoinService extends IService<UCJoin> {
 
     IPage<UCJoin> getJoins(Integer pageNo,Integer pageSize,Integer clubId);
     IPage<UCJoin> getQuits(Integer pageNo,Integer pageSize,Integer clubId);
+    IPage<UCJoin> getControlClubs(Integer pageNo,Integer pageSize,Integer userId);
 
     int getStatus(Integer clubId,Integer userId);
     void setRank(Integer clubId,Integer userId,int rank);
+
+    UCJoin ifExit(Integer userId,Integer clubId);
 }

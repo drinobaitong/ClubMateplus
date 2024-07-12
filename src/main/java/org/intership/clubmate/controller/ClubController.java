@@ -8,10 +8,7 @@ import org.intership.clubmate.entity.Club;
 import org.intership.clubmate.entity.ClubUpdate;
 import org.intership.clubmate.enums.HttpCode;
 import org.intership.clubmate.pojo.ResponseResult;
-import org.intership.clubmate.service.ArticleService;
-import org.intership.clubmate.service.ClubService;
-import org.intership.clubmate.service.ClubUpdateService;
-import org.intership.clubmate.service.MessageService;
+import org.intership.clubmate.service.*;
 import org.intership.clubmate.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -36,11 +33,14 @@ public class ClubController {
     private ClubUpdateService clubUpdateService;
     @Autowired
     private MessageService messageService;
+    @Autowired
+    private UCJoinService ucJoinService;
     //新建社团
     @PostMapping("/club/insert")
     public ResponseResult insertClub(@RequestBody Club club){
         log.info("新建社团");
         clubService.insertClub(club);
+        ucJoinService.insert(club.getCreateUserId(),club.getId(),1);
        // messageService.insert(club.getCreateUserId(),"您的社团："+club.getName()+"的创建申请已提交，目前正等待审核");
         return ResponseResult.success();
     }
