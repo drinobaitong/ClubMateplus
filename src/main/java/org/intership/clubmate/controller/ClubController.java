@@ -35,12 +35,17 @@ public class ClubController {
     @Autowired
     private MessageService messageService;
     @Autowired
+
+    private UCJoinService ucJoinService;
+
     private UserService userService;
+
     //新建社团
     @PostMapping("/club/insert")
     public ResponseResult insertClub(@RequestBody Club club){
         log.info("新建社团");
         clubService.insertClub(club);
+        ucJoinService.insert(club.getCreateUserId(),club.getId(),1);
        // messageService.insert(club.getCreateUserId(),"您的社团："+club.getName()+"的创建申请已提交，目前正等待审核");
         return ResponseResult.success();
     }

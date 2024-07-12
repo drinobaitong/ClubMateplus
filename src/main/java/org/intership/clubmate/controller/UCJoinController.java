@@ -29,7 +29,7 @@ public class UCJoinController {
     public ResponseResult joinClub(
             @RequestParam Integer userId,
             @RequestParam Integer clubId){
-        ucJoinService.insert(userId,clubId);
+        ucJoinService.insert(userId,clubId,0);
         return ResponseResult.success();
     }
 
@@ -140,5 +140,27 @@ public class UCJoinController {
         log.info("设置用户社团中的权限");
         ucJoinService.setRank(clubId,userId,rank);
         return ResponseResult.success();
+    }
+
+    @GetMapping("/join/exit")
+    public ResponseResult ifInClub(
+            @RequestParam Integer clubId,
+            @RequestParam Integer userId
+    ){
+        UCJoin ucJoin=ucJoinService.ifExit(userId,clubId);
+        boolean result=true;
+        if(ucJoin==null)
+            result=false;
+        return ResponseResult.success(result);
+    }
+
+    @GetMapping("join/club/control/{userId}")
+    public ResponseResult getControlClub(
+            @RequestParam int pageNo,
+            @RequestParam int pageSize,
+            @PathVariable Integer userId
+    ){
+        IPage<UCJoin> clubs=ucJoinService.getControlClubs(pageNo,pageSize,userId);
+        return ResponseResult.success(clubs);
     }
 }

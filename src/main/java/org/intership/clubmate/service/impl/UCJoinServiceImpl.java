@@ -23,8 +23,8 @@ public class UCJoinServiceImpl extends ServiceImpl<UCJoinMapper, UCJoin> impleme
 
 
     @Override
-    public void insert(Integer userId,Integer clubId) {
-        UCJoin  ucJoin=new UCJoin(userId,clubId,0, LocalDateTime.now(),0);
+    public void insert(Integer userId,Integer clubId,int rank) {
+        UCJoin  ucJoin=new UCJoin(userId,clubId,0, LocalDateTime.now(),rank);
         ucJoinMapper.insert(ucJoin);
     }
 
@@ -94,6 +94,15 @@ public class UCJoinServiceImpl extends ServiceImpl<UCJoinMapper, UCJoin> impleme
     }
 
     @Override
+    public IPage<UCJoin> getControlClubs(Integer pageNo, Integer pageSize, Integer userId) {
+        Page<UCJoin> page=new Page<>();
+        QueryWrapper<UCJoin> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("user_id",userId);
+        queryWrapper.eq("rank",1);
+        return ucJoinMapper.selectPage(page,queryWrapper);
+    }
+
+    @Override
     public int getStatus(Integer clubId, Integer userId) {
         return ucJoinMapper.getStatus(clubId,userId);
     }
@@ -103,6 +112,13 @@ public class UCJoinServiceImpl extends ServiceImpl<UCJoinMapper, UCJoin> impleme
         UpdateWrapper<UCJoin> updateWrapper=new UpdateWrapper<>();
         updateWrapper.set("rank",rank).eq("club_id",clubId).eq("user_id",userId);
         ucJoinMapper.update(updateWrapper);
+    }
+
+    @Override
+    public UCJoin ifExit(Integer userId, Integer clubId) {
+        QueryWrapper<UCJoin> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("user_id",userId).eq("club_id",clubId);
+        return ucJoinMapper.selectOne(queryWrapper);
     }
 
 }
