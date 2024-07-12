@@ -18,6 +18,8 @@ public interface CommentMapper {
     @Select("select * from comment where id=#{id}")
     Comment getComment(Integer id);
 
+    @Select(("select * from comment;"))
+    List<Comment> viewAllComments();
     //增加评论
     @Insert("insert into comment values (#{id},#{content},#{createUserId},#{articleId},#{layer},#{registerTime})")
     int addComment(Comment comment);
