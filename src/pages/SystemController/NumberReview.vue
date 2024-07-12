@@ -21,11 +21,13 @@
             </el-col>
           </el-row>
           <div class="menu-list">
+              <router-link to="/">
             <el-menu-item index="1">
               <el-icon><icon-menu /></el-icon>
               <span >首页</span>
             </el-menu-item>
-            <router-link to="/">
+              </router-link>
+            <router-link to="/ClubReview">
               <el-menu-item index="2" >
                 <el-icon><document /></el-icon>
                 <span>社团审核</span>
