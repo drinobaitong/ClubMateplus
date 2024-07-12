@@ -1,5 +1,6 @@
 package org.intership.clubmate.controller;
 
+import org.checkerframework.checker.units.qual.C;
 import org.intership.clubmate.entity.Comment;
 import org.intership.clubmate.enums.HttpCode;
 import org.intership.clubmate.pojo.ResponseResult;
@@ -35,6 +36,16 @@ public class CommentController {
             return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"暂无评论！");
         }else return ResponseResult.success(comments);
     }
+
+    //查看所有评论
+    @GetMapping("/all")
+    public ResponseResult viewAllComments(){
+        List<Comment> comments=commentService.getAllComments();
+        if(comments.isEmpty()){
+            return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"暂无评论！");
+        }else return ResponseResult.success(comments);
+    }
+
     //增加评论
     @PostMapping("/add")
     public ResponseResult addComment(Comment comment){

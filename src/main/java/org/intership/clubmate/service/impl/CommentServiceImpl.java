@@ -31,6 +31,12 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public List<Comment> getAllComments() {
+        log.info("获取所有评论");
+        return commentMapper.viewAllComments();
+    }
+
+    @Override
     public int addComment(Comment comment) {
         log.info("添加评论");
         return commentMapper.addComment(comment);

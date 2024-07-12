@@ -3,14 +3,13 @@ package org.intership.clubmate.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-@Getter
-@Setter
+@Data
 @TableName("user")
-@Accessors(chain = true)
 public class User  {
     @TableField("id")
     private int id;
@@ -29,7 +28,7 @@ public class User  {
     @TableField(exist = false)
     private String token;
     @TableField("political_affiliation")
-    private int politicalAffiliation;
+    private String politicalAffiliation;
     @TableField("department")
     private String department;
     @TableField("phone")

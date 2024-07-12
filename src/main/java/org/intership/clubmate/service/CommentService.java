@@ -1,6 +1,7 @@
 package org.intership.clubmate.service;
 
 import org.aspectj.apache.bcel.generic.IINC;
+import org.checkerframework.checker.units.qual.C;
 import org.intership.clubmate.entity.Comment;
 
 import java.util.List;
@@ -13,6 +14,8 @@ public interface CommentService {
     //获取某条评论
     Comment getComment(Integer id);
 
+    //获取所有评论
+    List<Comment> getAllComments();
     //增加评论
     int addComment(Comment comment);
 
