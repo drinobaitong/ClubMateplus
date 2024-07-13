@@ -76,11 +76,15 @@
             <el-form-item label="学院">
               <el-select
                   v-model="formInline.college"
-                  placeholder="计算机学院"
+                  placeholder=""
                   clearable
               >
-                <el-option label="计算机学院" value="计算机学院" />
-                <el-option label="哲学学院" value="哲学学院" />
+                <el-option
+                    v-for="item in formInline.department"
+                    :key="item.name"
+                    :label="item.name"
+                    :value="item.name"
+                />
               </el-select>
             </el-form-item>
             <el-form-item label="审核状态">
@@ -102,13 +106,13 @@
           </el-form>
           <!---审核数据--->
           <el-table :data="filteredTableData" style="width: 100%">
-            <el-table-column prop="date" label="申请时间" width="120" />
-            <el-table-column prop="Sno" label="学号" width="150" />
-            <el-table-column prop="name" label="姓名" width="120" />
-            <el-table-column prop="college" label="学院" width="120" />
-            <el-table-column prop="phoneNumber" label="联系电话" width="120" />
-            <el-table-column prop="polOutlook" label="政治面貌" width="120" />
-            <el-table-column prop="grade" label="年级" width="120" />
+            <el-table-column prop="user.sno" label="学号" width="220" />
+            <el-table-column prop="user.name" label="姓名" width="120" />
+            <el-table-column prop="user.department" label="学院" width="120" />
+            <el-table-column prop="user.phone" label="联系电话" width="120" />
+            <el-table-column prop="user.politicalAffiliation" label="政治面貌" width="120" />
+            <el-table-column prop="user.grade" label="年级" width="120" />
+            <el-table-column prop="joinTime" label="申请时间" width="120" />
             <el-table-column prop="right" label="申请理由" min-width="150">
               <template #default="scope">
                 <el-button @click="viewDetails(scope.row.context)">
@@ -117,18 +121,20 @@
               </template>
             </el-table-column>
 
-            <el-table-column prop="state" label="审核状态" width="120" />
+            <el-table-column prop="status" label="审核状态" width="120" >
+              <template v-slot="scope">{{states[scope.row.status].value}}</template>
+            </el-table-column>
             <el-table-column fixed="right" label="操作" min-width="120">
               <template #default="scope">
-                <el-button link type="primary" size="small" @click="handleClick(scope.row)"  v-if="scope.row.state==='未审核'">
+                <el-button link type="primary" size="small" @click="handleClick(scope.row)"  v-if="scope.row.status=='1'">
                   同意
                 </el-button>
-                <el-button link type="primary" size="small" @click="rejectClick(scope.row)" v-if="scope.row.state==='未审核'">拒绝</el-button>
-                <el-button link type="primary" size="small" v-if="scope.row.state==='已审核'&&scope.row.flag==='0'">已同意</el-button>
-                <el-button link type="primary" size="small" v-if="scope.row.state==='已审核'&&scope.row.flag==='1'">已拒绝</el-button>
-                <el-button link type="primary" size="small" @click="recoverClick(scope.row)" v-if="scope.row.state==='已审核'&&(scope.row.flag==='0'||scope.row.flag==='1')">还原</el-button>
-                <el-button link type="primary" size="small" @click="reAgreeClick(scope.row)" v-if="scope.row.state==='已审核'&&scope.row.flag==='0'">永久同意</el-button>
-                <el-button link type="primary" size="small" @click="reForeverClick(scope.row)" v-if="scope.row.state==='已审核'&&scope.row.flag==='1'">永久拒绝</el-button>
+                <el-button link type="primary" size="small" @click="rejectClick(scope.row)" v-if="scope.row.status=='1'">拒绝</el-button>
+                <el-button link type="primary" size="small" v-if="scope.row.status==='已审核'&&scope.row.flag==='0'">已同意</el-button>
+                <el-button link type="primary" size="small" v-if="scope.row.status==='已审核'&&scope.row.flag==='1'">已拒绝</el-button>
+                <el-button link type="primary" size="small" @click="recoverClick(scope.row)" v-if="scope.row.status==='已审核'&&(scope.row.flag==='0'||scope.row.flag==='1')">还原</el-button>
+                <el-button link type="primary" size="small" @click="reAgreeClick(scope.row)" v-if="scope.row.status==='已审核'&&scope.row.flag==='0'">永久同意</el-button>
+                <el-button link type="primary" size="small" @click="reForeverClick(scope.row)" v-if="scope.row.status==='已审核'&&scope.row.flag==='1'">永久拒绝</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -156,6 +162,8 @@ import {
   Location,
   Setting,
 } from '@element-plus/icons-vue'
+import request from '@/request/request'
+import {ElMessage} from "element-plus";
 
 const state = reactive({
   circleUrl:
@@ -170,15 +178,50 @@ const formInline = reactive({
   category: '',
   state:'',
   name:'',
+  tableData:[],
+  department:[]
 })
 
 const onSubmit = () => {
   console.log('submit!')
 }
+const pages = reactive({
+  currentPage: 1, // 当前页码
+  pageSize: 10, // 每页显示的条目数
+  total: 100, // 总条目数
+});
 
+// 监听页码变化
+watch(() => pages.currentPage, (newPage) => {
+  // 这里可以请求数据或使用计算属性更新数据
+  // 例如: fetchData(newPage);
+});
+
+// 分页变化事件处理
+const handleCurrentChange = (newPage) => {
+  pages.currentPage = newPage;
+  load();
+};
+
+const load =()=>{
+  request.get('/quit/users/6',{
+    params:{
+      pageNo:pages.currentPage,
+      pageSize:pages.pageSize
+    }
+  }).then(res=>{
+    formInline.tableData=res.data.data.records
+    console.log(formInline.tableData)
+  })
+  request.get('/department/getAll').then(res=>{
+    console.log(res)
+    formInline.department=res.data.data
+  })
+}
+load();
 // 使用计算属性根据筛选条件过滤数据
 const filteredTableData = computed(() => {
-  return tableData.filter(item => {
+  return formInline.tableData.filter(item => {
     // 如果输入社团名称，也进行名称筛选
     if (formInline.name && !item.name.includes(formInline.name)) {
       return false;
@@ -194,26 +237,53 @@ const filteredTableData = computed(() => {
     return true;
   });
 });
+const states=[
+  {
+    status: 0,
+    value:'未审核'
+  },
+  {
+    status: 1,
+    value:'未审核'
+  },
+  {
+    status: 2,
+    value: '已审核'
+  }
+]
 
 //审核同意
 const handleClick = (row) => {
   //通过 row 来获取当前行数据
-  if (row.state === '未审核') {
-    // 将当前行的审核状态改为 '已审核'
-    row.state = '已审核';
-    row.flag='0';
-    console.log('状态更新为已审核：', row);
-  }
+  request.put('/join/audit',{},{
+    params:{
+      clubId:6,
+      userId:row.userId,
+      status:3
+    }
+  }).then(res=>{
+    if(res.data.code=='200'){
+      load();
+      ElMessage.success('同意退出')
+    }else ElMessage.error(res.data.msg)
+  })
+
 };
 //审核拒绝
 const rejectClick = (row) => {
   //通过 row 来获取当前行数据
-  if (row.state === '未审核') {
-    // 将当前行的审核状态改为 '已审核'
-    row.state = '已审核';
-    row.flag='1';
-    console.log('状态更新为已审核：', row);
-  }
+  request.put('/join/audit',{},{
+    params:{
+      clubId:6,
+      userId:row.userId,
+      status:1
+    }
+  }).then(res=>{
+    if(res.data.code=='200'){
+      load();
+      ElMessage.success('拒绝退出')
+    }else ElMessage.error(res.data.msg)
+  })
 };
 //永久同意
 const reAgreeClick = (row) => {
@@ -235,61 +305,7 @@ const recoverClick = (row) => {
   // 可以添加更多的逻辑来处理其他状态的变更
 };
 
-//初始数据
-const tableData = [
-  {
-    clubName: '舞蹈队',
-    Sno:'2022333333333',
-    context:'https://element-plus.org/zh-CN/component/layout.html#%E6%B7%B7%E5%90%88%E5%B8%83%E5%B1%80',
-    name:'张三',
-    college: '计算机学院',
-    phoneNumber:'1234444444',
-    polOutlook:'共产党员',
-    grade:'2022级',
-    date: '2022-3-4',
-    state: '未审核',
-    flag:'',//拒绝1，同意0
-  },
-  {
-    clubName: '舞蹈队',
-    Sno:'2023333333333',
-    name:'里斯本',
-    context:'https://element-plus.org/zh-CN/component/layout.html#%E6%B7%B7%E5%90%88%E5%B8%83%E5%B1%80',
-    college: '哲学学院',
-    phoneNumber:'1404444444',
-    polOutlook:'群众',
-    grade:'2023级',
-    date: '2023-6-4',
-    state: '已审核',
-    flag:'',//拒绝1，同意0
-  },
-]
-const pages = reactive({
-  currentPage: 1, // 当前页码
-  pageSize: 10, // 每页显示的条目数
-  total: 100, // 总条目数
-});
 
-// 监听页码变化
-watch(() => pages.currentPage, (newPage) => {
-  // 这里可以请求数据或使用计算属性更新数据
-  // 例如: fetchData(newPage);
-});
-
-// 分页变化事件处理
-const handleCurrentChange = (newPage) => {
-  pages.currentPage = newPage;
-  // 这里可以请求新页的数据
-  // fetchData(newPage);
-};
-
-// 假设的请求数据方法，需要根据实际情况实现
-// const fetchData = (page) => {
-//   // 根据 page 请求数据
-// };
-
-// 假设初始加载第一页数据
-// fetchData(state.currentPage);
 const viewDetails = (url) => {
   window.open(url, '_blank');
 };

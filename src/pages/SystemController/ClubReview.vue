@@ -1,4 +1,4 @@
-<template>
+ <template>
   <div class="common-layout">
     <!---侧边栏--->
     <el-container>

@@ -96,8 +96,11 @@
           <!---审核数据--->
           <el-table :data="filteredTableData" style="width: 100%">
             <el-table-column prop="title" label="发帖标题" width="220" />
-            <el-table-column prop="date" label="发布日期" width="200" />
-            <el-table-column prop="isEssence" label="精华" width="100" />
+            <el-table-column prop="registerTime" label="发布日期" width="200" />
+            <el-table-column prop="essence" label="精华" width="100" >
+              <template v-slot="scope" >{{ isEssences[scope.row.essence].value }}
+              </template>
+            </el-table-column>
             <el-table-column prop="right" label="帖子详情" min-width="50">
               <template #default="scope">
                 <el-button @click="viewDetails(scope.row.context)">
@@ -105,7 +108,7 @@
                 </el-button>
               </template>
             </el-table-column>
-            <el-table-column prop="name" label="发帖人" width="120" />
+            <el-table-column prop="username" label="发帖人" width="120" />
             <el-table-column fixed="right" label="操作" min-width="120">
               <template #default="scope">
                 <el-popconfirm
@@ -121,7 +124,8 @@
                     </el-button>
                   </template>
                 </el-popconfirm>
-                <el-button link type="success"  size="small" @click="essence(scope.row)">设为精华</el-button>
+                <el-button link type="success" v-if="scope.row.essence=='0'" size="small" @click="essence(scope.row)">设为精华</el-button>
+                <el-button link type="success" v-if="scope.row.essence=='1'" size="small" @click="notessence(scope.row)">取消精华</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -150,6 +154,7 @@ import {
   Setting,
 } from '@element-plus/icons-vue'
 import { ref } from 'vue'
+import request from'@/request/request'
 
 const state = reactive({
   circleUrl:
@@ -164,43 +169,9 @@ const formInline = reactive({
   name:'',
   date: '',
   isEssence:'',
+  registerTime:'',
+  tableData:[],
 })
-
-const onSubmit = () => {
-  console.log('submit!')
-}
-
-// 使用计算属性根据筛选条件过滤数据
-const filteredTableData = computed(() => {
-  return tableData.filter(item => {
-    if (formInline.title && !item.title.includes(formInline.title)) {
-      return false;
-    }
-    // 如果选择了学院，只显示该学院的社团
-    if (formInline.date && !item.date.includes(formInline.date)) {
-      return false;
-    }
-    return true;
-  });
-});
-
-//初始数据
-const tableData = [
-  {
-    title:'打扫卫生',
-    context:'https://element-plus.org/zh-CN/component/layout.html#%E6%B7%B7%E5%90%88%E5%B8%83%E5%B1%80',
-    name:'张三',
-    date: '2022-03-05',
-    isEssence:'否',
-  },
-  {
-    title:'读书会',
-    context:'https://element-plus.org/zh-CN/component/layout.html#%E6%B7%B7%E5%90%88%E5%B8%83%E5%B1%80',
-    name:'李四',
-    date: '2023-04-05',
-    isEssence:'是',
-  },
-]
 const pages = reactive({
   currentPage: 1, // 当前页码
   pageSize: 10, // 每页显示的条目数
@@ -218,41 +189,78 @@ watch(() => pages.currentPage, (newPage) => {
 // 分页变化事件处理
 const handleCurrentChange = (newPage) => {
   pages.currentPage = newPage;
-  // 这里可以请求新页的数据
-  // fetchData(newPage);
+  load();
 };
+const load=()=>{
+  request.get(`/articles/club/6`,{
+    params:{
+      pageNo:pages.currentPage,
+      pageSize:pages.pageSize
+    }
+  }).then(res=>{
+    formInline.tableData=res.data.data.records
+    console.log(formInline.tableData)
+  })
+}
+load()
+const onSubmit = () => {
+  console.log('submit!')
+}
+// 使用计算属性根据筛选条件过滤数据
+const filteredTableData = computed(() => {
+  return formInline.tableData.filter(item => {
+    if (formInline.isEssence && !item.isEssence.includes(formInline.isEssence)) {
+      return false;
+    }
+    if (formInline.registerTime && item.registerTime !== formInline.registerTime) {
+      return false;
+    }
+    return true;
+  });
+});
 
-// 假设的请求数据方法，需要根据实际情况实现
-// const fetchData = (page) => {
-//   // 根据 page 请求数据
-// };
+const isEssences=[
+  {
+    value:'普通'
+  },
+  {
+    value: '精华'
+  }
+]
 
-// 假设初始加载第一页数据
-// fetchData(state.currentPage);
+
+
 const addTypeDialogVisible = ref(false);
 addTypeDialogVisible.value = false;
 
 const cancel = (row) => {
-  // 找到要删除的成员的索引
-  const rowIndex = tableData.findIndex(item => item.title === row.title);
-  if (rowIndex !== -1) {
-    // 从 tableData 中删除对应的社团
-    tableData.splice(rowIndex, 1);
-    // 更新分页总数
-    pages.total = tableData.length;
-    // 如果需要，可以在这里处理分页状态的更新
-    if (pages.total < pages.pageSize * pages.currentPage) {
-      pages.currentPage = Math.max(1, pages.currentPage - 1);
-    }
-  } else {
-    console.error('未找到对应的类型');
-  }
+  request.delete(`/articles/delete/${row.id}`).then(res=>{
+    if(res.data.code=='200'){
+      load()
+      ElMessage.success('删除成功')
+    }else ElMessage.error(res.data.msg)
+  })
 };
 
 const essence=(row)=>{
-  row.isEssence='是';
+  request.put(`/articles/setet/${row.id}`).then(res=>{
+    if(res.data.code=='200'){
+      load()
+      ElMessage.success('设置成功')
+    }else ElMessage.error(res.data.msg)
+  })
+}
+
+const notessence =(row)=>{
+  request.put(`/articles/setef/${row.id}`).then(res=>{
+    if(res.data.code=='200'){
+      load()
+      ElMessage.success('取消成功')
+    }else ElMessage.error(res.data.msg)
+  })
 }
 import { InfoFilled } from '@element-plus/icons-vue'
+import {ElMessage} from "element-plus";
 </script>
 
 <style scoped>

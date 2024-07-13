@@ -93,29 +93,28 @@
                   placeholder="成员"
                   clearable
               >
-                <el-option label="负责人" value="2" />
-                <el-option label="管理员" value="1" />
-                <el-option label="成员" value="0" />
+                <el-option
+                    v-for="item in positionList"
+                    :label="item.position"
+                    :value="item.rank"
+                />
               </el-select>
             </el-form-item>
             <el-form-item >
               <el-input v-model="data.formInline.name" placeholder="成员名称" clearable />
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" @click="onSubmit">Query</el-button>
+              <el-button type="primary" @click="onSubmit">查询</el-button>
             </el-form-item>
             <el-form-item>
               <el-button type="warning" @click="addTypeDialogVisible = true" >增加</el-button>
 
               <el-dialog
                   v-model="addTypeDialogVisible"
-                  title="增加社团类型"
+                  title="增加社团成员"
                   width="30%"
               >
                 <el-form :model="newType" label-width="100px">
-                  <el-form-item label="社团名">
-                    <el-input v-model="newType.clubName" />
-                  </el-form-item>
                   <el-form-item label="姓名">
                     <el-input v-model="newType.name" />
                   </el-form-item>
@@ -128,32 +127,39 @@
                         placeholder="计算机学院"
                         clearable
                     >
-                      <el-option label="计算机学院" value="计算机学院" />
-                      <el-option label="哲学学院" value="哲学学院" />
+                      <el-option
+                          v-for="item in data.department"
+                          :key="item.name"
+                          :label="item.name"
+                          :value="item.name"
+                      />
                     </el-select>
                   </el-form-item>
                   <el-form-item label="职位">
                     <el-select
-                        v-model="newType.position"
+                        v-model="newType.rank"
                         placeholder="成员"
                         clearable
                     >
-                      <el-option label="管理员" value="管理员" />
-                      <el-option label="成员" value="成员" />
+                      <el-option
+                          v-for="item in positionList"
+                          :label="item.position"
+                          :value="item.rank"
+                      />
                     </el-select>
                   </el-form-item>
                   <el-form-item label="电话号码">
-                    <el-input v-model="newType.phoneNumber" />
+                    <el-input v-model="newType.phone" />
                   </el-form-item>
                   <el-form-item label="政治面貌">
-                    <el-input v-model="newType.polOutlook" />
+                    <el-input v-model="newType.politicalAffiliation" />
                   </el-form-item>
                   <el-form-item label="年级">
                     <el-input v-model="newType.grade" />
                   </el-form-item>
-                  <el-form-item label="加入时间">
+<!--                  <el-form-item label="加入时间">
                     <el-input v-model="newType.date" />
-                  </el-form-item>
+                  </el-form-item>-->
                 </el-form>
                 <template #footer>
                   <el-button @click="addTypeDialogVisible = false">取消</el-button>
@@ -299,7 +305,7 @@ const filteredTableData = computed(() => {
       return false;
     }
     //职位
-    if (data.formInline.rank && item.position !== data.formInline.rank) {
+    if (data.formInline.rank && item.rank !== data.formInline.rank) {
       return false;
     }
     return true;
@@ -315,10 +321,7 @@ const positionList=[
     rank:1,
     position: '管理员'
   },
-  {
-    rank:2,
-    position: '负责人'
-  }]
+  ]
 
 // 监听页码变化
 watch(() => data.currentPage, (newPage) => {
@@ -341,15 +344,15 @@ const handleCurrentChange = (newPage) => {
 // fetchData(state.currentPage);
 // 新社团成员的表单数据
 const newType = reactive({
-  clubName: '',
   Sno:'',
   name:'',
-  position:'',
+  rank:'',
   college: '',
-  phoneNumber:'',
-  polOutlook:'',
+  phone:'',
+  politicalAffiliation:'',
   grade:'',
-  date: '',
+  //date: '',
+  userId:''
 });
 const addTypeDialogVisible = ref(false);
 addTypeDialogVisible.value = false;
@@ -365,20 +368,27 @@ const addType = () => {
     // 可以提示用户社团类型已存在
     return;
   }
-  // 添加新社团类型
-  data.members.push({
-    clubName: newType.clubName,
-    Sno: newType.Sno,
-    college: newType.college,
-    date: newType.date,
-    grade: newType.grade,
-    name: newType.name,
-    phoneNumber: newType.phoneNumber,
-    polOutlook: newType.polOutlook,
-    position: newType.position
-  });
-  // 关闭对话框
-  console.warn(data.members);
+  request.get("/user/getBySno",{
+    params:{
+      sno:newType.Sno
+    }
+  }).then(res=>{
+    newType.userId=res.data.data.id
+    request.post("/join",newType,{
+      params:{
+        clubId:6,
+        userId:res.data.data.id
+      }
+    }).then(re=>{
+      if(re.data.code==='200'){
+        load()
+        ElMessage.success('添加成功')
+      }else {
+        ElMessage.error('添加失败')
+      }
+    })
+  })
+
   addTypeDialogVisible.value = false;
 }
 
@@ -428,15 +438,23 @@ import {ElMessage} from "element-plus";
 // 确认修改社团类型的逻辑
 const confirmEdit = (userId) => {
   // 找到要修改的社团类型在 tableData 中的索引
-  console.log(editCategoryForm.rank);
+
   let member={
-    userId:userId,
-    clubId:6,
-    rank:editCategoryForm.rank
+
   }
-  request.post('/join/rank',member).then(res=>{
-    if(res.data.code=='200')
+  console.log(member);
+  request.post('/join/rank',member,{
+    params:{
+      userId:userId,
+      clubId:6,
+      rank:editCategoryForm.rank
+    }
+      }
+  ).then(res=>{
+    if(res.data.code=='200') {
+      load();
       ElMessage.success('修改成功')
+    }
     else ElMessage.error('修改失败')
   })
   editDialogVisible.value = false; // 关闭对话框
