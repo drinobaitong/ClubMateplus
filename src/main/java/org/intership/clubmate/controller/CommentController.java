@@ -1,10 +1,13 @@
 package org.intership.clubmate.controller;
 
+import org.checkerframework.checker.units.qual.A;
 import org.checkerframework.checker.units.qual.C;
 import org.intership.clubmate.entity.Comment;
+import org.intership.clubmate.entity.UCJoin;
 import org.intership.clubmate.enums.HttpCode;
 import org.intership.clubmate.pojo.ResponseResult;
 import org.intership.clubmate.service.CommentService;
+import org.intership.clubmate.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +21,8 @@ import java.util.List;
 public class CommentController {
     @Autowired
     private CommentService commentService;
-
+    @Autowired
+    private UserService userService;
     //查看帖子所有评论
     @GetMapping("/article/{articleId}")
     public ResponseResult viewArticleComments(@PathVariable("articleId")Integer articleId){
@@ -34,7 +38,12 @@ public class CommentController {
         List<Comment> comments=commentService.getCommentsByCLub(clubId);
         if(comments.isEmpty()){
             return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"暂无评论！");
-        }else return ResponseResult.success(comments);
+        }else{
+            for(Comment c :comments){
+                c.setUsername(userService.getById(c.getCreateUserId()).getName());
+            }
+            return ResponseResult.success(comments);
+        }
     }
 
     //查看所有评论
