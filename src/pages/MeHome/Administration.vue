@@ -1,7 +1,12 @@
 <script setup>
 //头像图片
 import { reactive, toRefs } from 'vue'
+import { useRouter } from 'vue-router';
 import {CirclePlus} from "@element-plus/icons-vue";
+import MyMessage from './MyMessage.vue'
+import CreateClub from './CreateClub.vue';
+
+const router = useRouter()
 
 const state = reactive({
   circleUrl:
@@ -70,6 +75,9 @@ const filterTableData = computed(() =>
 )
 
 //lookDetail 和 deleteClub 的方法还没有写
+function lookDetail(){
+  router.push('/ClubMessage')
+}
 
 const tableData = [
   {
@@ -118,10 +126,12 @@ const tableData = [
               <span class="name">张乐遥</span>
             </el-col>
             <el-col :span="9" :offset="8" class="button-container">
-              <router-link to="/SetUpClub">
+              <!-- <router-link to="/SetUpClub">
                 <el-button type="primary" plain>申请创建社团</el-button>
-              </router-link>
-              <el-button type="primary" plain>我的消息</el-button>
+              </router-link> -->
+              <CreateClub />
+              <!-- <el-button type="primary" plain>我的消息</el-button> -->
+               <MyMessage />
             </el-col>
           </el-row>
           <el-row class="el-row2">
