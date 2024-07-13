@@ -24,7 +24,7 @@ public class UCJoinServiceImpl extends ServiceImpl<UCJoinMapper, UCJoin> impleme
 
     @Override
     public void insert(Integer userId,Integer clubId,int rank) {
-        UCJoin  ucJoin=new UCJoin(userId,clubId,0, LocalDateTime.now(),rank);
+        UCJoin  ucJoin=new UCJoin(userId,clubId,0, LocalDateTime.now(),rank,null);
         ucJoinMapper.insert(ucJoin);
     }
 
@@ -113,6 +113,7 @@ public class UCJoinServiceImpl extends ServiceImpl<UCJoinMapper, UCJoin> impleme
         updateWrapper.set("rank",rank).eq("club_id",clubId).eq("user_id",userId);
         ucJoinMapper.update(updateWrapper);
     }
+
 
     @Override
     public UCJoin ifExit(Integer userId, Integer clubId) {

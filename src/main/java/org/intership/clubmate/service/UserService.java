@@ -19,6 +19,7 @@ public interface UserService extends IService<User> {
     public User getById(int id);
     User login(int id, String password);
 
+    public User selectBySno(String sno);
 
 
 }

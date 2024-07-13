@@ -8,6 +8,7 @@ import org.intership.clubmate.pojo.ResponseResult;
 import org.intership.clubmate.service.ClubService;
 import org.intership.clubmate.service.MessageService;
 import org.intership.clubmate.service.UCJoinService;
+import org.intership.clubmate.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,8 @@ public class UCJoinController {
     private ClubService clubService;
     @Autowired
     private MessageService messageService;
+    @Autowired
+    private UserService userService;
     //申请入社
     @PostMapping("/join")
     public ResponseResult joinClub(
@@ -42,7 +45,10 @@ public class UCJoinController {
     ){
         log.info("获取所有Id状态");
         IPage<UCJoin> ucs= ucJoinService.getUsers(pageNo,pageSize,clubId);
-
+        for(int i=0;i<ucs.getRecords().size();i++){
+            UCJoin ucJoin=ucs.getRecords().get(i);
+            ucJoin.setUser(userService.getById(ucJoin.getUserId()));
+        }
         return ResponseResult.success(ucs);
     }
     @GetMapping("/join/users/{clubId}")
@@ -53,7 +59,10 @@ public class UCJoinController {
     ){
         log.info("获取所有Id状态");
         IPage<UCJoin> ucs= ucJoinService.getJoins(pageNo,pageSize,clubId);
-
+        for(int i=0;i<ucs.getRecords().size();i++){
+            UCJoin ucJoin=ucs.getRecords().get(i);
+            ucJoin.setUser(userService.getById(ucJoin.getUserId()));
+        }
         return ResponseResult.success(ucs);
     }
     @GetMapping("/quit/users/{clubId}")
@@ -64,7 +73,10 @@ public class UCJoinController {
     ){
         log.info("获取所有Id状态");
         IPage<UCJoin> ucs= ucJoinService.getQuits(pageNo,pageSize,clubId);
-
+        for(int i=0;i<ucs.getRecords().size();i++){
+            UCJoin ucJoin=ucs.getRecords().get(i);
+            ucJoin.setUser(userService.getById(ucJoin.getUserId()));
+        }
         return ResponseResult.success(ucs);
     }
     //退出社团

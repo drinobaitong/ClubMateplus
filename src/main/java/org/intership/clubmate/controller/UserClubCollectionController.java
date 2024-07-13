@@ -85,4 +85,6 @@ public class UserClubCollectionController {
             return ResponseResult.success(true);
         }else return ResponseResult.error(HttpCode.COLLECTION_NULL);
     }
+
+
 }
