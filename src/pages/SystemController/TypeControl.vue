@@ -115,7 +115,7 @@
           </el-form>
           <!---审核数据--->
           <el-table :data="filteredTableData"  style="width: 100%">
-            <el-table-column prop="category"  label="社团类型" width="500" />
+            <el-table-column prop="type"  label="社团类型" width="500" />
             <el-table-column fixed="right" label="操作" min-width="120">
               <template #default="scope">
                 <el-button type="success" @click="openEditDialog(scope.row)" size="small">修改</el-button>
@@ -132,7 +132,7 @@
                   </el-form>
                   <template #footer>
                     <el-button @click="editDialogVisible = false">取消</el-button>
-                    <el-button type="primary" @click="confirmEdit">确认修改</el-button>
+                    <el-button type="primary" @click="confirmEdit()">确认修改</el-button>
                   </template>
                 </el-dialog>
                 <el-popconfirm
@@ -179,6 +179,7 @@ import {
 } from '@element-plus/icons-vue'
 import { ArrowLeft } from '@element-plus/icons-vue'
 import { nextTick } from 'vue';
+import request from '@/request/request'
 
 const state = reactive({
   circleUrl:
@@ -197,25 +198,18 @@ const onSubmit = () => {
 
 // 使用计算属性根据筛选条件过滤数据
 const filteredTableData = computed(() => {
-  return tableData.filter(item => {
+  return data.tableData.filter(item => {
     // 如果输入类型名称
-    if (formInline.category && !item.category.includes(formInline.category)) {
+    if (formInline.category && !item.type.includes(formInline.category)) {
       return false;
     }
     return true;
   });
 });
 
-
-//初始数据
-const tableData = [
-  {
-    category:'创新创业类',
-  },
-  {
-    category:'文学创作类',
-  },
-]
+const data = reactive({
+  tableData:[]
+});
 const pages = reactive({
   currentPage: 1, // 当前页码
   pageSize: 10, // 每页显示的条目数
@@ -227,6 +221,12 @@ watch(() => pages.currentPage, (newPage) => {
   // 这里可以请求数据或使用计算属性更新数据
   // 例如: fetchData(newPage);
 });
+const load=()=>{
+  request.get('/clubtype/allType').then(res=>{
+    data.tableData=res.data.data
+  })
+}
+load()
 // 修改对话框状态
 const editDialogVisible = ref(false);
 
@@ -237,17 +237,29 @@ const editCategoryForm = reactive({ category: '' });
 const openEditDialog = (row) => {
   editCategoryForm.category = row.category; // 设置要编辑的社团类型
   editDialogVisible.value = true; // 打开对话框
-  index.value = tableData.findIndex(item => item.category === row.category);
+  index.value = data.tableData.findIndex(item => item.category === row.category);
 };
 import { InfoFilled } from '@element-plus/icons-vue'
 // 确认修改社团类型的逻辑
 const confirmEdit = () => {
   // 找到要修改的社团类型在 tableData 中的索引
   console.warn(index.value);
-  let club = tableData[index.value];
+  let club = data.tableData[index.value];
   if (index.value !== -1) {
     // 更新社团类型
-    club.category = editCategoryForm.category;
+    request.put(`/clubtype/update`,{},{
+      params:{
+        type:club.type,
+        newType:editCategoryForm.category
+      }
+    }).then(res=>{
+      if(res.data.code=='200'){
+        load()
+        ElMessage.success('修改成功')
+      }else{
+        ElMessage.error(res.data.msg)
+      }
+    })
   }
   editDialogVisible.value = false; // 关闭对话框
   currentEditingIndex.value = -1;
@@ -255,8 +267,7 @@ const confirmEdit = () => {
 // 分页变化事件处理
 const handleCurrentChange = (newPage) => {
   pages.currentPage = newPage;
-  // 这里可以请求新页的数据
-  // fetchData(newPage);
+  load()
 };
 
 // 假设的请求数据方法，需要根据实际情况实现
@@ -267,6 +278,7 @@ const handleCurrentChange = (newPage) => {
 // 假设初始加载第一页数据
 // fetchData(state.currentPage);
 import { ref } from 'vue'
+import {ElMessage} from "element-plus";
 
 const url =
     'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg'
@@ -277,20 +289,18 @@ const index = ref(-1);
 
 // 注销类型的方法
 const cancel = (row) => {
-  // 找到要删除的社团的索引
-  const rowIndex = tableData.findIndex(item => item.category === row.category);
-  if (rowIndex !== -1) {
-    // 从 tableData 中删除对应的社团
-    tableData.splice(rowIndex, 1);
-    // 更新分页总数
-    pages.total = tableData.length;
-    // 如果需要，可以在这里处理分页状态的更新
-    if (pages.total < pages.pageSize * pages.currentPage) {
-      pages.currentPage = Math.max(1, pages.currentPage - 1);
+  request.delete('/clubtype/delete',{
+    params:{
+      type:row.type
     }
-  } else {
-    console.error('未找到对应的类型');
-  }
+  }).then(res=>{
+    if(res.data.code=='200'){
+      load()
+      ElMessage.success('删除成功')
+    }else{
+      ElMessage.error(res.data.msg)
+    }
+  })
 };
 // 控制增加社团类型对话框的显示
 const addTypeDialogVisible = ref(false);
@@ -307,21 +317,25 @@ const addType = () => {
     return;
   }
   // 确保不添加重复的社团类型
-  const exists = tableData.some(item => item.category === newType.category);
-  if (exists) {
-    // 可以提示用户社团类型已存在
-    return;
-  }
-  // 添加新社团类型
-  tableData.push({ category: newType.category });
+  request.post('/clubtype/add',{},{
+    params:{
+      type:newType.category
+    }
+  }).then(res=>{
+    if(res.data.code=='200'){
+      load()
+      ElMessage.success('添加成功')
+    }else{
+      ElMessage.error(res.data.msg)
+    }
+  })
   // 清空输入
   newType.category = '';
   // 关闭对话框
-  console.warn(tableData);
   addTypeDialogVisible.value = false;
   // 使用 nextTick 等待 DOM 更新
   nextTick(() => {
-    console.log('Table data updated:', tableData);
+    console.log('Table data updated:', data.tableData);
   });
 };
 </script>
