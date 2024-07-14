@@ -88,9 +88,11 @@
   import { ref, reactive, computed} from 'vue'
   import axios from 'axios'
 
-  import { useWebStore } from '@/stores/web.js';
+  import { useWebStore ,useUserStore1,useUserStore2} from '@/stores/web.js';
 
   const webStore = useWebStore();
+  const user1 = useUserStore1();
+  const user2 = useUserStore2();
 
   // 定义注册表单的数据类型
   const registerData = reactive({
@@ -150,6 +152,18 @@ const form = reactive({
   desc: '',
 })
 
+const zhanghao1 = {
+  name:"张乐瑶",
+  password:'123456',
+  rank : 0,
+}
+
+const zhanghao2 = {
+  name:"白彤",
+  password:'123456',
+  rank : 1,
+}
+
 const validateForm2 = () => {  
       errors2.username = loginData.username.trim() === '' ? '用户名不能为空' : '';  
       errors2.password = loginData.password.trim() === '' ? '密码不能为空' : '';  
@@ -191,28 +205,42 @@ const validateForm2 = () => {
 
     //登录
   const handleLogin = async() =>{
-    const plainObject = JSON.parse(JSON.stringify(loginData)); 
-    try {  
-        const response = await axios.get('http://127.0.0.1:4523/m1/4751967-4405137-default/user/login', plainObject);  
-        console.log('登录表单数据',plainObject)
-        // 处理响应  
-        console.log('登录成功', response);
-        if(response.data.rank === 1)  {//鉴权为系统管理员
-          webStore.web.identity = "admin";
-        }
-        else{
-          webStore.web.identity = "user";
-        }
-        ElNotification({
+    if(loginData.password === user1.user1.password && loginData.username === user1.user1.name){
+      webStore.web.identity = "user";
+    }
+    if(loginData.password === user2.user2.password && loginData.username === user2.user2.name){
+      webStore.web.identity = "admin";
+    }
+    webStore.web.status = true;    
+    ElNotification({
           title: 'Success',
           message: '登录成功!',
           type: 'success',
   })
-      webStore.web.status = true;    
-      } catch (error) {  
-        // 处理错误  
-        console.error('登录失败', error);  
-      }  
+    
+  //   const plainObject = JSON.parse(JSON.stringify(loginData)); 
+  //   try {  
+  //       const response = await axios.get('http://127.0.0.1:4523/m1/4751967-4405137-default/user/login', plainObject);  
+  //       console.log('登录表单数据',plainObject)
+  //       // 处理响应  
+  //       console.log('登录成功', response);
+  //       webStore.web.uid = response.data.id;//存储用户id
+  //       if(response.data.rank === 1)  {//鉴权为系统管理员
+  //         webStore.web.identity = "admin";
+  //       }
+  //       else{
+  //         webStore.web.identity = "user";
+  //       }
+  //       ElNotification({
+  //         title: 'Success',
+  //         message: '登录成功!',
+  //         type: 'success',
+  // })
+  //     webStore.web.status = true;    
+  //     } catch (error) {  
+  //       // 处理错误  
+  //       console.error('登录失败', error);  
+  //     }  
     };  
 
   onMounted(() => {  

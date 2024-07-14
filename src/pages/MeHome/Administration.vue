@@ -127,7 +127,7 @@ const tableData = [
             </el-col>
             <el-col :span="9" :offset="8" class="button-container">
               <!-- <router-link to="/SetUpClub">
-                <el-button type="primary" plain>申请创建社团</el-button>
+                <el-button type="primary" plain>创建社团</el-button>
               </router-link> -->
               <CreateClub />
               <!-- <el-button type="primary" plain>我的消息</el-button> -->

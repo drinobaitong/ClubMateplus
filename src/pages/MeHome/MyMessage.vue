@@ -127,7 +127,7 @@
 
 </script>
 
-<style>
+<style scoped>
 .title{
   font-size: 30px;
   font-weight: 700;

@@ -13,6 +13,9 @@
   <div class = "content">
     <div style = "display: flex; align-items: center;">
     <p class = "detail-t">{{ club.name }}</p>
+
+    <!-- 还要判断是否已加入 -->
+  <WriteArticle />
     <el-button class = "btn" @click = "collect" v-if = "webStore.web.status">收藏</el-button>
     <el-button class = "btn" @click = "join" v-if = "webStore.web.status" :disabled="isIn">加入</el-button>
     <el-button class = "btn" @click = "goBack(index, false)">返回</el-button>
@@ -22,6 +25,7 @@
       <span class = "detail-o">创建于{{club.registerTime}}年</span>
       <span class = "detail-o">id:{{ club.id }}</span>
       <span class = "detail-o">社长：{{club.createUserId}}</span>
+     
     </div>
     <!-- 介绍区 -->
     <div class="introduction">
@@ -57,6 +61,7 @@
 </div>
 
 </div>
+
 <el-input
       v-model="input1"
       style="width: 240px"
@@ -74,6 +79,7 @@
   import { ElNotification } from 'element-plus'
   import { useWebStore } from '@/stores/web.js';
   import { useRouter } from 'vue-router';
+  import WriteArticle from '@/pages/MeHome/WriteArticle.vue'
 
   const rt = useRouter()
 
@@ -259,4 +265,26 @@
     font-weight: 700;
     margin-right: 115px;
   }
+
+  .writeArticle{
+    margin-left: -150px;
+    margin-right: 50px;
+  }
+
+  .writeArticle:hover{
+    cursor: pointer;
+  }
+
+  .write{
+    margin-top: 10px;
+  }
+
+  .write-label{
+    margin-left: 20px;
+    font-size: 20px;
+    font-weight: 700;
+    float: right;
+    margin-top: 18px;
+  }
+
 </style>
