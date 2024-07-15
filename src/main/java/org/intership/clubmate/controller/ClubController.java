@@ -6,14 +6,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.intership.clubmate.entity.Article;
 import org.intership.clubmate.entity.Club;
 import org.intership.clubmate.entity.ClubUpdate;
+import org.intership.clubmate.entity.User;
 import org.intership.clubmate.enums.HttpCode;
 import org.intership.clubmate.pojo.ResponseResult;
-import org.intership.clubmate.service.ArticleService;
-import org.intership.clubmate.service.ClubService;
-import org.intership.clubmate.service.ClubUpdateService;
-import org.intership.clubmate.service.MessageService;
+import org.intership.clubmate.service.*;
 import org.intership.clubmate.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,6 +24,7 @@ import java.util.UUID;
 
 @RestController
 @Slf4j
+@CrossOrigin(origins="*")
 public class ClubController {
     @Autowired
     private ClubService clubService;
@@ -34,12 +34,18 @@ public class ClubController {
     private ClubUpdateService clubUpdateService;
     @Autowired
     private MessageService messageService;
+    @Autowired
+    private UCJoinService ucJoinService;
+    @Autowired
+    private UserService userService;
+
     //新建社团
     @PostMapping("/club/insert")
     public ResponseResult insertClub(@RequestBody Club club){
         log.info("新建社团");
         clubService.insertClub(club);
-        messageService.insert(club.getCreateUserId(),"您的社团："+club.getName()+"的创建申请已提交，目前正等待审核");
+        ucJoinService.insert(club.getCreateUserId(),club.getId(),1);
+       // messageService.insert(club.getCreateUserId(),"您的社团："+club.getName()+"的创建申请已提交，目前正等待审核");
         return ResponseResult.success();
     }
 
@@ -66,6 +72,8 @@ public class ClubController {
     public ResponseResult getClub(@PathVariable Integer id){
         Club club=clubService.getById(id);
         log.info("根据id查找社团");
+        User user =userService.getById(club.getCreateUserId());
+        club.setCreateUserName(user.getName());
         return  ResponseResult.success(club);
     }
 
@@ -104,6 +112,15 @@ public class ClubController {
 
         log.info("社团更新请求");
         clubUpdateService.insertUpdate(clubUpdate);
+        return ResponseResult.success();
+    }
+
+    @PostMapping("/club/update/direct")
+    public ResponseResult update(
+            @RequestBody Club club
+    ){
+        log.info("社团直接更新");
+        clubService.update(club);
         return ResponseResult.success();
     }
 
@@ -168,6 +185,13 @@ public class ClubController {
             messageService.insert(club.getCreateUserId(),"您的社团"+club.getName()+"更新请求未能通过");
         }
         return ResponseResult.success();
+    }
+
+    @GetMapping("club/update/list")
+    public ResponseResult updateList(){
+        log.info("社团更新列表");
+
+        return  ResponseResult.success(clubUpdateService.getUpdate());
     }
 
 

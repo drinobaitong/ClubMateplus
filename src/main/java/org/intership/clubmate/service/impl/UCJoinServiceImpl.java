@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.intership.clubmate.entity.ClubUpdate;
 import org.intership.clubmate.entity.UCJoin;
 import org.intership.clubmate.entity.User;
 import org.intership.clubmate.mapper.UCJoinMapper;
@@ -22,9 +23,16 @@ public class UCJoinServiceImpl extends ServiceImpl<UCJoinMapper, UCJoin> impleme
 
 
     @Override
-    public void insert(Integer userId,Integer clubId) {
-        UCJoin  ucJoin=new UCJoin(userId,clubId,0, LocalDateTime.now());
+    public void insert(Integer userId,Integer clubId,int rank) {
+        UCJoin  ucJoin=new UCJoin(userId,clubId,0, LocalDateTime.now(),rank,null);
         ucJoinMapper.insert(ucJoin);
+    }
+
+    @Override
+    public void delete(Integer userId, Integer clubId) {
+        QueryWrapper<UCJoin>queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("user_id",userId).eq("club_id",clubId);
+        ucJoinMapper.delete(queryWrapper);
     }
 
     @Override
@@ -84,8 +92,32 @@ public class UCJoinServiceImpl extends ServiceImpl<UCJoinMapper, UCJoin> impleme
     }
 
     @Override
+    public IPage<UCJoin> getControlClubs(Integer pageNo, Integer pageSize, Integer userId) {
+        Page<UCJoin> page=new Page<>();
+        QueryWrapper<UCJoin> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("user_id",userId);
+        queryWrapper.eq("rank",1);
+        return ucJoinMapper.selectPage(page,queryWrapper);
+    }
+
+    @Override
     public int getStatus(Integer clubId, Integer userId) {
         return ucJoinMapper.getStatus(clubId,userId);
+    }
+
+    @Override
+    public void setRank(Integer clubId, Integer userId, int rank) {
+        UpdateWrapper<UCJoin> updateWrapper=new UpdateWrapper<>();
+        updateWrapper.set("rank",rank).eq("club_id",clubId).eq("user_id",userId);
+        ucJoinMapper.update(updateWrapper);
+    }
+
+
+    @Override
+    public UCJoin ifExit(Integer userId, Integer clubId) {
+        QueryWrapper<UCJoin> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("user_id",userId).eq("club_id",clubId);
+        return ucJoinMapper.selectOne(queryWrapper);
     }
 
 }

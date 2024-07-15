@@ -8,6 +8,7 @@ import org.intership.clubmate.pojo.ResponseResult;
 import org.intership.clubmate.service.ClubService;
 import org.intership.clubmate.service.MessageService;
 import org.intership.clubmate.service.UCJoinService;
+import org.intership.clubmate.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,12 +25,14 @@ public class UCJoinController {
     private ClubService clubService;
     @Autowired
     private MessageService messageService;
+    @Autowired
+    private UserService userService;
     //申请入社
     @PostMapping("/join")
     public ResponseResult joinClub(
             @RequestParam Integer userId,
             @RequestParam Integer clubId){
-        ucJoinService.insert(userId,clubId);
+        ucJoinService.insert(userId,clubId,0);
         return ResponseResult.success();
     }
 
@@ -42,7 +45,10 @@ public class UCJoinController {
     ){
         log.info("获取所有Id状态");
         IPage<UCJoin> ucs= ucJoinService.getUsers(pageNo,pageSize,clubId);
-
+        for(int i=0;i<ucs.getRecords().size();i++){
+            UCJoin ucJoin=ucs.getRecords().get(i);
+            ucJoin.setUser(userService.getById(ucJoin.getUserId()));
+        }
         return ResponseResult.success(ucs);
     }
     @GetMapping("/join/users/{clubId}")
@@ -53,7 +59,10 @@ public class UCJoinController {
     ){
         log.info("获取所有Id状态");
         IPage<UCJoin> ucs= ucJoinService.getJoins(pageNo,pageSize,clubId);
-
+        for(int i=0;i<ucs.getRecords().size();i++){
+            UCJoin ucJoin=ucs.getRecords().get(i);
+            ucJoin.setUser(userService.getById(ucJoin.getUserId()));
+        }
         return ResponseResult.success(ucs);
     }
     @GetMapping("/quit/users/{clubId}")
@@ -64,7 +73,10 @@ public class UCJoinController {
     ){
         log.info("获取所有Id状态");
         IPage<UCJoin> ucs= ucJoinService.getQuits(pageNo,pageSize,clubId);
-
+        for(int i=0;i<ucs.getRecords().size();i++){
+            UCJoin ucJoin=ucs.getRecords().get(i);
+            ucJoin.setUser(userService.getById(ucJoin.getUserId()));
+        }
         return ResponseResult.success(ucs);
     }
     //退出社团
@@ -91,7 +103,7 @@ public class UCJoinController {
         //判断是入社还是退社
         if(theStatus==1){
             //退社
-            if (status==1){
+            if (status==3){
                 log.info("退社通过");
                 clubService.subMember(clubId);
                 ucJoinService.audit(userId,clubId,3);
@@ -104,13 +116,14 @@ public class UCJoinController {
         }
         else {
             //不是社团成员，入社
-            if (status==1){
+            if (status==2){
                 log.info("入社通过");
                 clubService.addMember(clubId);
                 ucJoinService.audit(userId,clubId,2);
                 messageService.insert(userId,"您的入社请求已通过！");
             }else{
                 log.info("入社拒绝");
+                ucJoinService.delete(userId,clubId);
                 messageService.insert(userId,"您的入社请求未能通过！");
             }
         }
@@ -128,5 +141,38 @@ public class UCJoinController {
         IPage<UCJoin> ucs= ucJoinService.getClubs(pageNo,pageSize,userId);
 
         return ResponseResult.success(ucs);
+    }
+
+    @PostMapping("join/rank")
+    public ResponseResult changeRank(
+            @RequestParam Integer userId,
+            @RequestParam Integer clubId,
+            @RequestParam int rank
+    ){
+        log.info("设置用户社团中的权限");
+        ucJoinService.setRank(clubId,userId,rank);
+        return ResponseResult.success();
+    }
+
+    @GetMapping("/join/exit")
+    public ResponseResult ifInClub(
+            @RequestParam Integer clubId,
+            @RequestParam Integer userId
+    ){
+        UCJoin ucJoin=ucJoinService.ifExit(userId,clubId);
+        boolean result=true;
+        if(ucJoin==null)
+            result=false;
+        return ResponseResult.success(result);
+    }
+
+    @GetMapping("join/club/control/{userId}")
+    public ResponseResult getControlClub(
+            @RequestParam int pageNo,
+            @RequestParam int pageSize,
+            @PathVariable Integer userId
+    ){
+        IPage<UCJoin> clubs=ucJoinService.getControlClubs(pageNo,pageSize,userId);
+        return ResponseResult.success(clubs);
     }
 }

@@ -1,9 +1,18 @@
 package org.intership.clubmate.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.checkerframework.checker.units.qual.A;
+import org.checkerframework.checker.units.qual.C;
 import org.intership.clubmate.entity.Comment;
+import org.intership.clubmate.entity.UCJoin;
+import org.intership.clubmate.entity.User;
 import org.intership.clubmate.enums.HttpCode;
 import org.intership.clubmate.pojo.ResponseResult;
 import org.intership.clubmate.service.CommentService;
+import org.intership.clubmate.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +26,8 @@ import java.util.List;
 public class CommentController {
     @Autowired
     private CommentService commentService;
-
+    @Autowired
+    private UserService userService;
     //查看帖子所有评论
     @GetMapping("/article/{articleId}")
     public ResponseResult viewArticleComments(@PathVariable("articleId")Integer articleId){
@@ -33,8 +43,28 @@ public class CommentController {
         List<Comment> comments=commentService.getCommentsByCLub(clubId);
         if(comments.isEmpty()){
             return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"暂无评论！");
-        }else return ResponseResult.success(comments);
+        }else{
+            for(Comment c :comments){
+                c.setUsername(userService.getById(c.getCreateUserId()).getName());
+            }
+            return ResponseResult.success(comments);
+        }
     }
+
+    //查看所有评论
+    @GetMapping("/all")
+    public ResponseResult viewAllComments(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+                                          @RequestParam(value = "pageSize", defaultValue = "10") int pageSize){
+        IPage<Comment> page = new Page<>(pageNo, pageSize);
+        LambdaQueryWrapper<Comment> queryWrapper = Wrappers.lambdaQuery();
+        IPage<Comment> comments=commentService.getAllComments(page,queryWrapper);
+        for(int i=0;i<comments.getRecords().size();i++){
+            Comment comment=comments.getRecords().get(i);
+            comment.setUsername(userService.getById(comment.getCreateUserId()).getName());
+        }
+        return ResponseResult.success(comments);
+    }
+
     //增加评论
     @PostMapping("/add")
     public ResponseResult addComment(Comment comment){

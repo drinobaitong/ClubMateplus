@@ -3,11 +3,11 @@ package org.intership.clubmate.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @TableName("department")
 public class Department {
     @TableField("name")

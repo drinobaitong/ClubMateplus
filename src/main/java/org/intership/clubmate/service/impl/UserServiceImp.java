@@ -32,6 +32,7 @@ public class UserServiceImp extends ServiceImpl<UserMapper, User> implements Use
         if(res!=null){
             return null;
         }else{
+
             userMapper.insert(user);
         }
         return user;
@@ -69,6 +70,12 @@ public class UserServiceImp extends ServiceImpl<UserMapper, User> implements Use
             }
         }
         else return null;
+    }
+
+    @Override
+    public User selectBySno(String sno) {
+        return userMapper.selectOne(Wrappers.<User>lambdaQuery()
+                .eq(User::getSno,sno));
     }
 
 

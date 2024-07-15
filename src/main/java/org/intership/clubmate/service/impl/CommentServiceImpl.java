@@ -1,8 +1,11 @@
 package org.intership.clubmate.service.impl;
 
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.extern.slf4j.Slf4j;
 import org.intership.clubmate.entity.Comment;
+import org.intership.clubmate.entity.User;
 import org.intership.clubmate.mapper.CommentMapper;
 import org.intership.clubmate.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +31,12 @@ public class CommentServiceImpl implements CommentService {
     public Comment getComment(Integer id) {
         log.info("获取id为"+id+"的评论");
         return commentMapper.getComment(id);
+    }
+
+    @Override
+    public IPage<Comment> getAllComments(IPage<Comment> page, Wrapper<Comment> queryWrapper) {
+        log.info("获取所有评论");
+        return commentMapper.selectPage(page,queryWrapper);
     }
 
     @Override

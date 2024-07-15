@@ -31,4 +31,7 @@ public class Comment {
     @TableField("register_time")
     private LocalDateTime registerTime;
 
+    @TableField(exist = false)
+    private String username;
+
 }

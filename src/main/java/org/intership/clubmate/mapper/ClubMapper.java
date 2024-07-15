@@ -19,4 +19,6 @@ public interface ClubMapper extends BaseMapper<Club> {
 
     @Select("select * from club where name LIKE CONCAT('%',#{search},'%')")
     List<Club> findClubFS(String search);
+
+
 }
