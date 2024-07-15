@@ -1,7 +1,7 @@
 <script setup>
 //头像图片
 import { reactive, toRefs } from 'vue'
-import {CirclePlus} from "@element-plus/icons-vue";
+import axios from 'axios'
 
 const state = reactive({
   circleUrl:
@@ -10,67 +10,17 @@ const state = reactive({
 
 const { circleUrl } = toRefs(state)
 
-//第三部分（表格）的copy代码
-/*
-import { computed, ref } from 'vue'
 
-interface User {
-  date: string
-  name: string
-  address: string
-}
-
-const search = ref('')
-const filterTableData = computed(() =>
-    tableData.filter(
-        (data) =>
-            !search.value ||
-            data.name.toLowerCase().includes(search.value.toLowerCase())
-    )
-)
-const handleEdit = (index: number, row: User) => {
-  console.log(index, row)
-}
-const handleDelete = (index: number, row: User) => {
-  console.log(index, row)
-}
-
-const tableData: User[] = [
-  {
-    date: '2016-05-03',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-02',
-    name: 'John',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-04',
-    name: 'Morgan',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  {
-    date: '2016-05-01',
-    name: 'Jessy',
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-]
-*/
 //第三部分代码
 import { computed, ref } from 'vue'
+import { fixedDataType } from 'element-plus/es/components/table-v2/src/common';
 const search = ref('')
-const filterTableData = computed(() =>
-    tableData.filter(
-        (data) =>
-            !search.value ||
-            data.clubName.toLowerCase().includes(search.value.toLowerCase())
-    )
-)
 
 //lookDetail 和 deleteClub 的方法还没有写
 
+const tableData = ref([])
+
+/*自己喂的静态数据
 const tableData = [
   {
     clubName: '排球队',
@@ -95,6 +45,71 @@ const tableData = [
   },
 
 ]
+*/
+
+
+
+async function getClubData() {
+  const userId = 1 // path参数，可根据实际情况修改
+  const pageNo = 1 // Query参数
+  const pageSize = 10 // Query参数
+  try {
+    const response = await axios.get(
+        'http://127.0.0.1:4523/m1/4751967-4405137-default/join/club/' + userId,
+        {
+          params: {
+            pageNo: pageNo,
+            pageSize: pageSize,
+          },
+        }
+    );
+
+    // 遍历每个记录，获取社团详细信息并组装数据
+    for (let record of response.data.data.records) {
+      const clubId = record.clubId; // 获取社团ID
+
+      // 获取社团详细信息
+      const clubDetailResponse = await axios.get(
+          `http://127.0.0.1:4523/m1/4751967-4405137-default/club/get/${clubId}`
+      );
+
+      // 提取需要的属性并按顺序组装成新的对象
+      let rowData = {
+        clubName: clubDetailResponse.data.data.name,
+        type: clubDetailResponse.data.data.tags,
+        clubPic: clubDetailResponse.data.data.avatarUrl,
+        date: clubDetailResponse.data.data.registerTime,
+        studentName: clubDetailResponse.data.data.createUserId,
+      };
+
+      // 将组装好的数据对象推入tableData数组
+      tableData.value.push(rowData);
+    }
+
+    // 输出用于调试
+    console.log('tableData', tableData);
+
+    // 现在可以将tableData数组用于页面显示或其他操作
+  }catch (error) {
+    // console.log('apifox',response)
+    console.error('获取社团数据失败', error)
+  }
+}
+
+// 页面加载时发送请求
+getClubData()
+
+const filterTableData = computed(() =>
+    tableData.value.filter(
+        (data) =>
+            !search.value ||
+            data.clubName.toLowerCase().includes(search.value.toLowerCase())
+    )
+)
+
+console.log('过滤后的数据',filterTableData.value)
+
+
 </script>
 
 
