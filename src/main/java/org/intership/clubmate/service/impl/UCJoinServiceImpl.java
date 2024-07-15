@@ -33,8 +33,6 @@ public class UCJoinServiceImpl extends ServiceImpl<UCJoinMapper, UCJoin> impleme
         //先获取所有的id
         QueryWrapper<UCJoin> UCWrapper=new QueryWrapper<>();
         UCWrapper.eq("club_id",clubId).eq("status",2);
-
-
         return ucJoinMapper.selectPage(page,UCWrapper);
     }
 
