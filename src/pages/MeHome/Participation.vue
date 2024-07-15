@@ -13,14 +13,8 @@ const { circleUrl } = toRefs(state)
 
 //第三部分代码
 import { computed, ref } from 'vue'
+import { fixedDataType } from 'element-plus/es/components/table-v2/src/common';
 const search = ref('')
-const filterTableData = computed(() =>
-    tableData.value.filter(
-        (data) =>
-            !search.value ||
-            data.clubName.toLowerCase().includes(search.value.toLowerCase())
-    )
-)
 
 //lookDetail 和 deleteClub 的方法还没有写
 
@@ -74,8 +68,6 @@ async function getClubData() {
         }
     );
 
-    let tableData = []; // 创建一个空数组，用于存放处理后的数据
-
     // 遍历每个记录，获取社团详细信息并组装数据
     for (let record of response.data.data.records) {
       const clubId = record.clubId; // 获取社团ID
@@ -95,7 +87,7 @@ async function getClubData() {
       };
 
       // 将组装好的数据对象推入tableData数组
-      tableData.push(rowData);
+      tableData.value.push(rowData);
     }
 
     // 输出用于调试
@@ -110,6 +102,17 @@ async function getClubData() {
 
 // 页面加载时发送请求
 getClubData()
+
+const filterTableData = computed(() =>
+    tableData.value.filter(
+        (data) =>
+            !search.value ||
+            data.clubName.toLowerCase().includes(search.value.toLowerCase())
+    )
+)
+
+console.log('过滤后的数据',filterTableData.value)
+
 
 </script>
 
