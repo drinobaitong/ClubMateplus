@@ -4,15 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e79046d8-1f26-41d9-a948-c5e3e225be7d" name="Changes" comment="社团成员审核">
+    <list default="true" id="e79046d8-1f26-41d9-a948-c5e3e225be7d" name="Changes" comment="帖子评论">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/ArticleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/ClubController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/ClubController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/CommentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/entity/Article.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/entity/Article.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/entity/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/entity/Comment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/mapper/CommentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/mapper/CommentMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/CommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/CommentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/impl/CommentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/impl/CommentServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/ClubController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/ClubController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/CommentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/CommentController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/entity/Article.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/entity/Article.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/entity/Comment.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/entity/Comment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/mapper/CommentMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/mapper/CommentMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/CommentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/CommentService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/impl/CommentServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/impl/CommentServiceImpl.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,7 +154,8 @@
       <workItem from="1720658281732" duration="2125000" />
       <workItem from="1720670439874" duration="7136000" />
       <workItem from="1720744720537" duration="12661000" />
-      <workItem from="1720830647372" duration="13878000" />
+      <workItem from="1720830647372" duration="15396000" />
+      <workItem from="1721005799873" duration="6775000" />
     </task>
     <task id="LOCAL-00001" summary="后端矿建">
       <option name="closed" value="true" />
@@ -425,7 +429,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720842513866</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="帖子评论">
+      <option name="closed" value="true" />
+      <created>1720860766760</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1720860766760</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -488,7 +500,8 @@
     <MESSAGE value="接口更新" />
     <MESSAGE value="学号" />
     <MESSAGE value="社团成员审核" />
-    <option name="LAST_COMMIT_MESSAGE" value="社团成员审核" />
+    <MESSAGE value="帖子评论" />
+    <option name="LAST_COMMIT_MESSAGE" value="帖子评论" />
     <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
   </component>
   <component name="XDebuggerManager">

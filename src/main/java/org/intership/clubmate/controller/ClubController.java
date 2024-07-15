@@ -35,9 +35,8 @@ public class ClubController {
     @Autowired
     private MessageService messageService;
     @Autowired
-
     private UCJoinService ucJoinService;
-
+    @Autowired
     private UserService userService;
 
     //新建社团
