@@ -251,6 +251,9 @@ import {
 } from '@element-plus/icons-vue'
 import { ref } from 'vue'
 import request from '@/request/request';
+import {useWebStore} from '@/stores/web'
+
+const webStore = useWebStore()
 
 const state = reactive({
   circleUrl:
@@ -277,7 +280,7 @@ const onSubmit = () => {
 }
 
 const load=()=>{
-  request.get('/club/users/6',{
+  request.get(`/club/users/${webStore.web.clubId}`,{
     params:{
       pageNo:data.currentPage,
       pageSize:data.pageSize
@@ -376,7 +379,7 @@ const addType = () => {
     newType.userId=res.data.data.id
     request.post("/join",newType,{
       params:{
-        clubId:6,
+        clubId:webStore.web.clubId,
         userId:res.data.data.id
       }
     }).then(re=>{
@@ -403,7 +406,7 @@ const cancel = (row, userId) => {
     //data.members.splice(rowIndex, 1);
     request.delete('/join/quit',{
       params:{
-        clubId:6,
+        clubId:webStore.web.clubId,
         userId:userId
       }
     }).then(res=>{
@@ -446,7 +449,7 @@ const confirmEdit = (userId) => {
   request.post('/join/rank',member,{
     params:{
       userId:userId,
-      clubId:6,
+      clubId:webStore.web.clubId,
       rank:editCategoryForm.rank
     }
       }

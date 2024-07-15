@@ -198,6 +198,11 @@ import type { UploadProps, UploadUserFile } from 'element-plus'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import type { Action } from 'element-plus'
 import request from "@/request/request";
+import {useWebStore} from '@/stores/web'
+
+const webStore = useWebStore()
+
+
 //初始数据
 const data = reactive(
   {
@@ -217,7 +222,7 @@ const data = reactive(
   });
 
 const load=()=>{
-  request.get('/club/get/6'
+  request.get(`/club/get/${webStore.web.clubId}`
   ).then(res=>{
     data.tableData=res.data.data
   })
@@ -259,6 +264,7 @@ const open = () => {
       request.put('/club/update',data.tableData).then(res=>{
         console.log(res)
         if(res.data.code=='200'){
+          load()
           ElMessage({
             type: 'info',
             message: '注销成功',
@@ -282,6 +288,7 @@ const open2 = () => {
       request.put('/club/update',data.tableData).then(res=>{
         console.log(res)
         if(res.data.code=='200'){
+          load()
           ElMessage({
             type: 'info',
             message: '提交成功',

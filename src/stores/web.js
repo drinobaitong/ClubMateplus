@@ -7,7 +7,7 @@ export const useWebStore = defineStore('web', () => {
     status: false,//登录状态
     identity: '',//身份
     uid: 0, //登录用户的id
-    clubId: 0//当前正在管理的社团的id
+    clubId: 6//当前正在管理的社团的id
   })
 
   return {

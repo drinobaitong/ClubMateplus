@@ -155,6 +155,9 @@ import {
 } from '@element-plus/icons-vue'
 import request from '@/request/request'
 import {ElMessage} from "element-plus";
+import {useWebStore} from '@/stores/web'
+
+const webStore = useWebStore()
 
 const state = reactive({
   circleUrl:
@@ -228,7 +231,7 @@ const filteredTableData = computed(() => {
 });
 
 const load =()=>{
-  request.get('/join/users/6',{
+  request.get(`/join/users/${webStore.web.clubId}`,{
     params:{
       pageNo:pages.currentPage,
       pageSize:pages.pageSize
@@ -248,7 +251,7 @@ const handleClick = (row) => {
   //通过 row 来获取当前行数据
   request.put('/join/audit',{},{
     params:{
-      clubId:6,
+      clubId:webStore.web.clubId,
       userId:row.userId,
       status:2
     }
@@ -264,7 +267,7 @@ const rejectClick = (row) => {
   //通过 row 来获取当前行数据
   request.put('/join/audit',{},{
     params:{
-      clubId:6,
+      clubId:webStore.web.clubId,
       userId:row.userId,
       status:1
     }

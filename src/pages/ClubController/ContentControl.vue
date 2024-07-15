@@ -130,6 +130,9 @@ import {
   Setting,
 } from '@element-plus/icons-vue'
 import request from '@/request/request'
+import {useWebStore} from '@/stores/web'
+
+const webStore = useWebStore()
 
 const state = reactive({
   circleUrl:
@@ -195,7 +198,7 @@ const dialogVisible = ref(false)
 
 
 const load= ()=>{
-  request.get('/comments/club/6').then(res=>{
+  request.get(`/comments/club/${webStore.web.clubId}`).then(res=>{
     formInline.tableData = res.data.data;
   })
   console.log(formInline.tableData)

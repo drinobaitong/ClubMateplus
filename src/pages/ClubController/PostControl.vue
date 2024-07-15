@@ -155,6 +155,9 @@ import {
 } from '@element-plus/icons-vue'
 import { ref } from 'vue'
 import request from'@/request/request'
+import {useWebStore} from '@/stores/web'
+
+const webStore = useWebStore()
 
 const state = reactive({
   circleUrl:
@@ -192,7 +195,7 @@ const handleCurrentChange = (newPage) => {
   load();
 };
 const load=()=>{
-  request.get(`/articles/club/6`,{
+  request.get(`/articles/club/${webStore.web.clubId}`,{
     params:{
       pageNo:pages.currentPage,
       pageSize:pages.pageSize
