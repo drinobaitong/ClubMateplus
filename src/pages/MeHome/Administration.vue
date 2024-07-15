@@ -65,6 +65,10 @@ const tableData: User[] = [
 */
 //第三部分代码
 import { computed, ref } from 'vue'
+import { useWebStore } from '@/stores/web';
+
+const webStore = useWebStore()
+
 const search = ref('')
 const filterTableData = computed(() =>
     tableData.filter(
@@ -75,12 +79,14 @@ const filterTableData = computed(() =>
 )
 
 //lookDetail 和 deleteClub 的方法还没有写
-function lookDetail(){
+function lookDetail(index,raw){
+  webStore.web.clubId = raw.id;//将正在管理的社团id用全局变量保存
   router.push('/ClubMessage')
 }
 
 const tableData = [
   {
+    id:0,
     clubName: '排球队',
     type: '体育艺术类',
     clubPic: 'src/picture/排球.jpg',
@@ -88,6 +94,7 @@ const tableData = [
     studentName: '张三',
   },
   {
+    id:1,
     clubName: '舞蹈队',
     type: '体育艺术类',
     clubPic: 'src/picture/舞蹈.jpg',

@@ -18,10 +18,6 @@ const search = ref('')
 
 //lookDetail 和 deleteClub 的方法还没有写
 
-
-
-
-
 const tableData = ref([])
 
 /*自己喂的静态数据
