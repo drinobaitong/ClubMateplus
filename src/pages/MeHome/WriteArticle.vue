@@ -71,7 +71,7 @@
       </div>
 
       <div class="form-button">
-        <el-button type="primary">发布</el-button>
+        <el-button type="primary" @click = "publishArticle">发布</el-button>
         <el-button @click = "saveArticle">保存</el-button>
         <el-button @click = "clearArticle">清空</el-button>
         <el-button @click = "dialogTableVisible = false">返回</el-button>
@@ -87,6 +87,7 @@
   import E from 'wangeditor';
   import { reactive } from 'vue'
   import { Delete, Download, Plus, ZoomIn } from '@element-plus/icons-vue'
+  import axios from 'axios';
 
   const webStore = useWebStore()
   const article = articleStore()
@@ -116,6 +117,15 @@ const formInline = reactive({
   content: article.article.content,
 })
 
+const paper = reactive({
+  title:formInline.title,
+  content:formInline.content,
+  createUserId:webStore.web.uid,
+  clubId:'',
+  status:0,//默认值
+  avatarUrl:'',
+  essence:0,//默认值
+})
 
   const dialogTableVisible = ref(false)
 
@@ -159,6 +169,26 @@ function clearArticle(){
   formInline.content = ''
   initWangEditor('')
 }
+
+  //发布文章
+  const publishArticle = async () => {  
+      try {  
+        const response = await axios.post('http://127.0.0.1:4523/m1/4751967-4405137-default/articles/publish', paper);  
+
+        if(response.data.code === 200){//发布成功
+          ElNotification({title: 'Success',message: '已成功发布！等待相关负责人审核ing~',type: 'success',})
+          clearArticle()//发完清空存稿
+        }
+        else{
+          ElNotification({title: 'Error',message: '55发布失败啦！！',type: 'error',})
+        }
+        console.log(response.data.code);  
+        // 处理响应  
+      } catch (error) {  
+        console.error(error);  
+        // 处理错误  
+      }  
+    };  
 
 </script>
 
