@@ -2,6 +2,7 @@ package org.intership.clubmate.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -93,12 +94,11 @@ public class UserServiceImp extends ServiceImpl<UserMapper, User> implements Use
 
     @Override
     public User getById(int id) {
-        User res=userMapper.selectOne(Wrappers.<User>lambdaQuery()
-                .eq(User::getId,id));
-        if(res==null){
-            throw new ServiceException("505","用户不存在");
-        }
-        return res;
+//        QueryWrapper<User> queryWrapper=new QueryWrapper<>();
+//        queryWrapper.eq("id",id);
+//        return userMapper.selectOne(queryWrapper);
+
+        return userMapper.getById(id);
     }
 
 

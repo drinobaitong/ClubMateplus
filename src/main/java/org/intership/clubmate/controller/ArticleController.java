@@ -1,7 +1,7 @@
 package org.intership.clubmate.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.checkerframework.checker.units.qual.A;
+
 import org.intership.clubmate.entity.Article;
 import org.intership.clubmate.entity.UCJoin;
 import org.intership.clubmate.enums.HttpCode;
