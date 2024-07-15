@@ -185,13 +185,13 @@
           <el-dialog v-model="dialogVisible" title="社团信息情况" width="500" draggable>
             <el-form :model="form" label-width="auto" style="max-width: 600px">
               <el-form-item label="社团名称">
-                <el-input v-model="form.ClubName" placeholder=""/>
+                <el-input v-model="form.name" placeholder=""/>
               </el-form-item>
               <el-form-item label="社团头像">
                 <div class="demo-image__preview">
                   <el-image
                       style="width: 100px; height: 100px"
-                      :src="form.proPost"
+                      :src="form.avatarUrl"
                       :zoom-rate="1.2"
                       :max-scale="7"
                       :min-scale="0.2"
@@ -201,22 +201,22 @@
                 </div>
               </el-form-item>
               <el-form-item label="学院">
-                <el-select v-model="form.College">
+                <el-select v-model="form.college">
                 <el-option label="计算机学院" value="计算机学院"/>
                 <el-option label="哲学学院" value="哲学学院" />
                 </el-select>
               </el-form-item>
               <el-form-item label="负责人">
-                <el-input v-model="form.President"/>
+                <el-input v-model="form.pname"/>
               </el-form-item>
               <el-form-item label="负责人学院">
-                <el-select v-model="form.PresidentCollege">
+                <el-select v-model="form.college">
                 <el-option label="计算机学院" value="计算机学院"/>
                 <el-option label="哲学学院" value="哲学学院" />
                 </el-select>
               </el-form-item>
               <el-form-item  label="社团简介">
-                <el-input v-model="form.Profile"  />
+                <el-input v-model="form.introduce"  />
               </el-form-item>
             </el-form>
             <template #footer>
@@ -314,8 +314,7 @@ watch(() => pages.currentPage, (newPage) => {
 // 分页变化事件处理
 const handleCurrentChange = (newPage) => {
   pages.currentPage = newPage;
-  // 这里可以请求新页的数据
-  // fetchData(newPage);
+  getList()
 };
 
 // 假设的请求数据方法，需要根据实际情况实现
@@ -328,13 +327,14 @@ const handleCurrentChange = (newPage) => {
 import { ref } from 'vue'
 const dialogVisible = ref(false)
 const form = reactive({
-  ClubName: '',
-  Type:'',
-  College:'',
-  President: '',
-  PresidentCollege:'',
-  proPost:'',
-  Profile:'',
+  name: '',
+  avatarUrl:'',
+  college:'',
+  pname: '',
+  department:'',
+  introduce:'',
+  tags:'',
+  id:''
 })
 
 
@@ -346,14 +346,15 @@ const index = ref(-1);
 // 打开编辑对话框并设置表单数据的方法
 const openEditDialog = (row) => {
   // 将当前行的数据同步到 form 中
-  form.ClubName = row.name;
-  form.President = row.pname;
-  form.College = row.collage;
-  form.PresidentCollege = row.department;
-  form.Profile = row.introduce;
-  form.Type = row.tags; // 确保这里的值与el-select绑定的v-model匹配
+  form.id=row.id
+  form.name = row.name;
+  form.pname = row.pname;
+  form.college = row.collage;
+  form.department = row.department;
+  form.introduce = row.introduce;
+  form.tags = row.tags; // 确保这里的值与el-select绑定的v-model匹配
   // 如果需要显示头像，也更新头像的 URL
-  form.proPost = row.avatarUrl;
+  form.avatarUrl = row.avatarUrl;
   // 记录当前编辑的社团索引
   currentEditingIndex.value = row.name;
   index.value = tableData.findIndex(item => item.name === row.name);
@@ -375,10 +376,20 @@ watch(() => pages.currentPage, (newPage) => {
 import { InfoFilled } from '@element-plus/icons-vue'
 import axios from "axios";
 import {onMounted} from "vue";
+import request from '@/request/request'
+import {ElMessage} from "element-plus";
 
 
 // 确认修改社团信息的方法
 const confirmUpdate = () => {
+  request.post('/club/update/direct',form).then(res=>{
+    if(res.data.code=='200'){
+      getList()
+      ElMessage.success('修改成功')
+    }else {
+      ElMessage.error(res.data.msg)
+    }
+  })
   // 确保 currentEditingIndex 已经在 openEditDialog 中设置
   // 获取当前编辑的社团对象
  /* let club = tableData[index.value];
@@ -402,24 +413,6 @@ const confirmUpdate = () => {
     collage: tableData[index.value].collage
   };
 
-  // 移除了字符串中的多余字符
-  var config = {
-    method: 'post',
-    url: 'http://localhost:8080/club/update/direct', // 确保URL正确
-    headers: {
-      'User-Agent': 'Apifox/1.0.0 (https://apifox.com)', // 修正了User-Agent
-      'Content-Type': 'application/json' // 修正了Content-Type的字符串格式
-    },
-    data: JSON.stringify(data) // 如果API需要JSON字符串格式的数据
-  };
-
-  axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
   // 关闭对话框
   dialogVisible.value = false;
   // 重置当前编辑的索引（如果需要）
@@ -431,13 +424,19 @@ async function cancel (row) {
     url: `http://localhost:8080/club/delete/${encodeURIComponent(row.id)}`,
     method: 'delete',
   });
+  await getList();
   console.log('状态更新成功：', response.data);
 };
 
 async function getList() {
   try {
     // 第一次调用：获取社团列表数据
-    const clubRes = await axios.get('http://localhost:8080/club/list');
+    const clubRes = await axios.get('http://localhost:8080/club/list',{
+      params:{
+        pageNo:pages.currentPage,
+        pageSize:pages.pageSize
+      }
+    });
     const clubRecords = clubRes.data.data.records;
     // 将社团列表数据存储到 tableData
     tableData.splice(0, tableData.length, ...clubRecords);

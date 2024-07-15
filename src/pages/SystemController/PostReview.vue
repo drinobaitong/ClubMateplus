@@ -342,16 +342,13 @@ async function getList() {
         club.proPost=userInfo.data.avatarUrl;
       }
     });
-
     // 异步函数数组，用于存储第三次调用的 Promise
     const userPromise = clubRecords.map(record => {
       // 为每个社团的 CreateUserId 调用第二个接口
       return axios.get(`http://localhost:8080/user/getInfo/${record.createUserId}`);
     });
-
     // 等待所有第二次调用完成
     const userResponse = await Promise.all(userPromise);
-
     // 根据 CreateUserId 将用户信息与社团数据合并
     userResponse.forEach((response, index) => {
       const userInfo = response.data; // 获取用户信息

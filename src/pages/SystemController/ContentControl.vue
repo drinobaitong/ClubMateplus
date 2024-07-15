@@ -96,8 +96,8 @@
           </el-form>
           <!---审核数据--->
           <el-table :data="filteredTableData" style="width: 100%">
-            <el-table-column prop="user" label="用户" width="220" />
-            <el-table-column prop="date" label="评论时间" width="220" />
+            <el-table-column prop="username" label="用户" width="220" />
+            <el-table-column prop="registerTime" label="评论时间" width="220" />
             <el-table-column prop="content" label="评论内容" width="420" />
             <el-table-column fixed="right" label="操作" min-width="120">
               <template #default="scope">
@@ -136,7 +136,7 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, reactive, toRefs,watch} from 'vue'
+import {computed, onMounted, reactive, toRefs, watch} from 'vue'
 import {
   Document,
   Menu as IconMenu,
@@ -145,6 +145,9 @@ import {
 } from '@element-plus/icons-vue'
 import { ArrowLeft } from '@element-plus/icons-vue'
 import { nextTick } from 'vue';
+import request from '@/request/request'
+import axios from "axios";
+
 
 const state = reactive({
   circleUrl:
@@ -159,6 +162,7 @@ const formInline = reactive({
   category: '',
   state:'',
   user:'',
+  tableData:[]
 })
 
 const onSubmit = () => {
@@ -167,9 +171,9 @@ const onSubmit = () => {
 
 // 使用计算属性根据筛选条件过滤数据
 const filteredTableData = computed(() => {
-  return tableData.filter(item => {
+  return formInline.tableData.filter(item => {
     // 如果输入成员名称，也进行名称筛选
-    if (formInline.user && !item.user.includes(formInline.user)) {
+    if (formInline.user && !item.username.includes(formInline.user)) {
       return false;
     }
     return true;
@@ -179,18 +183,6 @@ import { InfoFilled } from '@element-plus/icons-vue'
 
 
 //初始数据
-const tableData = [
-  {
-    user:'张三',
-    content:'今天是个好日子',
-    date:'2022-3-4'
-  },
-  {
-    user:'李四',
-    content:'噢噢噢噢噢噢噢噢噢噢噢噢噢噢噢噢噢噢噢噢噢',
-    date:'2024-3-4'
-  },
-]
 const pages = reactive({
   currentPage: 1, // 当前页码
   pageSize: 10, // 每页显示的条目数
@@ -206,8 +198,7 @@ watch(() => pages.currentPage, (newPage) => {
 // 分页变化事件处理
 const handleCurrentChange = (newPage) => {
   pages.currentPage = newPage;
-  // 这里可以请求新页的数据
-  // fetchData(newPage);
+  load()
 };
 
 // 假设的请求数据方法，需要根据实际情况实现
@@ -218,6 +209,7 @@ const handleCurrentChange = (newPage) => {
 // 假设初始加载第一页数据
 // fetchData(state.currentPage);
 import { ref } from 'vue'
+import {ElMessage} from "element-plus";
 const dialogVisible = ref(false)
 const form = reactive({
   ClubName: '',
@@ -235,33 +227,31 @@ const url =
 // 用于存储当前正在编辑的社团的索引
 const currentEditingIndex = ref(-1);
 const index = ref(-1);
-
+const load=()=>{
+  request.get(`/comments/all`,{
+    params:{
+      pageNo:pages.currentPage,
+      pageSize:pages.pageSize
+    }
+  }).then(res=>{
+    formInline.tableData =res.data.data.records;
+  })
+  console.log(formInline.tableData)
+}
 // 注销成员的方法
 const cancel = (row) => {
-  // 找到要删除的社团的索引
-  const rowIndex = tableData.findIndex(item => item.user === row.user);
-
-  if (rowIndex !== -1) {
-    // 从 tableData 中删除对应的社团
-    tableData.splice(rowIndex, 1);
-    console.log('Deleted item from tableData:', tableData);
-
-    // 等待 Vue 响应性更新完成
-    nextTick(() => {
-      console.log('filteredTableData after update:', filteredTableData.value);
-    });
-
-    // 更新分页总数
-    pages.total = tableData.length;
-
-    // 如果需要，可以在这里处理分页状态的更新
-    if (pages.total < pages.pageSize * pages.currentPage) {
-      pages.currentPage = Math.max(1, pages.currentPage - 1);
+  request.delete(`/comments/delete/${row.id}`).then(res=>{
+    if(res.data.code=='200'){
+      load()
+      ElMessage.success('删除成功')
+    }else{
+      ElMessage.error(res.data.msg)
     }
-  } else {
-    console.error('未找到对应的社团');
-  }
+  })
 };
+
+onMounted(load);
+
 </script>
 
 <style scoped>
