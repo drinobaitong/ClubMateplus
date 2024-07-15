@@ -73,6 +73,7 @@
       <div class="form-button">
         <el-button type="primary">发布</el-button>
         <el-button @click = "saveArticle">保存</el-button>
+        <el-button @click = "clearArticle">清空</el-button>
         <el-button @click = "dialogTableVisible = false">返回</el-button>
       </div>
   </el-form>
@@ -140,11 +141,23 @@ function toWrite(){
   initWangEditor(article.article.content)
 }
 
+  //保存草稿
 function saveArticle(){
   article.article.title = formInline.title
   article.article.date = formInline.date
   article.article.content = formInline.content
   dialogTableVisible.value = false
+}
+
+  //清空
+function clearArticle(){
+  article.article.title = ''
+  article.article.date = ''
+  article.article.content = ''
+  formInline.title = ''
+  formInline.date = ''
+  formInline.content = ''
+  initWangEditor('')
 }
 
 </script>
@@ -207,7 +220,7 @@ function saveArticle(){
 }
 
 .form-button{
-  margin-left: 600px;
+  margin-left: 550px;
   /* font-size: 18px !important; */
 }
 
