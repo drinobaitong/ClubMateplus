@@ -229,8 +229,7 @@ const filteredTableData = computed(() => {
     if (formInline.status && item.status !== formInline.status) {
       return false;
     }
-    return item.status === '3' || item.status === '4'||item.status === '6';
-    return true;
+    return item.status == '3' || item.status == '4'||item.status == '6';
   });
 });
 

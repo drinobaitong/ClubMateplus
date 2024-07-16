@@ -133,19 +133,11 @@
             </el-table-column>
             <el-table-column prop="tags"  label="类别" width="120" >
               <template #default="scope">
-                <!-- 根据 tags 的值显示不同的类别名称 -->
-                <span v-if="scope.row.tags === '1'">学术科技类</span>
-                <span v-if="scope.row.tags === '3'">创新创业类</span>
-                <span v-if="scope.row.tags === '0'">思想政治类</span>
-                <span v-if="scope.row.tags === '2'">文化体育类</span>
-                <span v-if="scope.row.tags === '4'">志愿公益类</span>
-                <span v-if="scope.row.tags === '5'">自律互助类</span>
-                <!-- 如果需要，可以添加更多的条件分支 -->
               </template>
             </el-table-column>
             <el-table-column prop="collage" label="学院" width="120" />
-            <el-table-column prop="pname" label="负责人" width="120" />
-            <el-table-column prop="department" label="负责人学院" width="120" />
+            <el-table-column prop="user.name" label="负责人" width="120" />
+            <el-table-column prop="user.department" label="负责人学院" width="120" />
             <el-table-column fixed="right" label="社团变更信息" min-width="120">
               <template #default="scope">
                 <el-button plain @click="openEditDialog(scope.row)">
@@ -291,8 +283,8 @@ const filteredTableData = computed(() => {
     if (formInline.status && item.status !== formInline.status) {
       return false;
     }
-    return item.status !== '2';
-    return true;
+    return item.status == '0'|| item.status == '1' ;
+
   });
 });
 
@@ -348,9 +340,9 @@ const openEditDialog = (row) => {
   // 将当前行的数据同步到 form 中
   form.id=row.id
   form.name = row.name;
-  form.pname = row.pname;
+  form.pname = row.user.name;
   form.college = row.collage;
-  form.department = row.department;
+  form.department = row.user.department;
   form.introduce = row.introduce;
   form.tags = row.tags; // 确保这里的值与el-select绑定的v-model匹配
   // 如果需要显示头像，也更新头像的 URL
@@ -441,29 +433,6 @@ async function getList() {
     // 将社团列表数据存储到 tableData
     tableData.splice(0, tableData.length, ...clubRecords);
     console.log('第一次获取的社团数据:', tableData);
-
-    // 异步函数数组，用于存储第二次调用的 Promise
-    const userPromises = clubRecords.map(record => {
-      // 为每个社团的 CreateUserId 调用第二个接口
-      return axios.get(`http://localhost:8080/user/getInfo/${record.createUserId}`);
-    });
-
-    // 等待所有第二次调用完成
-    const userResponses = await Promise.all(userPromises);
-
-    // 根据 CreateUserId 将用户信息与社团数据合并
-    userResponses.forEach((response, index) => {
-      const userInfo = response.data; // 获取用户信息
-      const club = tableData.find(item => item.createUserId === clubRecords[index].createUserId);
-      if (club) {
-        // 假设用户信息存储在一个新的字段中，例如 creatorInfo
-        club.pname = userInfo.data.name;
-        club.department=userInfo.data.department;
-        club.status+='';
-        club.avatarUrl=userInfo.data.avatarUrl;
-      }
-    });
-    console.log('更新后的 tableData:', tableData);
   } catch (error) {
     console.error("Error fetching data: ", error);
   }
