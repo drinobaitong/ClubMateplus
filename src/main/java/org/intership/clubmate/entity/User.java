@@ -35,4 +35,8 @@ public class User  {
     private String phone;
     @TableField("email")
     private String email;
+    @TableField("sno")
+    private String sno;
+    @TableField("grade")
+    private String grade;
 }

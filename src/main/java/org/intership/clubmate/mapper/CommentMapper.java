@@ -1,6 +1,7 @@
 package org.intership.clubmate.mapper;
 
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.*;
 import org.intership.clubmate.entity.Comment;
 
@@ -8,7 +9,7 @@ import org.intership.clubmate.entity.Comment;
 import java.util.List;
 
 @Mapper
-public interface CommentMapper {
+public interface CommentMapper extends BaseMapper<Comment> {
 
     //获取文章的所有评论
     @Select("select * from comment where article_id=#{articleId}")

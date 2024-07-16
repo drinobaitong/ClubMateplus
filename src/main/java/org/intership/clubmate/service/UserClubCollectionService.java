@@ -15,4 +15,6 @@ public interface UserClubCollectionService  extends IService<UserClubCollection>
 
     public UserClubCollection findUserClubCollection(int uid,int cid);
     public IPage<Club> getClub(IPage<UserClubCollection> page,int uid);
+
+
 }

@@ -32,6 +32,7 @@ public class UserServiceImp extends ServiceImpl<UserMapper, User> implements Use
         if(res!=null){
             return null;
         }else{
+
             userMapper.insert(user);
         }
         return user;
@@ -71,6 +72,12 @@ public class UserServiceImp extends ServiceImpl<UserMapper, User> implements Use
         else return null;
     }
 
+    @Override
+    public User selectBySno(String sno) {
+        return userMapper.selectOne(Wrappers.<User>lambdaQuery()
+                .eq(User::getSno,sno));
+    }
+
 
     @Override
     public User register(User user) {
@@ -86,12 +93,9 @@ public class UserServiceImp extends ServiceImpl<UserMapper, User> implements Use
 
     @Override
     public User getById(int id) {
-        User res=userMapper.selectOne(Wrappers.<User>lambdaQuery()
+        return userMapper.selectOne(Wrappers.<User>lambdaQuery()
                 .eq(User::getId,id));
-        if(res==null){
-            throw new ServiceException("505","用户不存在");
-        }
-        return res;
+
     }
 
 

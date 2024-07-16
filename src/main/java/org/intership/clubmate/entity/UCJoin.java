@@ -12,11 +12,14 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName("user_club_join")
-public class UCJoin {
+public class UCJoin
+{
     private Integer userId;
     private Integer clubId;
     private int status;
     private LocalDateTime joinTime;
     @TableField("`rank`")
     private int rank;
+    @TableField(exist = false)
+    private User user;
 }

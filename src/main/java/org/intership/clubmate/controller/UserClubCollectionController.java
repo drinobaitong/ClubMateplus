@@ -73,4 +73,18 @@ public class UserClubCollectionController {
         IPage<Club> clubs=userClubCollectionService.getClub(new Page<>(pageNum, pageSize),uid);
         return ResponseResult.success(clubs);
     }
+
+
+    //判断是否收藏对应社团
+    @GetMapping("/getcollsta")
+    @Log(operaModule = "获取收藏状态",operaType = "GET")
+    public ResponseResult isCollect(@RequestParam Integer userId,
+                                    @RequestParam Integer clubId){
+        UserClubCollection userClubCollection=userClubCollectionService.findUserClubCollection(userId,clubId);
+        if(userClubCollection!=null){
+            return ResponseResult.success(true);
+        }else return ResponseResult.error(HttpCode.COLLECTION_NULL);
+    }
+
+
 }

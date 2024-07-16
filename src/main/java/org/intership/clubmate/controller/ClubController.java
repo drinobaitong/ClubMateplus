@@ -3,10 +3,7 @@ package org.intership.clubmate.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.intership.clubmate.entity.Article;
-import org.intership.clubmate.entity.Club;
-import org.intership.clubmate.entity.ClubUpdate;
-import org.intership.clubmate.entity.User;
+import org.intership.clubmate.entity.*;
 import org.intership.clubmate.enums.HttpCode;
 import org.intership.clubmate.pojo.ResponseResult;
 import org.intership.clubmate.service.*;
@@ -35,9 +32,8 @@ public class ClubController {
     @Autowired
     private MessageService messageService;
     @Autowired
-
     private UCJoinService ucJoinService;
-
+    @Autowired
     private UserService userService;
 
     //新建社团
@@ -74,7 +70,7 @@ public class ClubController {
         Club club=clubService.getById(id);
         log.info("根据id查找社团");
         User user =userService.getById(club.getCreateUserId());
-        club.setCreateUserName(user.getName());
+        club.setUser(user);
         return  ResponseResult.success(club);
     }
 
@@ -85,6 +81,10 @@ public class ClubController {
     {
         log.info("分页查询");
         IPage<Club> clubs=clubService.list(pageNo,pageSize);
+        for(int i=0;i<clubs.getRecords().size();i++){
+            Club club=clubs.getRecords().get(i);
+            club.setUser(userService.getById(club.getCreateUserId()));
+        }
         return ResponseResult.success(clubs);
     }
 

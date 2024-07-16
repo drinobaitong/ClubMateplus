@@ -25,5 +25,5 @@ public class Club {
     private String tags;
     private String collage;
     @TableField(exist = false)
-    private String createUserName;
+    private User user;
 }

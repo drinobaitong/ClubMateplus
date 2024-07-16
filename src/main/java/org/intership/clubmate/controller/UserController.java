@@ -130,5 +130,12 @@ public class UserController {
            return ResponseResult.success(res);
        }return ResponseResult.error(HttpCode.USER_NULL);
     }
+    @RequestMapping("/getBySno")
+    public ResponseResult getBySno(@RequestParam String sno){
+        User user =userService.selectBySno(sno);
+        if(user!=null){
+            return ResponseResult.success(user);
+        }else return ResponseResult.error(HttpCode.USER_NULL);
+    }
 
 }
