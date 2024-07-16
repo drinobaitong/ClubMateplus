@@ -47,24 +47,17 @@ public class ClubController {
     }
 
     //删除社团(同时删除社团内所有文章)
-    @DeleteMapping("/club/delete/{id}")
-    @Transactional
+    @PostMapping("/club/delete/{id}")
+
     public ResponseResult deleteClub(@PathVariable Integer id){
+        //社团注销申请
+        clubService.audit(3,id);
         Club club=clubService.getById(id);
-        log.info("删除社团");
-        if(club!=null) {
-            //删除社团内所有文章
-            List<Article> articles=articleService.getArticlesByClub(club.getId());
-           for(Article article:articles){
-               articleService.deleteArticle(article);
-           }
-            //删除社团
-            clubService.deleteById(id);
-            return ResponseResult.success();
-        }else{
-            return ResponseResult.setAppHttpCodeEnum(HttpCode.SYSTEM_ERROR,"社团不存在");
-        }
+        messageService.insert(club.getCreateUserId(),"您的社团注销申请已提交，正等待审核");
+        return ResponseResult.success();
+
     }
+
     @GetMapping("/club/get/{id}")
     public ResponseResult getClub(@PathVariable Integer id){
         Club club=clubService.getById(id);
@@ -134,13 +127,32 @@ public class ClubController {
         if(status== 1){
             log.info("社团创建审核通过");
             messageService.insert(club.getCreateUserId(),"您的社团："+club.getName()+"创建申请已通过");
-        }else {
+        }else if(status==2){
             log.info("社团创建审核未通过");
             messageService.insert(club.getCreateUserId(),"您的社团："+club.getName()+"创建申请未能通过");
+        }else if(status==4){
+            log.info("社团注销申请通过");
+            log.info("删除社团");
+             if(club!=null) {
+            //删除社团内所有文章
+            List<Article> articles=articleService.getArticlesByClub(club.getId());
+                for(Article article:articles){
+               articleService.deleteArticle(article);
+                 }
+                 //删除社团
+                 clubService.deleteById(id);
+             }
+             messageService.insert(club.getCreateUserId(),"您的社团："+club.getName()+"已注销");
+        }else{
+            log.info("社团注销申请未通过");
+            messageService.insert(club.getCreateUserId(),"您的社团："+club.getName()+"注销申请未通过");
+            status=1;
         }
         clubService.audit(status,id);
         return ResponseResult.success();
     }
+
+
 
     @PostMapping("/club/image/{id}")
     public ResponseResult uploadImage(
