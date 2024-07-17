@@ -25,4 +25,6 @@ public interface ClubService extends IService<Club> {
 
     void addMember(Integer clubId);
     void subMember(Integer clubId);
+
+    List<Club> quitList();
 }

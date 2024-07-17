@@ -98,6 +98,13 @@ public class ClubServiceImpl extends ServiceImpl<ClubMapper, Club> implements Cl
     }
 
     @Override
+    public List<Club> quitList() {
+        QueryWrapper<Club> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("status",3);
+        return clubMapper.selectList(queryWrapper);
+    }
+
+    @Override
     public List<Club> getClubFS(String search){
         return clubMapper.findClubFS(search);
     }
