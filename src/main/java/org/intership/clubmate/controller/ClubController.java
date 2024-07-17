@@ -207,6 +207,10 @@ public class ClubController {
         return  ResponseResult.success(clubUpdateService.getUpdate());
     }
 
-
+    @GetMapping("club/quit/list")
+    public ResponseResult quitList(){
+        List<Club> clubs=clubService.quitList();
+        return ResponseResult.success(clubs);
+    }
 
 }
