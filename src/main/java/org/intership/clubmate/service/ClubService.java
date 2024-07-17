@@ -1,8 +1,10 @@
 package org.intership.clubmate.service;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.intership.clubmate.entity.Club;
+import org.intership.clubmate.entity.User;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -26,5 +28,5 @@ public interface ClubService extends IService<Club> {
     void addMember(Integer clubId);
     void subMember(Integer clubId);
 
-    List<Club> quitList();
+    IPage<Club> quitList(IPage<Club> page, Wrapper<Club> queryWrapper);
 }

@@ -1,6 +1,9 @@
 package org.intership.clubmate.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.intership.clubmate.entity.*;
@@ -208,8 +211,16 @@ public class ClubController {
     }
 
     @GetMapping("club/quit/list")
-    public ResponseResult quitList(){
-        List<Club> clubs=clubService.quitList();
+    public ResponseResult quitList(@RequestParam(defaultValue = "1") Integer pageNum,
+                                   @RequestParam(defaultValue = "10") Integer pageSize){
+        IPage<Club> page = new Page<>(pageNum, pageSize);
+        LambdaQueryWrapper<Club> queryWrapper = Wrappers.lambdaQuery();
+        queryWrapper.eq(Club::getStatus,'3').or().eq(Club::getStatus,'4');
+        IPage<Club> clubs=clubService.quitList(page,queryWrapper);
+        for(int i=0;i<clubs.getRecords().size();i++){
+            Club club=clubs.getRecords().get(i);
+            club.setUser(userService.getById(club.getCreateUserId()));
+        }
         return ResponseResult.success(clubs);
     }
 

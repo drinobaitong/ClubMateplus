@@ -1,5 +1,6 @@
 package org.intership.clubmate.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -98,10 +99,8 @@ public class ClubServiceImpl extends ServiceImpl<ClubMapper, Club> implements Cl
     }
 
     @Override
-    public List<Club> quitList() {
-        QueryWrapper<Club> queryWrapper=new QueryWrapper<>();
-        queryWrapper.eq("status",3);
-        return clubMapper.selectList(queryWrapper);
+    public IPage<Club> quitList(IPage<Club> page, Wrapper<Club> queryWrapper) {
+        return clubMapper.selectPage(page,queryWrapper);
     }
 
     @Override
