@@ -85,7 +85,7 @@
                 <div class="grid-content ep-bg-purple" />
                 社团分类
                 <el-select
-                    v-model="data.tableData.type"
+                    v-model="data.tableData.tags"
                     placeholder="Select"
                     style="width: 240px"
                 >
@@ -199,7 +199,6 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import type { Action } from 'element-plus'
 import request from "@/request/request";
 import {useWebStore} from '@/stores/web'
-
 const webStore = useWebStore()
 
 

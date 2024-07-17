@@ -232,7 +232,7 @@ const filteredTableData = computed(() => {
 //审核同意
 async function handleClick(row) {
   // 通过 row 来获取当前行数据
-  if (row.status === '0') {
+  if (row.status == '0') {
     try {
       // 将当前行的审核状态改为 '已审核'
       row.status = '1'; // 更新状态
@@ -255,7 +255,7 @@ async function handleClick(row) {
 //审核拒绝
 async function rejectClick(row) {
   //通过 row 来获取当前行数据
-  if (row.status === '0') {
+  if (row.status == '0') {
     try {
       // 将当前行的审核状态改为 '已审核'
       row.status = '2'; // 更新状态

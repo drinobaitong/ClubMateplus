@@ -145,23 +145,23 @@
               </template>
             </el-table-column>
             <el-table-column prop="collage" label="学院" width="120" />
-            <el-table-column prop="pname" label="负责人" width="120" />
-            <el-table-column prop="department" label="负责人学院" width="120" />
+            <el-table-column prop="user.name" label="负责人" width="120" />
+            <el-table-column prop="user.department" label="负责人学院" width="120" />
             <el-table-column prop="status" label="审核状态" width="120" >
             <template #default="scope">
-              <span v-if="scope.row.status === '3'">未审核</span>
-              <span v-if="scope.row.status === '4'">审核通过</span>
-              <span v-if="scope.row.status === '6'">审核不通过</span>
+              <span v-if="scope.row.status == '3'">未审核</span>
+              <span v-if="scope.row.status == '4'">审核通过</span>
+              <span v-if="scope.row.status == '6'">审核不通过</span>
             </template>
             </el-table-column>
             <el-table-column fixed="right" label="操作" min-width="120">
               <template #default="scope">
-                <el-button link type="primary" size="small" @click="handleClick(scope.row)"  v-if="scope.row.status==='3'">
+                <el-button link type="primary" size="small" @click="handleClick(scope.row)"  v-if="scope.row.status=='3'">
                   同意
                 </el-button>
-                <el-button link type="primary" size="small" @click="rejectClick(scope.row)" v-if="scope.row.status==='3'">拒绝</el-button>
-                <el-button link type="primary" size="small" v-if="scope.row.status==='4'">已同意</el-button>
-                <el-button link type="primary" size="small" v-if="scope.row.status==='6'">已拒绝</el-button>
+                <el-button link type="primary" size="small" @click="rejectClick(scope.row)" v-if="scope.row.status=='3'">拒绝</el-button>
+                <el-button link type="primary" size="small" v-if="scope.row.status=='4'">已同意</el-button>
+                <el-button link type="primary" size="small" v-if="scope.row.status=='6'">已拒绝</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -236,7 +236,7 @@ const filteredTableData = computed(() => {
 //审核同意
 async function handleClick(row) {
   // 通过 row 来获取当前行数据
-  if (row.status === '3') {
+  if (row.status == '3') {
     try {
       // 将当前行的审核状态改为 '已审核'
       row.status = '4'; // 更新状态
@@ -263,7 +263,7 @@ async function handleClick(row) {
 //审核拒绝
 async function rejectClick(row) {
   //通过 row 来获取当前行数据
-  if (row.status === '3') {
+  if (row.status == '3') {
     try {
       // 将当前行的审核状态改为 '已审核'
       row.status = '6'; // 更新状态
@@ -293,8 +293,7 @@ const pages = reactive({
 
 // 监听页码变化
 watch(() => pages.currentPage, (newPage) => {
-  // 这里可以请求数据或使用计算属性更新数据
-  // 例如: fetchData(newPage);
+  getList();
 });
 
 // 分页变化事件处理
@@ -314,34 +313,17 @@ const handleCurrentChange = (newPage) => {
 async function getList() {
   try {
     // 第一次调用：获取社团列表数据
-    const clubRes = await axios.get('http://localhost:8080/club/list');
+    const clubRes = await axios.get('http://localhost:8080/club/quit/list',{
+      params:{
+        pageNo:pages.currentPage,
+        pageSize:pages.pageSize
+      }
+    });
     const clubRecords = clubRes.data.data.records;
     // 将社团列表数据存储到 tableData
     tableData.splice(0, tableData.length, ...clubRecords);
     console.log('第一次获取的社团数据:', tableData);
 
-    // 异步函数数组，用于存储第二次调用的 Promise
-    const userPromises = clubRecords.map(record => {
-      // 为每个社团的 CreateUserId 调用第二个接口
-      return axios.get(`http://localhost:8080/user/getInfo/${record.createUserId}`);
-    });
-
-    // 等待所有第二次调用完成
-    const userResponses = await Promise.all(userPromises);
-
-    // 根据 CreateUserId 将用户信息与社团数据合并
-    userResponses.forEach((response, index) => {
-      const userInfo = response.data; // 获取用户信息
-      const club = tableData.find(item => item.createUserId === clubRecords[index].createUserId);
-      if (club) {
-        // 假设用户信息存储在一个新的字段中，例如 creatorInfo
-        club.pname = userInfo.data.name;
-        club.department=userInfo.data.department;
-        club.status+='';
-      }
-    });
-
-    console.log('更新后的 tableData:', tableData);
   } catch (error) {
     console.error("Error fetching data: ", error);
   }
