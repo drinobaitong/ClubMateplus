@@ -4,16 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e79046d8-1f26-41d9-a948-c5e3e225be7d" name="Changes" comment="Ai">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+    <list default="true" id="e79046d8-1f26-41d9-a948-c5e3e225be7d" name="Changes" comment="1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/ClubController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/ClubController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/ClubService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/ClubService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/impl/ClubServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/service/impl/ClubServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/ClubController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/controller/ClubController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/ClubService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/ClubService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/impl/ClubServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/intership/clubmate/service/impl/ClubServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/controller/ArticleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/entity/Article.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/intership/clubmate/entity/Article.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,7 +149,8 @@
       <workItem from="1720830647372" duration="15396000" />
       <workItem from="1721005799873" duration="8356000" />
       <workItem from="1721091997463" duration="9462000" />
-      <workItem from="1721178807877" duration="1914000" />
+      <workItem from="1721178807877" duration="2892000" />
+      <workItem from="1721263113176" duration="4528000" />
     </task>
     <task id="LOCAL-00001" summary="后端矿建">
       <option name="closed" value="true" />
@@ -469,7 +464,15 @@
       <option name="project" value="LOCAL" />
       <updated>1721121560624</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="1">
+      <option name="closed" value="true" />
+      <created>1721181278925</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1721181278925</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -524,7 +527,6 @@
     <MESSAGE value="登录日志以及错误日志" />
     <MESSAGE value="操作日志" />
     <MESSAGE value="操作日志的修改" />
-    <MESSAGE value="1" />
     <MESSAGE value="函数前加日志注解" />
     <MESSAGE value="添加日志" />
     <MESSAGE value="微调" />
@@ -534,7 +536,8 @@
     <MESSAGE value="社团成员审核" />
     <MESSAGE value="帖子评论" />
     <MESSAGE value="Ai" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ai" />
+    <MESSAGE value="1" />
+    <option name="LAST_COMMIT_MESSAGE" value="1" />
     <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
   </component>
   <component name="XDebuggerManager">

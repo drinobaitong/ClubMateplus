@@ -2,11 +2,13 @@ package org.intership.clubmate.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
+import org.checkerframework.checker.units.qual.A;
 import org.intership.clubmate.entity.Article;
 import org.intership.clubmate.entity.UCJoin;
 import org.intership.clubmate.enums.HttpCode;
 import org.intership.clubmate.pojo.ResponseResult;
 import org.intership.clubmate.service.ArticleService;
+import org.intership.clubmate.service.ClubService;
 import org.intership.clubmate.service.UserService;
 import org.intership.clubmate.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,9 @@ public class ArticleController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ClubService clubService;
     //按id查看帖子
     @GetMapping("/{id}")
     public ResponseResult viewArticleDetails(@PathVariable("id") Integer id){
@@ -79,6 +84,11 @@ public class ArticleController {
             @RequestParam(value = "pageSize", defaultValue = "10") int pageSize)
     {
         IPage<Article> articles=articleService.list(pageNo,pageSize);
+
+        for(int i=0;i<articles.getRecords().size();i++){
+            Article article=articles.getRecords().get(i);
+            article.setClub(clubService.getById(article.getClubId()));
+        }
         return ResponseResult.success(articles);
     }
 

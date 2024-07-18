@@ -34,5 +34,7 @@ public class Article {
     private LocalDateTime registerTime;   //发布时间
     @TableField(exist = false)
     private String username;
+    @TableField(exist = false)
+    private Club club;
 
 }
