@@ -85,7 +85,7 @@
                 社团分类
                 <el-select
                     v-model="data.tableData.type"
-                    :placeholder="placeholderText" 
+                    placeholder="Select"
                     style="width: 240px"
                 >
                   <el-option
@@ -198,7 +198,6 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import type { Action } from 'element-plus'
 import request from "@/request/request";
 import {useWebStore} from '@/stores/web'
-import axios from 'axios'
 
 const webStore = useWebStore()
 let club
