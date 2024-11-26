@@ -1,10 +1,11 @@
 <template>
-<el-button plain @click="dialogFormVisible = true">
+<el-button plain @click="dialogFormVisible = true"
+style="width: 132px;height: 40px; font-size: 18px;font-weight: 700; color: rgba(0,0,0,0.4);">
     创建社团
   </el-button>
 
 
-    <el-dialog v-model="dialogFormVisible"  width="750" style="margin-top: 20px;">
+    <el-dialog v-model="dialogFormVisible"  width="750" style="margin-top: 100px;">
       <p class = "title">创建社团</p>
    
     <!-- 社团信息表单 -->
@@ -45,12 +46,7 @@
         <span class = "form-label">负责人信息</span>
         <el-input v-model="formData.studentId" placeholder="请填入学号" clearable style="width: 500px; margin-left: -18px;"/>
         <el-input v-model="formData.studentName" placeholder="请填入姓名" clearable style="width: 500px; margin-top: 20px; margin-left: 152px;"/>
-        <el-select v-model="formData.studentCollege" placeholder="请选择学院" clearable style="width: 500px; margin-top: 20px; margin-left: 152px;">
-          <el-option v-for="item in studentCollegeOptions" :key="item.value" :label="item.label" :value="item.value" />
-        </el-select>
         <el-input v-model="formData.studentPhone" placeholder="请填入电话" clearable style="width: 500px; margin-top: 20px; margin-left: 152px;" />
-        <el-input v-model="formData.politics" placeholder="请填入政治面貌" clearable style="width: 500px; margin-top: 20px; margin-left: 152px;" />
-        <el-input v-model="formData.grade" placeholder="请填入年级" clearable style="width: 500px; margin-top: 20px; margin-left: 152px;" />
       </div>
 
       
@@ -98,29 +94,26 @@ const formData = ref({
   checked1: false,
   studentId: '',
   studentName: '',
-  studentCollege: '',
   studentPhone: '',
-  politics: '',
-  grade: '',
 });
 
 
 //社团“所属学院”下拉框
 const collegeOptions = [
-  { value: 'Option1', label: 'Option1' },
-  { value: 'Option2', label: 'Option2' },
-  { value: 'Option3', label: 'Option3' },
-  { value: 'Option4', label: 'Option4' },
-  { value: 'Option5', label: 'Option5' },
+  { value: 'Option1', label: '计算机学院' },
+  { value: 'Option2', label: '文学院' },
+  { value: 'Option3', label: '测绘学院' },
+  { value: 'Option4', label: '弘毅学堂' },
 ];
 
 //社团“类型”下拉框
 const typeOptions = [
-  { value: 'Option1', label: 'Option1' },
-  { value: 'Option2', label: 'Option2' },
-  { value: 'Option3', label: 'Option3' },
-  { value: 'Option4', label: 'Option4' },
-  { value: 'Option5', label: 'Option5' },
+  { value: 'Option1', label: '文化体育类' },
+  { value: 'Option2', label: '志愿公益类' },
+  { value: 'Option3', label: '自律互助类' },
+  { value: 'Option4', label: '创新创业类' },
+  { value: 'Option5', label: '思想政治类' },
+  { value: 'Option6', label: '学术科技类' },
 ];
 
 //上传、删除附件
@@ -150,15 +143,6 @@ function deleteAttachment() {
 function setFileInput(inputElement) {
   fileInput = inputElement;
 }
-
-//负责人“学院”下拉框
-const studentCollegeOptions = [
-  { value: 'Option1', label: 'Option1' },
-  { value: 'Option2', label: 'Option2' },
-  { value: 'Option3', label: 'Option3' },
-  { value: 'Option4', label: 'Option4' },
-  { value: 'Option5', label: 'Option5' },
-];
 
 //保存
 function saveForm() {

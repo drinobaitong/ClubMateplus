@@ -2,10 +2,14 @@
 //头像图片
 import { reactive, toRefs } from 'vue'
 import axios from 'axios'
+import { useWebStore } from '@/stores/web';
+import NotLogged from '../Visitor/NotLogged.vue';
+
+const webStore = useWebStore()
 
 const state = reactive({
   circleUrl:
-      'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
+      'https://clubmate.oss-cn-beijing.aliyuncs.com/074071e2-f794-447d-bc46-e27887404728.jpg',
 })
 
 const { circleUrl } = toRefs(state)
@@ -15,47 +19,21 @@ const { circleUrl } = toRefs(state)
 import { computed, ref } from 'vue'
 import { fixedDataType } from 'element-plus/es/components/table-v2/src/common';
 const search = ref('')
+import MyMessage from './MyMessage.vue'
+import CreateClub from './CreateClub.vue';
 
 //lookDetail 和 deleteClub 的方法还没有写
 
 const tableData = ref([])
 
-/*自己喂的静态数据
-const tableData = [
-  {
-    clubName: '排球队',
-    type: '体育艺术类',
-    clubPic: 'src/picture/排球.jpg',
-    date: '20040507',
-    studentName: '张三',
-  },
-  {
-    clubName: '舞蹈队',
-    type: '体育艺术类',
-    clubPic: 'src/picture/舞蹈.jpg',
-    date: '20040722',
-    studentName: '李四',
-  },
-  {
-    clubName: '广播台',
-    type: '体育艺术类',
-    clubPic: 'src/picture/广播台.jpg',
-    date: '19990722',
-    studentName: '赵六',
-  },
-
-]
-*/
-
-
 
 async function getClubData() {
-  const userId = 1 // path参数，可根据实际情况修改
   const pageNo = 1 // Query参数
   const pageSize = 10 // Query参数
   try {
+    console.log('用户id',webStore.web.uid)
     const response = await axios.get(
-        'http://127.0.0.1:4523/m1/4751967-4405137-default/join/club/' + userId,
+        'http://localhost:8080/join/club/' + webStore.web.uid,
         {
           params: {
             pageNo: pageNo,
@@ -70,16 +48,24 @@ async function getClubData() {
 
       // 获取社团详细信息
       const clubDetailResponse = await axios.get(
-          `http://127.0.0.1:4523/m1/4751967-4405137-default/club/get/${clubId}`
+          `http://localhost:8080/club/get/${clubId}`
       );
+
+      // 获取用户详细信息
+      const studentDetailResponse = await axios.get(
+          `http://localhost:8080/user/getInfo/${clubDetailResponse.data.data.createUserId}`
+      );
+
 
       // 提取需要的属性并按顺序组装成新的对象
       let rowData = {
-        clubName: clubDetailResponse.data.data.name,
-        type: clubDetailResponse.data.data.tags,
-        clubPic: clubDetailResponse.data.data.avatarUrl,
-        date: clubDetailResponse.data.data.registerTime,
-        studentName: clubDetailResponse.data.data.createUserId,
+        name: clubDetailResponse.data.data.name,
+        tags: clubDetailResponse.data.data.tags,
+        avatarUrl: clubDetailResponse.data.data.avatarUrl,
+        registerTime: clubDetailResponse.data.data.registerTime,
+        studentName: studentDetailResponse.data.data.name,
+        id:clubDetailResponse.data.data.id,
+        createUserId:studentDetailResponse.data.data.id
       };
 
       // 将组装好的数据对象推入tableData数组
@@ -120,37 +106,29 @@ console.log('过滤后的数据',filterTableData.value)
     <el-container>
 
 
-      <!--第一部分-->
-      <el-container>
+        <!--第一部分-->
+        <el-container  style="height: 150px;">
         <!--<el-icon><CirclePlus /></el-icon>-->
 
         <!-- 单个100px大小的圆形头像 -->
-        <el-aside width="160px" class="aside-center">
-          <div class="block">
-            <el-avatar :size="150" :src="circleUrl" />
+        <el-aside width="200px" class="aside-center">
+          <div class="block" style="margin-left: -20px;">
+            <el-avatar :size="120" :src="circleUrl" />
           </div>
         </el-aside>
 
         <!--姓名，班级，学号。右上角两个按钮部分-->
         <el-main>
-
-          <el-row class="el-row1">
-            <el-col :span="7">
-              <!--张乐遥-->
-              <span class="name">张乐遥</span>
-            </el-col>
-            <el-col :span="9" :offset="8" class="button-container">
-              <router-link to="/SetUpClub">
-                <el-button type="primary" plain>申请创建社团</el-button>
-              </router-link>
-              <el-button type="primary" plain>我的消息</el-button>
-            </el-col>
-          </el-row>
-          <el-row class="el-row2">
-            <el-col :span="5" class="lightgray-box">计算机学院5班</el-col>
-            <el-col :span="5" class="gray-box">2022302111371</el-col>
-          </el-row>
-
+          <div class = "tableTop"> 
+              <span class="name">程嘉佳</span>
+              <span class="lightgray-box">计算机学院593班</span>
+              <span class="gray-box">2022302111159313</span>
+              <div style="display: flex;margin-left: 1520px;margin-top: 0px;">
+                <CreateClub />
+              <MyMessage />
+              </div>
+            </div>
+         
         </el-main>
 
       </el-container>
@@ -174,37 +152,40 @@ console.log('过滤后的数据',filterTableData.value)
               <el-button type="primary" round>管理的社团</el-button>
             </router-link>
           </el-col>
-          <el-col :span="1" :offset="14">
-            <el-button type="primary" round>+</el-button>
-          </el-col>
         </el-row>
       </el-main>
 
 
       <!--第三部分-->
       <el-footer>
-        <el-table :data="filterTableData" style="width: 100%">
+        <el-table :data="filterTableData" style="width: 85%">
           <!--<el-table-column label="Date" prop="date" />-->
           <!--<el-table-column label="Name" prop="name" />-->
-          <el-table-column label="社团名称" prop="clubName" />
-          <el-table-column label="社团分类" prop="type" />
-          <el-table-column label="图片" prop="clubPic">
+          <el-table-column label="社团名称" prop="name" />
+          <el-table-column label="社团分类" prop="tags" />
+          <el-table-column label="图片" prop="avatarUrl">
             <template #default="scope">
-              <img :src="scope.row.clubPic" style="max-width: 100px; max-height: 100px;" />
+              <img :src="scope.row.avatarUrl" style="max-width: 100px; max-height: 100px;" />
             </template>
           </el-table-column>
-          <el-table-column label="创建时间" prop="date" />
+          <el-table-column label="创建时间" prop="registerTime" />
           <el-table-column label="社长姓名" prop="studentName" />
           <el-table-column align="right">
-            <template #header>
+            <!-- <template #header>
               <el-input v-model="search" size="small" placeholder="搜索社团名称" />
             </template>
             <template #default="scope">
               <el-button size="small" @click="lookDetail(scope.$index, scope.row)">查看</el-button>
               <el-button size="small" type="danger" @click="deleteClub(scope.$index, scope.row)">删除</el-button>
-            </template>
+            </template> -->
           </el-table-column>
         </el-table>
+        <el-input v-model="search" size="small" placeholder="搜索社团名称" class="toSearch" />
+        <ul class = "dataButton">
+          <li v-for = "temp in filterTableData">
+            <NotLogged :club = temp :setDialogVisible = setDialogVisible :wid=50 :hei=25 :where = 1 />
+          </li>
+        </ul>
       </el-footer>
     </el-container>
   </div>
@@ -217,13 +198,23 @@ console.log('过滤后的数据',filterTableData.value)
 <style scoped>
 
 .lightgray-box {
-  background-color: lightgray;
-  height: 24px;
+  margin-left: 80px;
+  margin-top: 32px;
+  font-size: 25px;
+  font-weight: 700;
+  /* background-color: lightgray; */
+  height: 40px;
+  color:#575854 ;
 }
 
 .gray-box {
-  background-color: gray;
-  height: 24px;
+  /* background-color: gray; */
+  margin-left: 80px;
+  margin-top: 32px;
+  height: 40px;
+  font-size: 25px;
+  font-weight: 700;
+  color:#575854 ;
 }
 
 .el-row1 {
@@ -247,7 +238,10 @@ console.log('过滤后的数据',filterTableData.value)
 }
 
 .name {
+  margin-left: 20px;
   font-size: 3.3em; /* 放大字体 */
+  font-weight: 700;
+  color: rgba(0,0,0,0.4);
 }
 
 .button-container {
@@ -261,4 +255,23 @@ console.log('过滤后的数据',filterTableData.value)
   color: #ffffff; /* 示例：修改按钮文字颜色 */
   /* 可以根据需要自定义其他样式 */
 }
+
+.dataButton{
+  list-style: none;
+  float: right;
+  margin-top: -670px;
+  margin-right: 150px;
+}
+
+.dataButton li{
+  margin-bottom: 75px;
+}
+
+.toSearch{
+  left:1660px;
+  top:-780px;
+  width: 250px;
+
+}
+
 </style>

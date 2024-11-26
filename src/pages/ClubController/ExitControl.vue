@@ -106,20 +106,18 @@
           </el-form>
           <!---审核数据--->
           <el-table :data="filteredTableData" style="width: 100%">
-            <el-table-column prop="user.sno" label="学号" width="220" />
-            <el-table-column prop="user.name" label="姓名" width="120" />
-            <el-table-column prop="user.department" label="学院" width="120" />
-            <el-table-column prop="user.phone" label="联系电话" width="120" />
-            <el-table-column prop="user.politicalAffiliation" label="政治面貌" width="120" />
-            <el-table-column prop="user.grade" label="年级" width="120" />
-            <el-table-column prop="joinTime" label="申请时间" width="120" />
-            <el-table-column prop="right" label="申请理由" min-width="150">
+            <el-table-column prop="user.name" label="姓名" width="180" />
+            <el-table-column prop="user.department" label="学院" width="180" />
+            <el-table-column prop="user.phone" label="联系电话" width="180" />
+            <el-table-column prop="user.politicalAffiliation" label="政治面貌" width="180" />
+            <el-table-column prop="joinTime" label="申请时间" width="180" />
+            <!-- <el-table-column prop="right" label="申请理由" min-width="150">
               <template #default="scope">
                 <el-button @click="viewDetails(scope.row.context)">
                   查看详情
                 </el-button>
               </template>
-            </el-table-column>
+            </el-table-column> -->
 
             <el-table-column prop="status" label="审核状态" width="120" >
               <template v-slot="scope">{{states[scope.row.status].value}}</template>

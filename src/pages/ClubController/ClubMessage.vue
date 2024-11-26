@@ -78,7 +78,6 @@
                 <el-input
                     v-model="data.tableData.name"
                     style="width: 240px"
-                    placeholder="Please input"
                     clearable
                 /><div class="grid-content ep-bg-purple" /></el-col>
               <el-col :span="6" :offset="6">
@@ -86,7 +85,7 @@
                 社团分类
                 <el-select
                     v-model="data.tableData.type"
-                    placeholder="Select"
+                    :placeholder="placeholderText" 
                     style="width: 240px"
                 >
                   <el-option
@@ -162,7 +161,7 @@
                 <el-input
                     v-model="data.tableData.createUserName"
                     style="width: 240px"
-                    placeholder="Please input"
+                    :placeholder="placeholderText2" 
                     clearable
                 />
                 <br><br><br>
@@ -199,9 +198,14 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import type { Action } from 'element-plus'
 import request from "@/request/request";
 import {useWebStore} from '@/stores/web'
+import axios from 'axios'
 
 const webStore = useWebStore()
+let club
+const placeholderText = ref('')
+const placeholderText2 = ref('')
 
+const fileList = ref<UploadUserFile[]>([]); // 初始化为空数组  
 
 //初始数据
 const data = reactive(
@@ -221,6 +225,38 @@ const data = reactive(
     type:[],
   });
 
+//获取管理社团的基本信息
+async function getManageClubData() {
+  try {
+      // 获取社团详细信息
+      const clubDetailResponse = await axios.get(
+          `http://localhost:8080/club/get/${webStore.web.clubId}`
+      );
+      club = clubDetailResponse.data.data
+      console.log('管理社团返回club',club)
+      placeholderText.value = club.tags
+      data.tableData.avatarUrl = club.avatarUrl
+
+      fileList.value = [  
+      {  
+        name: 'food.jpeg',  
+        url: data.tableData.avatarUrl, // 假设 data.tableData 已经在其他地方被定义和更新  
+      },  
+    ];  
+      // 获取用户详细信息
+      const studentDetailResponse = await axios.get(
+          `http://localhost:8080/user/getInfo/${clubDetailResponse.data.data.createUserId}`
+      );
+      placeholderText2.value =  studentDetailResponse.data.data.name
+  
+  }catch (error) {
+    console.error('获取社团基本信息失败', error)
+  }
+}
+
+getManageClubData()
+
+
 const load=()=>{
   request.get(`/club/get/${webStore.web.clubId}`
   ).then(res=>{
@@ -237,12 +273,13 @@ const load=()=>{
 load()
 
 
-const fileList = ref<UploadUserFile[]>([
-  {
-    name: 'food.jpeg',
-    url: data.tableData.avatarUrl,
-  },
-])
+// const fileList = ref<UploadUserFile[]>([
+//   {
+//     name: 'food.jpeg',
+//     url: data.tableData.avatarUrl,
+//   },
+// ])
+
 
 const dialogImageUrl = ref('')
 const dialogVisible = ref(false)

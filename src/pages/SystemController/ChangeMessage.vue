@@ -21,7 +21,7 @@
             </el-col>
           </el-row>
           <div class="menu-list">
-            <router-link to="/">
+            <router-link to="/Chart">
             <el-menu-item index="1">
               <el-icon><icon-menu /></el-icon>
               <span >首页</span>

@@ -74,7 +74,7 @@
           <!---搜索框--->
           <el-form :inline="true" :model="formInline" class="demo-form-inline">
             <el-form-item label="发布日期">
-              <div class="demo-datetime-picker">
+              <div class="demo-datetime-picker" style="margin-top: -30px;">
                 <div class="block">
                   <el-date-picker
                       v-model="formInline.date"
@@ -82,19 +82,20 @@
                       placeholder="Pick a Date"
                       format="YYYY-MM-DD"
                       date-format="MMM DD, YYYY"
+                      
                   />
                 </div>
               </div>
             </el-form-item>
-            <el-form-item >
+            <el-form-item style="margin-top: -30px;" >
               <el-input v-model="formInline.title" placeholder="发帖标题" clearable />
             </el-form-item>
-            <el-form-item>
+            <el-form-item style="margin-top: -30px;">
               <el-button type="primary" @click="onSubmit">Query</el-button>
             </el-form-item>
           </el-form>
           <!---审核数据--->
-          <el-table :data="filteredTableData" style="width: 100%">
+          <el-table :data="filteredTableData" style="width: 100%; margin-top: -30px;">
             <el-table-column prop="title" label="发帖标题" width="220" />
             <el-table-column prop="registerTime" label="发布日期" width="200" />
             <el-table-column prop="essence" label="精华" width="100" >
@@ -202,7 +203,6 @@ const load=()=>{
     }
   }).then(res=>{
     formInline.tableData=res.data.data.records
-    console.log(formInline.tableData)
   })
 }
 load()

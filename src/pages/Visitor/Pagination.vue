@@ -1,8 +1,8 @@
   <template>    
    <div id="whole" class="page">
     <div class="box" v-for="(club, index) in paginatedLists" :key="index">    
-      <NotLogged :club="club" :setDialogVisible="someDialogVisibilityMethod" :wid="300" :hei="300" />   
-      <div style="margin-left: 40px;">    
+      <NotLogged :club="club"  :wid="300" :hei="300" :where = 0 />   
+      <div style="margin-left: 40px; width: 300px;">    
         <h4 style="font-size: 24px;">{{ club.name }}</h4>    
         <p>{{ club.tags }}</p>    
         <p>{{ club.unit }}</p>    
@@ -55,9 +55,9 @@
 }
 
 .box{
-  margin-left:120px;
+  margin-left:80px;
   display:flex;
-  width:500px;
+  width:600px;
   height:300px;
   margin-top:35px;
   margin-bottom:30px;
@@ -65,6 +65,6 @@
 
 .pagination{
     margin-top: 20px;
-    margin-left: 570px;
+    margin-left: 500px;
   }
 </style>

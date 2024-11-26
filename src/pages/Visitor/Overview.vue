@@ -7,13 +7,16 @@
          <div class="sidebar">
           <ul class = "nav2">
             <li v-for="category in categories" :key="category.name">  
-               <a @click="filterByTag(category.name)" href="#" :data-target="category.name">  
+               <a @click="filterByTag(category.name)" href="#" :data-target="category.name" :class="{ 'active': activeTarget === category.name } ">  
                   {{ category.name }}  
                </a>  
           </li>  
        </ul>
+
+       <Robot />
         </div>
         </el-aside>
+
 
         <el-main>
 
@@ -32,7 +35,7 @@
     </el-select>
 
            <!-- 内容区域 -->
-        <div id="content" style="overflow: hidden;">
+        <div id="content" style="overflow: hidden; margin-left: 24px;">
             <div class="container-fluid">
               <Pagination :lists="finalList" />
             </div>
@@ -50,12 +53,18 @@
 <script setup name = "Overview">
   import { ref,computed } from 'vue';  
   import Pagination from './Pagination.vue';
+  import axios from 'axios';
+  import Robot from './Robot.vue'
 
   // 当前选中的标签 
   const currentTag = ref(''); 
 
   // 当前选择的学院
   const currentC = ref('')
+
+  // 存储当前选中的链接的data-target值  
+  const activeTarget = ref('');
+
   
   const categories = [  
     { name: '全部分类'},  
@@ -94,77 +103,31 @@
     },
   ]
  
-  const lists = [
-    {
-      id: 90,
-      createUserId: 75,
-      name:'珞珈晨跑队',
-      tags:'文化体育类',
-      collage:'弘毅学堂',
-      registerTime: "1974-05-20 16:53:33",
-      totalNumber:56,
-      avatarUrl: "http://dummyimage.com/100x100",
-      introduce:'这里是一个汇聚晨光与活力的温暖集体。不论你是跑步的初学者，还是经验丰富的马拉松爱好者，都能找到属于自己的节奏与伙伴。社团定期组织晨跑活动，享受运动带来的快乐与释放。我们鼓励成员间相互激励，分享跑步心得，共同成长。加入晨跑社团，不仅能让你的身体更加强健，更能让你的心灵在晨曦中得到净化与升华，开启一天满满的正能量。让我们一起，用奔跑的姿态，迎接每一个充满希望的新开始！'
-    },
-    {
-      id: 90,
-      createUserId: 75,
-      registerTime: "1974-05-20 16:53:33",
-      totalNumber:56,
-      avatarUrl: "http://dummyimage.com/100x100",
-      name:'AOE舞蹈队',
-      tags:'文化体育类',
-      collage:'计算机学院',
-      introduce:'舞动青春，韵动梦想！我们是一支充满热情与创意的舞蹈队，以舞为媒，融合多元风格，用每一个跃动的节拍诠释对生活的热爱与追求。'
-    },
-    {
-      id: 90,
-      createUserId: 75,
-      registerTime: "1974-05-20 16:53:33",
-      totalNumber:56,
-      avatarUrl: "http://dummyimage.com/100x100",
-      name:'安全工作协会',
-      tags:'自律互助类',
-      collage:'计算机学院',
-      introduce:'安全护航，责任为先。安全工作协会，致力于构建安全文化，提升安全意识，通过专业培训与交流，共筑安全防线，守护每一份安心与和谐。'
-    },
-    {
-      id: 90,
-      createUserId: 75,
-      registerTime: "1974-05-20 16:53:33",
-      totalNumber:56,
-      avatarUrl: "http://dummyimage.com/100x100",
-      name:'安全工作协会',
-      tags:'自律互助类',
-      collage:'计算机学院',
-      introduce:'安全护航，责任为先。安全工作协会，致力于构建安全文化，提升安全意识，通过专业培训与交流，共筑安全防线，守护每一份安心与和谐。'
-    },
-    {
-      id: 90,
-      createUserId: 75,
-      registerTime: "1974-05-20 16:53:33",
-      totalNumber:56,
-      avatarUrl: "http://dummyimage.com/100x100",
-      name:'安全工作协会',
-      tags:'自律互助类',
-      collage:'保卫部',
-      introduce:'安全护航，责任为先。安全工作协会，致力于构建安全文化，提升安全意识，通过专业培训与交流，共筑安全防线，守护每一份安心与和谐。'
-    }
-  ]
+  const lists = ref([])//社团列表
   
+  //获取社团列表
+  const getClubList = async () =>{
+    try {  
+        const response = await axios.get('http://localhost:8080/club/list');  
+        console.log('获取社团数据',response.data.data.records)
+        lists.value = response.data.data.records
+
+      } catch (error) {  
+        // 处理错误  
+        console.error('注册失败', error);  
+   
+      }  
+  }
+  getClubList()
     
   // 根据当前标签过滤列表  
   const filteredLists = computed(() => {  
     if (currentTag.value === '全部分类' || currentTag.value === '') {  
-      return lists;
+      return lists.value;
     }  
-    return lists.filter(item => item.tags === currentTag.value);  
+    return lists.value.filter(item => item.tags === currentTag.value);  
   });  
 
-  // 根据点击的标签来过滤列表  
-  function filterByTag(tag) {  
-    currentTag.value = tag;  
-  }  
 
   //根据选择的学院过滤列表
   const finalList = computed(() =>{
@@ -175,6 +138,12 @@
     console.log("最终传入列表",filteredLists.value.filter(item => item.collage === currentC.value))
     return filteredLists.value.filter(item => item.collage === currentC.value);
   })
+
+  // 根据点击的标签来过滤列表  
+  function filterByTag(tag) {  
+    currentTag.value = tag;  
+    activeTarget.value = tag;  
+  }
 
  
 </script>
@@ -237,6 +206,7 @@
     color:#6C6C6C;
     margin-top:3.5rem;
     text-align:center;
+    margin-left: -80px;
 }
 
 .sidebar .nav2 a:hover{
@@ -244,7 +214,7 @@
     color: #1684FC;
 }
 
-.nav2 a .active {  
+.nav2 a.active {  
   color: #1684FC;
 } 
 

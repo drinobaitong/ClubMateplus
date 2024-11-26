@@ -4,9 +4,9 @@
 <div class = "main-content" id = "homepage">
   <div class = "shell">
     <div class = "content">
-      <div class = "item"></div>
-      <div class = "item"></div>
-      <div class = "item"></div>
+      <div class = "item" @click = "openPost(6)"></div>
+      <div class = "item" @click = "openPost(7)"></div>
+      <div class = "item" @click = "openPost(2)"></div>
     </div>
   </div>
 </div>
@@ -21,11 +21,11 @@
   <div class = "left" v-for="(club, index) in lists" :key="index">
     <!-- <el-button plain @click="setDialogVisible(index, true)" class = "image"></el-button> -->
     
-  <NotLogged :club = club :setDialogVisible = setDialogVisible :wid=200 :hei=200 />
+  <NotLogged :club = club  :wid=200 :hei=200 :where = 0 />
 
-    <div>
-      <h4>{{club.name}}</h4>
-      <p>指导单位：{{club.unit}}</p>
+    <div class="clubBrief">
+      <h4 class="clubName">{{club.name}}</h4>
+      <p style="font-size: 18px;">{{club.collage}}</p>
     </div>
   </div>
 
@@ -37,49 +37,39 @@
 <script setup name = "HomePage">
   import NotLogged from './NotLogged.vue';
   import {ref} from 'vue';
+  import axios from 'axios';
+  import { useRouter } from 'vue-router';
 
-  const dialogVisible = ref({}); // 使用对象来跟踪每个对话框的可见性 
+  
+  const rt = useRouter()
 
-  function setDialogVisible(index, isVisible) {  
-  dialogVisible.value[index] = isVisible;  
-}  
+  // const dialogVisible = ref({}); // 使用对象来跟踪每个对话框的可见性 
 
-  const lists = [
-    {
-      id: 90,
-      createUserId: 75,
-      name:'珞珈晨跑队',
-      tags:'文化体育类',
-      unit:'弘毅学堂',
-      registerTime: "1974-05-20 16:53:33",
-      totalNumber:56,
-      avatarUrl: "http://dummyimage.com/100x100",
-      introduce:'这里是一个汇聚晨光与活力的温暖集体。不论你是跑步的初学者，还是经验丰富的马拉松爱好者，都能找到属于自己的节奏与伙伴。社团定期组织晨跑活动，享受运动带来的快乐与释放。我们鼓励成员间相互激励，分享跑步心得，共同成长。加入晨跑社团，不仅能让你的身体更加强健，更能让你的心灵在晨曦中得到净化与升华，开启一天满满的正能量。让我们一起，用奔跑的姿态，迎接每一个充满希望的新开始！'
-    },
-    {
-      id: 90,
-      createUserId: 75,
-      registerTime: "1974-05-20 16:53:33",
-      totalNumber:56,
-      avatarUrl: "http://dummyimage.com/100x100",
-      name:'AOE舞蹈队',
-      tags:'文化体育类',
-      unit:'计算机学院',
-      introduce:'舞动青春，韵动梦想！我们是一支充满热情与创意的舞蹈队，以舞为媒，融合多元风格，用每一个跃动的节拍诠释对生活的热爱与追求。'
-    },
-    {
-      id: 90,
-      createUserId: 75,
-      registerTime: "1974-05-20 16:53:33",
-      totalNumber:56,
-      avatarUrl: "http://dummyimage.com/100x100",
-      name:'武汉大学安全工作协会',
-      tags:'自律互助类',
-      unit:'保卫部',
-      introduce:'安全护航，责任为先。安全工作协会，致力于构建安全文化，提升安全意识，通过专业培训与交流，共筑安全防线，守护每一份安心与和谐。'
-    }
-  ]
+//   function setDialogVisible(index, isVisible) {  
+//   dialogVisible.value[index] = isVisible;  
+// }  
 
+
+function openPost(articleId){
+  rt.push({ name: 'PostArticle', params: { articleId: articleId } });  
+}
+
+const lists = ref([])
+  //获取社团列表
+  const getClubList = async () =>{
+    try {  
+        const response = await axios.get('http://localhost:8080/club/list');  
+        console.log('获取社团数据',response.data.data.records)
+        lists.value = response.data.data.records
+        lists.value= lists.value.slice(0,3)
+
+      } catch (error) {  
+        // 处理错误  
+        console.error('注册失败', error);  
+   
+      }  
+  }
+  getClubList()
 </script>
 
   <style scoped>
@@ -89,8 +79,8 @@
   }
 
   .whole{
-    height:90vh;
-    background-image:linear-gradient(to top,#ffffff 0%,#377f7f 100%);
+    height:80vh;
+    background-image:linear-gradient(to top,#ffffff 0%,#c9c6c6 100%);
   }
 
   .body{
@@ -98,7 +88,7 @@
     align-items:center;
 
     flex-direction:column;
-    height:45vh;
+    height:40vh;
   }
   
   .header{
@@ -145,6 +135,7 @@
   }
 
   .content{
+    margin-top: 30px;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -169,18 +160,28 @@
     -webkit-box-reflect:below 25px -webkit-linear-gradient(transparent 50%,rgba(255,255,255,0.3));
   }
 
+  .item:hover{
+    cursor: pointer;
+  }
+
+  /* 6 */
   .item:nth-child(1){
-    background-image:url(@/picture/01.jpg);
+    background-image:url(https://clubmate.oss-cn-beijing.aliyuncs.com/05a6368a-1287-4882-9b6e-c6732f990a09.jpg
+    );
     transform:rotateY(0) translateZ(35vw);
   }
 
+  /* 7 */
   .item:nth-child(2){
-    background-image:url(@/picture/02.jpg);
+    background-image:url(https://clubmate.oss-cn-beijing.aliyuncs.com/73a07a28-a11b-488e-bd8b-dea9fd78764c.jpg
+    );
     transform:rotateY(120deg) translateZ(35vw);
   }
 
+  /* 2 */
   .item:nth-child(3){
-    background-image:url(@/picture/03.jpg);
+    background-image:url(https://clubmate.oss-cn-beijing.aliyuncs.com/017a91ea-0181-469a-bd98-957b1019a117.jpg
+    );
     transform:rotateY(240deg) translateZ(35vw);
   }
 
@@ -208,6 +209,7 @@
   
   .b-content{
     padding-left:5rem;
+    margin-top: 40px;
   }
 
   .divider{
@@ -217,14 +219,18 @@
   }
 
   .introduction{
-    margin-top:1rem;
+    max-width: 100%;
+    max-height: 300px;
+    margin-top:60px;
     display:flex;
     justify-content:space-evenly;
+    flex-wrap: wrap;
+    overflow: hidden;
   }
 
   .introduction .left{
     width:400px;
-    height:200px;
+    height:250px;
     text-align:center;
     display:flex;
   }
@@ -237,9 +243,19 @@
   .introduction .image:nth-child(1){
     background-image:url(@/picture/02.jpg);
   }
+
+  .clubBrief{
+    width: 240px;
+  }
+
+  .clubName{
+    margin-top: 40px;
+    margin-left: 20px;
+    font-size: 18px;
+  }
   
   .detail{
-    font-size:18px;
+    font-size:20px;
     line-height:30px;
   }
 

@@ -7,7 +7,8 @@ export const useWebStore = defineStore('web', () => {
     status: false,//登录状态
     identity: '',//身份
     uid: 0, //登录用户的id
-    clubId: 6//当前正在管理的社团的id
+    clubId: 10086,//当前正在管理的社团的id
+    isShow:true
   })
 
   return {
@@ -47,6 +48,7 @@ export const articleStore = defineStore('article', () => {
     title: '',
     date: '',
     content: '',
+    avatarUrl:''
   })
   return {
     article

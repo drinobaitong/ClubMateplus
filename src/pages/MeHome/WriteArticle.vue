@@ -25,7 +25,13 @@
 
       <div class = "form-item form-add-image">
         <span class = "form-label">添加图片</span>
-      <el-upload action="#" list-type="picture-card" :auto-upload="false">
+
+      <el-upload 
+      action="http://localhost:8080/articles/upload/image"
+      list-type="picture-card" 
+      :on-success="handleSuccess" 
+      >
+
     <el-icon><Plus /></el-icon>
 
     <template #file="{ file }">
@@ -96,6 +102,17 @@
   const dialogVisible = ref(false)
   const disabled = ref(false)
 
+  const formInline = reactive({
+  title: article.article.title,
+  date: article.article.date,
+  content: article.article.content,
+  avatarUrl:article.article.avatarUrl
+})
+
+  function handleSuccess(response) {  
+      formInline.avatarUrl = response.data
+  } 
+
 const handleRemove = (file) => {
   console.log(file)
 }
@@ -110,22 +127,6 @@ const handlePictureCardPreview = (file) => {
 const handleDownload = (file) => {
   console.log(file)
 }
-
-const formInline = reactive({
-  title: article.article.title,
-  date: article.article.date,
-  content: article.article.content,
-})
-
-const paper = reactive({
-  title:formInline.title,
-  content:formInline.content,
-  createUserId:webStore.web.uid,
-  clubId:'',
-  status:0,//默认值
-  avatarUrl:'',
-  essence:0,//默认值
-})
 
   const dialogTableVisible = ref(false)
 
@@ -156,6 +157,7 @@ function saveArticle(){
   article.article.title = formInline.title
   article.article.date = formInline.date
   article.article.content = formInline.content
+  article.article.avatarUrl = formInline.avatarUrl
   dialogTableVisible.value = false
 }
 
@@ -164,16 +166,30 @@ function clearArticle(){
   article.article.title = ''
   article.article.date = ''
   article.article.content = ''
+  article.article.avatarUrl = ''
   formInline.title = ''
   formInline.date = ''
   formInline.content = ''
+  formInline.avatarUrl = ''
   initWangEditor('')
 }
 
   //发布文章
   const publishArticle = async () => {  
+
+    const paper = {
+      title:formInline.title,
+      content:formInline.content,
+      createUserId:webStore.web.uid,
+      clubId:webStore.web.clubId,
+      status:0,//默认值
+      avatarUrl:formInline.avatarUrl,//图片
+    }
+
+    console.log('paper',paper)
       try {  
-        const response = await axios.post('http://127.0.0.1:4523/m1/4751967-4405137-default/articles/publish', paper);  
+        const response = await axios.post('http://localhost:8080/articles/publish', paper);  
+        console.log('发布返回值',response.data)
 
         if(response.data.code === 200){//发布成功
           ElNotification({title: 'Success',message: '已成功发布！等待相关负责人审核ing~',type: 'success',})
@@ -188,6 +204,7 @@ function clearArticle(){
         console.error(error);  
         // 处理错误  
       }  
+      dialogTableVisible.value = false
     };  
 
 </script>

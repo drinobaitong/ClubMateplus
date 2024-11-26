@@ -106,13 +106,13 @@
           </el-form>
           <!---审核数据--->
           <el-table :data="filteredTableData" style="width: 100%">
-            <el-table-column fixed prop="clubName"  label="社团名称"  width="150" />
+            <el-table-column fixed prop="club.name"  label="社团名称"  width="150" />
             <el-table-column label="社团头像" width="150">
               <template #default="{ row }">
                 <!-- 使用作用域插槽的 row 参数来访问 proPost 属性 -->
                 <el-image
                     style="width: 100px; height: 100px"
-                    :src="row.proPost"
+                    :src="row.club.avatarUrl"
                     fit="cover"
                 ></el-image>
               </template>
@@ -227,7 +227,7 @@ import { InfoFilled } from '@element-plus/icons-vue'
 const filteredTableData = computed(() => {
   return tableData.filter(item => {
     // 如果输入社团名称，也进行名称筛选
-    if (formInline.name && !item.clubName.includes(formInline.name)) {
+    if (formInline.name && !item.club.name.includes(formInline.name)) {
       return false;
     }
     // 如果选择了学院，只显示该学院的社团
@@ -321,28 +321,7 @@ async function getList() {
     const clubRecords = clubRes.data.data.records;
     // 将社团列表数据存储到 tableData
     tableData.splice(0, tableData.length, ...clubRecords);
-    console.log('第一次获取的帖子数据:', tableData);
 
-    // 异步函数数组，用于存储第二次调用的 Promise
-    const userPromises = clubRecords.map(record => {
-      // 为每个社团的 CreateUserId 调用第二个接口
-      return axios.get(`http://localhost:8080/club/get/${record.clubId}`);
-    });
-
-    // 等待所有第二次调用完成
-    const userResponses = await Promise.all(userPromises);
-
-    // 根据 CreateUserId 将用户信息与社团数据合并
-    userResponses.forEach((response, index) => {
-      const userInfo = response.data; // 获取用户信息
-      const club = tableData.find(item => item.clubId === clubRecords[index].clubId);
-      if (club) {
-        // 假设用户信息存储在一个新的字段中，例如 creatorInfo
-        club.clubName = userInfo.data.name;
-        club.proPost=userInfo.data.avatarUrl;
-      }
-    });
-    // 异步函数数组，用于存储第三次调用的 Promise
     const userPromise = clubRecords.map(record => {
       // 为每个社团的 CreateUserId 调用第二个接口
       return axios.get(`http://localhost:8080/user/getInfo/${record.createUserId}`);

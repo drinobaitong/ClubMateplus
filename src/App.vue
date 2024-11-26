@@ -103,7 +103,7 @@ function reConfirm(){
   }
 
   .nav{
-    margin-left:10rem;
+    margin-left:8rem;
     color:#9A9A9A;
     font-weight:700;
   }

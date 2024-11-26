@@ -22,10 +22,12 @@ import ClContentControl from '../pages/ClubController/ContentControl.vue'//社�
 import ExitControl from '../pages/ClubController/ExitControl.vue'//退出审核
 import ClNumberControl from '../pages/ClubController/NumberControl.vue'//社团成员管理
 import PostControl from '../pages/ClubController/PostControl.vue'//发帖管理
+import Chart from '../pages/SystemController/Chart.vue'
 
 import HomePage from '../pages/Visitor/HomePage.vue'//主页
 import Login from '../pages/Visitor/Login.vue'//登录注册
 import Overview from '../pages/Visitor/Overview.vue'//社团概览
+import PostArticle from '../pages/Visitor/Post.vue'
 
 
 
@@ -44,6 +46,13 @@ const routes = [
         path: '/login',
         name: 'Login',
         component: Login
+    },
+    {
+        path: '/postArticle/:articleId',
+        name: 'PostArticle',
+        component: PostArticle,
+         // 启用 prop 传递  
+        props: true  
     },
     {
         path: '/ClubReview',
@@ -150,6 +159,11 @@ const routes = [
         path: '/ClNumberReview',
         name: 'ClNumberReview',
         component: ClNumberReview
+    },
+    {
+        path: '/Chart',
+        name: 'Chart',
+        component: Chart
     },
 ]
 

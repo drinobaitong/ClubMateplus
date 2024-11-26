@@ -85,14 +85,12 @@
 
 <script setup name = "Login">
   import { onMounted} from 'vue';  
-  import { ref, reactive, computed} from 'vue'
+  import { ref, reactive, computed,watch} from 'vue'
   import axios from 'axios'
 
-  import { useWebStore ,useUserStore1,useUserStore2} from '@/stores/web.js';
+  import { useWebStore } from '@/stores/web.js';
 
   const webStore = useWebStore();
-  const user1 = useUserStore1();
-  const user2 = useUserStore2();
 
   // 定义注册表单的数据类型
   const registerData = reactive({
@@ -152,17 +150,6 @@ const form = reactive({
   desc: '',
 })
 
-const zhanghao1 = {
-  name:"张乐瑶",
-  password:'123456',
-  rank : 0,
-}
-
-const zhanghao2 = {
-  name:"白彤",
-  password:'123456',
-  rank : 1,
-}
 
 const validateForm2 = () => {  
       errors2.username = loginData.username.trim() === '' ? '用户名不能为空' : '';  
@@ -183,18 +170,33 @@ const validateForm2 = () => {
     //注册账号
     const handleCreate = async () => {  
       // 将reactive对象转换为普通对象  
-      const plainObject = JSON.parse(JSON.stringify(registerData)); 
+      const plainObject = {
+        name:registerData.username,
+        password:registerData.password
+      }
       try {  
         // 发送POST请求到后端API  
-        const response = await axios.post('http://127.0.0.1:4523/m1/4751967-4405137-default/user/register', plainObject);  
-        console.log('注册表单数据',plainObject)
-        // 处理响应  
-        console.log('注册成功', response);  
-        ElNotification({
+        const response = await axios.post('http://localhost:8080/user/register', plainObject);   
+        if(response.data.code === 200){
+          console.log(response)
+          ElNotification({
           title: 'Success',
           message: '注册成功!去登录吧~',
           type: 'success',
-  })
+           })
+          ElNotification({
+          title: 'Success',
+          message: '登录账号为：',
+          duration: 0,
+          })
+        }
+        else{
+          ElNotification({
+          title: 'Error',
+          message: '账号or密码格式有误，请检查后重新注册吧~',
+          type: 'error',
+           })
+        }
         
       } catch (error) {  
         // 处理错误  
@@ -203,44 +205,55 @@ const validateForm2 = () => {
       }  
     };  
 
-    //登录
+    // 登录
   const handleLogin = async() =>{
-    if(loginData.password === user1.user1.password && loginData.username === user1.user1.name){
-      webStore.web.identity = "user";
-    }
-    if(loginData.password === user2.user2.password && loginData.username === user2.user2.name){
-      webStore.web.identity = "admin";
-    }
-    webStore.web.status = true;    
-    ElNotification({
+      try {  
+        const login = {
+          id:Number(loginData.username),
+          password:loginData.password
+        }
+       const response = await axios.post(
+          'http://localhost:8080/user/login',login);
+           console.log(response)
+        if(response.data.code === 200){
+          ElNotification({
           title: 'Success',
-          message: '登录成功!',
+          message: '登录成功~',
           type: 'success',
-  })
-    
-  //   const plainObject = JSON.parse(JSON.stringify(loginData)); 
-  //   try {  
-  //       const response = await axios.get('http://127.0.0.1:4523/m1/4751967-4405137-default/user/login', plainObject);  
-  //       console.log('登录表单数据',plainObject)
-  //       // 处理响应  
-  //       console.log('登录成功', response);
-  //       webStore.web.uid = response.data.id;//存储用户id
-  //       if(response.data.rank === 1)  {//鉴权为系统管理员
-  //         webStore.web.identity = "admin";
-  //       }
-  //       else{
-  //         webStore.web.identity = "user";
-  //       }
-  //       ElNotification({
-  //         title: 'Success',
-  //         message: '登录成功!',
-  //         type: 'success',
-  // })
-  //     webStore.web.status = true;    
-  //     } catch (error) {  
-  //       // 处理错误  
-  //       console.error('登录失败', error);  
-  //     }  
+           })
+           webStore.web.status = true;
+           webStore.web.uid = response.data.data.id;
+           console.log('登陆后的id',webStore.web.uid)
+           if(response.data.data.rank === 0){
+            webStore.web.identity = 'user'
+           }
+           else{
+            webStore.web.identity = 'admin'
+           }
+        }
+        else{
+          console.log(response.data)
+          ElNotification({
+          title: 'Error',
+          message: '账号or密码格式有误，请检查后重新输入吧~',
+          type: 'error',
+           })
+        }
+        
+      } catch (error) {  
+        // 处理错误  
+        console.error('登录失败', error);  
+   
+      }  
+      watch(() => webStore.web.status, (newStatus) => {  
+  if (newStatus && router.currentRoute.value.path === '/login' && webStore.web.identity === 'admin') {  
+    router.push('/ClubReview');  
+  }
+  if(newStatus && router.currentRoute.value.path === '/login' && webStore.web.identity !== 'admin')  {
+    router.push('/Administration');  
+  }
+});  
+
     };  
 
   onMounted(() => {  

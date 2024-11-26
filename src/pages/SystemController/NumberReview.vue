@@ -21,7 +21,7 @@
             </el-col>
           </el-row>
           <div class="menu-list">
-              <router-link to="/">
+              <router-link to="/Chart">
             <el-menu-item index="1">
               <el-icon><icon-menu /></el-icon>
               <span >首页</span>
@@ -116,16 +116,15 @@
           </el-form>
           <!---审核数据--->
           <el-table :data="filteredTableData" style="width: 100%">
-            <el-table-column fixed prop="clubName" label="社团名称"  width="150" />
-            <el-table-column prop="Sno" label="学号" width="120" />
+            <el-table-column fixed prop="clubName" label="社团名称"  width="180" />
+            <el-table-column prop="Sno" label="学号" width="240" />
             <el-table-column prop="name" label="姓名" width="120" />
-            <el-table-column prop="college" label="学院" width="120" />
-            <el-table-column prop="phoneNumber" label="联系电话" width="120" />
+            <el-table-column prop="college" label="学院" width="150" />
+            <el-table-column prop="phoneNumber" label="联系电话" width="240" />
             <el-table-column prop="polOutlook" label="政治面貌" width="120" />
-            <el-table-column prop="grade" label="年级" width="120" />
-            <el-table-column prop="date" label="申请时间" width="120" />
+            <el-table-column prop="date" label="申请时间" width="180" />
             <el-table-column prop="state" label="审核状态" width="120" />
-            <el-table-column fixed="right" label="操作" min-width="120">
+            <el-table-column fixed="right" label="操作" min-width="150">
               <template #default="scope">
                 <el-button link type="primary" size="small" @click="handleClick(scope.row)"  v-if="scope.row.state==='未审核'">
                   同意
@@ -163,6 +162,48 @@ import {
   Location,
   Setting,
 } from '@element-plus/icons-vue'
+import axios from 'axios';
+
+const tableData = reactive([])
+
+//获取所有待审核成员
+async function getNumberList(){
+  const response = await axios.get('http://localhost:8080/join/user/all')
+  console.log('获取的待审核列表',response.data.data)
+  for( let record of response.data.data){
+     //获取社团详细信息
+    const clubDetail = await axios.get(`http://localhost:8080/club/get/${record.clubId}`);
+    console.log('社团详细信息',clubDetail)
+    //获取申请人详细信息
+    const personDetail = await axios.get(`http://localhost:8080/user/getInfo/${record.userId}`);
+    console.log('申请人详细信息',personDetail)
+
+    let tempstatus
+    if(record.status === 0){
+      tempstatus = '未审核'
+    }
+    else if(record.status === 1){
+      tempstatus = '审核通过'
+    }
+    else{
+      tempstatus = '审核未通过'
+    }
+    let piece = {
+      clubName: clubDetail.data.data.name,
+      Sno:personDetail.data.data.id,
+      name:personDetail.data.data.name,
+      college:personDetail.data.data.department,
+      phoneNumber:personDetail.data.data.phone,
+      polOutlook:personDetail.data.data.politicalAffiliation,
+      date:record.joinTime,
+      state:tempstatus
+    }
+    tableData.push(piece)
+  }
+}
+
+getNumberList()
+
 
 const state = reactive({
   circleUrl:
@@ -172,10 +213,10 @@ const state = reactive({
 
 const { circleUrl} = toRefs(state)
 const formInline = reactive({
-  clubName:'',
-  college: '',
-  category: '',
-  state:'',
+  clubName:'',//社团名称
+  college: '',//
+  category: '',//
+  state:'',//
 })
 
 const onSubmit = () => {
@@ -242,7 +283,6 @@ const recoverClick = (row) => {
 };
 
 //初始数据
-const tableData = reactive([])
 const pages = reactive({
   currentPage: 1, // 当前页码
   pageSize: 10, // 每页显示的条目数
